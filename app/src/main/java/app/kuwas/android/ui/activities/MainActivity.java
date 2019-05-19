@@ -32,7 +32,6 @@ import java.lang.ref.WeakReference;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
-import app.kuwas.android.utils.FabStates;
 import app.kuwas.android.utils.FragmentHelper;
 
 import static app.kuwas.android.utils.Constants.TAG_HOME;
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragment (String fragmentTag , Bundle bundle) {
         switch (fragmentTag) {
             case TAG_HOME: {
-                BaseFragment baseFragment = new HomeFragment();
+                BaseFragment baseFragment = HomeFragment.newInstance();
                 fragStarter(fragmentTag , baseFragment , bundle);
                 break;
             }

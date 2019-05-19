@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +16,6 @@ import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
 import app.kuwas.android.ui.adapters.ScoresRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
-import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
 /**
  * Created by BrookMG on 4/9/2019 in app.kuwas.android.ui.fragments
@@ -26,9 +23,9 @@ import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
  */
 public class ScoresFragment extends BaseFragment {
 
-    RecyclerView mainRecycler;
+    private RecyclerView mainRecycler;
 
-    public static ScoresFragment newInstance() {
+    static ScoresFragment newInstance() {
         Bundle args = new Bundle();
         ScoresFragment fragment = new ScoresFragment();
         fragment.setArguments(args);
@@ -60,8 +57,10 @@ public class ScoresFragment extends BaseFragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy < 0) ((MainActivity) getActivity()).changeFabState(FabStates.STATE_SHOW);    //scrolling upward so expand fab
-                else if (dy > 0) ((MainActivity) getActivity()).changeFabState(FabStates.STATE_HIDE); //scrolling downward so shrink fab
+                if (getActivity() instanceof MainActivity) {
+                    if (dy < 0) ((MainActivity) getActivity()).changeFabState(FabStates.STATE_SHOW);    //scrolling upward so expand fab
+                    else if (dy > 0) ((MainActivity) getActivity()).changeFabState(FabStates.STATE_HIDE); //scrolling downward so shrink fab
+                }
             }
         });
 

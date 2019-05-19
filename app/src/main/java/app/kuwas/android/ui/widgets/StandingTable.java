@@ -62,11 +62,13 @@ public class StandingTable extends TableLayout {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    @SuppressWarnings("unused")
     private int pxToDp(int px) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));

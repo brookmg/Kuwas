@@ -25,12 +25,13 @@ import static app.kuwas.android.utils.FabStates.STATE_EXPAND;
  * Created by BrookMG on 4/9/2019 in app.kuwas.android.ui.fragments
  * inside the project Kuwas .
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class HomeFragment extends BaseFragment {
 
-    TabAdapter tabAdapter;
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    ExtendedFloatingActionButton refreshFab;
+    private TabAdapter tabAdapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ExtendedFloatingActionButton refreshFab;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();

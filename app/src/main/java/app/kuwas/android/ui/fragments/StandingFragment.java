@@ -21,7 +21,7 @@ public class StandingFragment extends BaseFragment {
 
     private StandingTable mainTable;
 
-    public static StandingFragment newInstance() {
+    static StandingFragment newInstance() {
         Bundle args = new Bundle();
         StandingFragment fragment = new StandingFragment();
         fragment.setArguments(args);
