@@ -43,7 +43,7 @@ public class ScoresFragment extends BaseFragment {
 
         App.getInstance().getApi().getThisWeekLeagueSchedule(
                 scheduleItems -> {
-                    mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, true));
+                    mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
                     mainRecycler.setAdapter(new ScoresRecyclerAdapter(scheduleItems));
                 },
                 error -> Log.e("ScoresFragment" , error)
