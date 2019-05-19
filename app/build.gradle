@@ -34,4 +34,6 @@ dependencies {
     //implementation 'com.github.brookmg:Soccer-Ethiopia-API:0.5.1'
     implementation project(":soccerethiopiaapi")
 
+    implementation('com.github.bumptech.glide:glide:4.8.0') { exclude group: "com.android.support" }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }

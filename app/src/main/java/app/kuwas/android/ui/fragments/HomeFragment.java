@@ -45,6 +45,15 @@ public class HomeFragment extends BaseFragment {
         viewPager = mainView.findViewById(R.id.main_view_pager);
         refreshFab = mainView.findViewById(R.id.refresh_fab);
 
+        if (getActivity() != null) {
+            tabAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
+            tabAdapter.addFragment(NewsFragment.newInstance(), "News");
+
+            viewPager.setAdapter(tabAdapter);
+            viewPager.setOffscreenPageLimit(3);
+            tabLayout.setupWithViewPager(viewPager);
+        }
+
         return mainView;
     }
 
