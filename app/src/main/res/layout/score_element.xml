@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="5dp"
+    android:background="@color/white_0x"
+    tools:layout_editor_absoluteX="5dp"
+    tools:layout_editor_absoluteY="5dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_datetime"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:background="#22d3d4d5"
+            android:padding="5dp"
+            android:textColor="@color/black_0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            tools:text="Sun : Jan 23 2018 @ 23:00" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/team_1_image_holder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            app:cardBackgroundColor="@color/white_0"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp"
+            app:contentPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game_datetime">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/team_1_image"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/team_1_name"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black_0"
+            app:layout_constraintBottom_toBottomOf="@+id/team_1_image_holder"
+            app:layout_constraintStart_toEndOf="@id/team_1_image_holder"
+            app:layout_constraintTop_toTopOf="@+id/team_1_image_holder"
+            tools:text="Sidama Buna" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/team_1_score"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:textColor="@color/black_0"
+            app:layout_constraintBottom_toBottomOf="@+id/team_1_image_holder"
+            app:layout_constraintEnd_toStartOf="@+id/two_dots"
+            app:layout_constraintTop_toTopOf="@+id/team_1_image_holder"
+            tools:text="2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/two_dots"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textColor="@color/black_0"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/team_1_image_holder"
+            app:layout_constraintStart_toEndOf="@id/team_1_name"
+            app:layout_constraintEnd_toStartOf="@id/team_2_name"
+            app:layout_constraintTop_toTopOf="@+id/team_1_image_holder"
+            android:text=":" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/team_2_score"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:maxLines="2"
+            android:textColor="@color/black_0"
+            app:layout_constraintBottom_toBottomOf="@+id/team_2_image_holder"
+            app:layout_constraintStart_toEndOf="@+id/two_dots"
+            app:layout_constraintTop_toTopOf="@+id/team_2_image_holder"
+            tools:text="5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/team_2_name"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/black_0"
+            app:layout_constraintBottom_toBottomOf="@+id/team_2_image_holder"
+            app:layout_constraintEnd_toStartOf="@id/team_2_image_holder"
+            app:layout_constraintTop_toTopOf="@+id/team_2_image_holder"
+            tools:text="Mekelakeya" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/team_2_image_holder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            app:cardBackgroundColor="@color/white_0"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp"
+            app:contentPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game_datetime" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/team_2_image"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
