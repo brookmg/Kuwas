@@ -39,20 +39,27 @@ public class NewsFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    public void refresh() {
+        super.refresh();
+        if (mainRecycler != null)
+            App.getInstance().getApi().getLatestNews(
+                    news -> {
+                        mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
+                        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(news);
+                        mainRecycler.setAdapter(adapter);
+                    },
+                    error -> Log.e("NewsFragment:", error != null ? error : "Unknown")
+            );
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.news_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainNewsRecyclerView);
 
-        App.getInstance().getApi().getLatestNews(
-                news -> {
-                    mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                    NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(news);
-                    mainRecycler.setAdapter(adapter);
-                },
-                error -> Log.e("NewsFragment:", error != null ? error : "Unknown")
-        );
+        refresh();
 
         mainRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

@@ -19,6 +19,8 @@ import app.kuwas.android.ui.widgets.StandingTable;
  */
 public class StandingFragment extends BaseFragment {
 
+    private StandingTable mainTable;
+
     public static StandingFragment newInstance() {
         Bundle args = new Bundle();
         StandingFragment fragment = new StandingFragment();
@@ -26,19 +28,23 @@ public class StandingFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    public void refresh() {
+        super.refresh();
+        if (mainTable != null)
+            App.getInstance().getApi().getLatestTeamRanking(
+                    ranking -> {
+                        mainTable.populateTable(ranking);
+                        mainTable.invalidate();
+                    }, error -> Log.e("Ranking" , error)
+            );
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.standing_fragment, container, false);
-
-        App.getInstance().getApi().getLatestTeamRanking(
-                ranking -> {
-                    StandingTable table = mainView.findViewById(R.id.main_standing_table);
-                    table.populateTable(ranking);
-                    table.invalidate();
-                }, error -> Log.e("Ranking" , error)
-        );
-
+        mainTable = mainView.findViewById(R.id.main_standing_table);
         return mainView;
     }
 }

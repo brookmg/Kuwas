@@ -35,19 +35,26 @@ public class ScoresFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    public void refresh() {
+        super.refresh();
+        if (mainRecycler != null)
+            App.getInstance().getApi().getThisWeekLeagueSchedule(
+                    scheduleItems -> {
+                        mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
+                        mainRecycler.setAdapter(new ScoresRecyclerAdapter(scheduleItems));
+                    },
+                    error -> Log.e("ScoresFragment" , error)
+            );
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.scores_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainScoresRecyclerView);
 
-        App.getInstance().getApi().getThisWeekLeagueSchedule(
-                scheduleItems -> {
-                    mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                    mainRecycler.setAdapter(new ScoresRecyclerAdapter(scheduleItems));
-                },
-                error -> Log.e("ScoresFragment" , error)
-        );
+        refresh();
 
         mainRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

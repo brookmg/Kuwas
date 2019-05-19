@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 import app.kuwas.android.R;
 import app.kuwas.android.ui.adapters.TabAdapter;
@@ -28,7 +31,6 @@ public class HomeFragment extends BaseFragment {
     TabLayout tabLayout;
     ViewPager viewPager;
     ExtendedFloatingActionButton refreshFab;
-    boolean fabExtended = true;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -56,7 +58,15 @@ public class HomeFragment extends BaseFragment {
             tabLayout.setupWithViewPager(viewPager);
         }
 
+        refreshFab.setOnClickListener(view -> refreshAllFragments(tabAdapter.getmFragments()));
+
         return mainView;
+    }
+
+    private void refreshAllFragments(List<Fragment> fragments) {
+        for (Fragment fragment : fragments) {
+            if (fragment instanceof BaseFragment) ((BaseFragment) fragment).refresh();
+        }
     }
 
     @Override

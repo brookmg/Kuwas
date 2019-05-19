@@ -12,4 +12,6 @@ public abstract class BaseFragment extends Fragment {
 
     public void changeFabState (@FabState int state) {}
 
+    public void refresh () {}
+
 }
