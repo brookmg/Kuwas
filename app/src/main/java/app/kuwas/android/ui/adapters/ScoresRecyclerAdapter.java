@@ -56,6 +56,10 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Map<Team, Integer> team_result = leagueScheduleItems.get(position).getGameDetail();
             ((ViewHolder) holder).datetime.setText(leagueScheduleItems.get(position).getGameDate());
 
+            if (position > 0 && leagueScheduleItems.get(position).getGameDate()
+                    .equals(leagueScheduleItems.get(position-1).getGameDate()))
+                ((ViewHolder) holder).datetime.setVisibility(View.GONE);
+
             ((ViewHolder) holder).team_1_name.setText(team_result.keySet().toArray(new Team[0])[0].getTeamFullName());
             ((ViewHolder) holder).team_2_name.setText(team_result.keySet().toArray(new Team[0])[1].getTeamFullName());
 
