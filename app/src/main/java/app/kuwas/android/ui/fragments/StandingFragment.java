@@ -34,6 +34,7 @@ public class StandingFragment extends BaseFragment {
         if (mainTable != null)
             App.getInstance().getApi().getLatestTeamRanking(
                     ranking -> {
+                        mainTable.clearTable();
                         mainTable.populateTable(ranking);
                         mainTable.invalidate();
                     }, error -> Log.e("Ranking" , error)
@@ -45,6 +46,7 @@ public class StandingFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.standing_fragment, container, false);
         mainTable = mainView.findViewById(R.id.main_standing_table);
+        refresh();
         return mainView;
     }
 }

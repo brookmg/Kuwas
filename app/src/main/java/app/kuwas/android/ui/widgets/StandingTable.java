@@ -62,6 +62,10 @@ public class StandingTable extends TableLayout {
         }
     }
 
+    public void clearTable() {
+        removeAllViews();
+    }
+
     @SuppressWarnings("SameParameterValue")
     private int dpToPx(int dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
