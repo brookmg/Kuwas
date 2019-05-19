@@ -90,11 +90,12 @@ public class StandingTable extends TableLayout {
                     // TODO: 5/19/2019 Don't forget this when you decide to apply themes
                     ((AppCompatTextView) textview).setTextColor(ContextCompat.getColor(getContext(), R.color.black_0));
                     ((AppCompatTextView) textview).setTypeface(null, Typeface.BOLD);
-                    textview.setPadding(dpToPx(16) , dpToPx(16), dpToPx(16), dpToPx(16));
+                    textview.setPadding(dpToPx(16) , dpToPx(12), dpToPx(16), dpToPx(12));
                 }, textView);
                 textView.setText(header);
                 headerRow.addView(textView);
             }
+            headerRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.grey_1x));
             return headerRow;
         } else {
             TableRow itemRow = new TableRow(getContext());
