@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/top_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--  app:layout_behavior="@string/appbar_scrolling_view_behavior" -->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/main_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        app:liftOnScroll="true"
+        app:elevation="5dp"
+        app:expanded="true"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:background="@color/white_0x"
+            app:layout_scrollFlags="enterAlwaysCollapsed"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                app:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:text="@string/app_name"
+                android:textColor="@color/black_0"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            app:tabTextColor="@color/black_0"
+            app:layout_scrollFlags="snap"
+            android:id="@+id/tab_layout"
+            app:tabSelectedTextColor="@color/green_0"
+            app:tabIndicatorColor="@color/green_0"
+            app:tabIndicatorFullWidth="false"
+            android:background="@color/white_0x"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/news_tab"
+                android:layout_width="wrap_content"
+                android:text="News"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/scores_tab"
+                android:layout_width="wrap_content"
+                android:text="Scores"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/teams_tab"
+                android:layout_width="wrap_content"
+                android:text="Standing"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/refresh_fab"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:elevation="5dp"
+        android:text="Refresh All"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/green_0"
+        app:cornerRadius="4dp"
+        app:icon="@drawable/ic_first"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_height="wrap_content" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

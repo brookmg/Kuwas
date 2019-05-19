@@ -6,5 +6,6 @@ package app.kuwas.android.utils;
  */
 public class Constants {
 
+    public static final String TAG_HOME = "tag_home";
 
 }
