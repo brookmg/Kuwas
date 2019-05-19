@@ -49,6 +49,7 @@ public class HomeFragment extends BaseFragment {
             tabAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
             tabAdapter.addFragment(NewsFragment.newInstance(), "News");
             tabAdapter.addFragment(ScoresFragment.newInstance(), "Scores");
+            tabAdapter.addFragment(StandingFragment.newInstance(), "Standing");
 
             viewPager.setAdapter(tabAdapter);
             viewPager.setOffscreenPageLimit(3);
