@@ -14,4 +14,10 @@ public abstract class BaseFragment extends Fragment {
 
     public void refresh () {}
 
+    void runOnUiThread(Runnable run) {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(run);
+        }
+    }
+
 }
