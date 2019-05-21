@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/top_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         app:liftOnScroll="true"
         app:elevation="5dp"
+        android:layout_marginTop="24dp"
         app:expanded="true"
         android:layout_height="wrap_content">
 
