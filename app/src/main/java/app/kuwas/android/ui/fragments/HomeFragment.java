@@ -49,7 +49,7 @@ public class HomeFragment extends BaseFragment {
         refreshFab = mainView.findViewById(R.id.refresh_fab);
 
         if (getActivity() != null) {
-            tabAdapter = new TabAdapter(getActivity().getSupportFragmentManager());
+            tabAdapter = new TabAdapter(getChildFragmentManager());
             tabAdapter.addFragment(NewsFragment.newInstance(), "News");
             tabAdapter.addFragment(ScoresFragment.newInstance(), "Scores");
             tabAdapter.addFragment(StandingFragment.newInstance(), "Standing");
