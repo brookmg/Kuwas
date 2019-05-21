@@ -3,7 +3,6 @@ package app.kuwas.android.ui.widgets;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,8 @@ import java.util.Locale;
 
 import app.kuwas.android.R;
 import io.brookmg.soccerethiopiaapi.data.RankItem;
+
+import static app.kuwas.android.utils.Utils.dpToPx;
 
 /**
  * Created by BrookMG on 5/19/2019 in app.kuwas.android.ui.widgets
@@ -66,18 +67,6 @@ public class StandingTable extends TableLayout {
         removeAllViews();
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
-
-    @SuppressWarnings("unused")
-    private int pxToDp(int px) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
-
     private TableRow generateTableRow (int position, RankItem item) {
         String[] headers = {"Pos" , "" , "Club", "P", "GD", "Point"};
 
@@ -90,7 +79,8 @@ public class StandingTable extends TableLayout {
                     // TODO: 5/19/2019 Don't forget this when you decide to apply themes
                     ((AppCompatTextView) textview).setTextColor(ContextCompat.getColor(getContext(), R.color.black_0));
                     ((AppCompatTextView) textview).setTypeface(null, Typeface.BOLD);
-                    textview.setPadding(dpToPx(16) , dpToPx(12), dpToPx(16), dpToPx(12));
+                    textview.setPadding(dpToPx(getContext(), 16) , dpToPx(getContext(), 12),
+                            dpToPx(getContext(), 16), dpToPx(getContext(), 12));
                 }, textView);
                 textView.setText(header);
                 headerRow.addView(textView);
@@ -114,7 +104,8 @@ public class StandingTable extends TableLayout {
             applyToAllViews(
                     textview -> {
                         ((AppCompatTextView) textview).setGravity(Gravity.CENTER);
-                        textview.setPadding(dpToPx(16) , dpToPx(16), dpToPx(16), dpToPx(16));
+                        textview.setPadding(dpToPx(getContext(), 16) , dpToPx(getContext(), 16),
+                                dpToPx(getContext(), 16), dpToPx(getContext(), 16));
                     },
                     rank, club, played, goaldiff, point);
 
