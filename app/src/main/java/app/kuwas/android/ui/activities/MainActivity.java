@@ -16,6 +16,8 @@
 
 package app.kuwas.android.ui.activities;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -32,9 +35,11 @@ import java.lang.ref.WeakReference;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
+import app.kuwas.android.ui.fragments.NewsPreviewFragment;
 import app.kuwas.android.utils.FragmentHelper;
 
 import static app.kuwas.android.utils.Constants.TAG_HOME;
+import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
 import static app.kuwas.android.utils.FabStates.FabState;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,12 +68,27 @@ public class MainActivity extends AppCompatActivity {
             ((BaseFragment) currentFragment.get()).changeFabState(state);
     }
 
+    private String getFragmentTag(BaseFragment fragment) {
+        if (fragment instanceof HomeFragment) return TAG_HOME;
+        else if (fragment instanceof NewsPreviewFragment) return TAG_NEWS_PREVIEW;
+        else return TAG_HOME;
+    }
+
+    private void goToPreviousFragment() {
+        BaseFragment lastFragment = fragmentHelper.getItemFromQueue(fragmentHelper.queueSize() -2);
+        goBackFrag(getFragmentTag(lastFragment) , lastFragment, lastFragment.getArguments());
+        setCurrentFragment(lastFragment);
+        fragmentHelper.removeLastFragment();
+    }
+
     @Override
     public void onBackPressed() {
         if (currentFragment != null && currentFragment.get() != null) {
             //This is some fragment that has loaded
             if (currentFragment.get() instanceof HomeFragment) {
                 Snackbar.make(_fragmentContainer, "sure you want to exit?" , Snackbar.LENGTH_SHORT).setAction("Yap!" , (v) -> finish()).show();
+            } else {
+                goToPreviousFragment();
             }
         } else {
             super.onBackPressed();
@@ -82,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 fragStarter(fragmentTag , baseFragment , bundle);
                 break;
             }
+
+            case TAG_NEWS_PREVIEW: {
+                BaseFragment baseFragment = NewsPreviewFragment.newInstance(bundle);
+                fragStarter(fragmentTag , baseFragment, bundle);
+            }
         }
     }
 
@@ -93,6 +118,13 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentHelper.addFragmentToQueue(baseFragment);
         setCurrentFragment(baseFragment);
+    }
+
+    private void goBackFrag (String fragTag , BaseFragment baseFragment , Bundle bundle) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer , baseFragment , fragTag);
+        fragmentTransaction.addToBackStack(fragTag);
+        fragmentTransaction.commit();
     }
 
 

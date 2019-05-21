@@ -15,6 +15,8 @@ import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
 import app.kuwas.android.ui.adapters.NewsRecyclerAdapter;
+import app.kuwas.android.ui.adapters.OnItemActionListener;
+import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.FabStates;
 
 /**
@@ -35,15 +37,28 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void refresh() {
         super.refresh();
-        if (mainRecycler != null)
+        if (mainRecycler != null) {
             App.getInstance().getApi().getLatestNews(
                     news -> {
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(news);
+                        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(news, new OnItemActionListener() {
+                            @Override
+                            public void onItemClicked(int position) {
+                                Bundle newsArgs = new Bundle();
+                                newsArgs.putSerializable("news", news.get(position));
+                                ((MainActivity) getActivity()).changeFragment(Constants.TAG_NEWS_PREVIEW, newsArgs);
+                            }
+
+                            @Override
+                            public void onItemLongClicked(View view, int position) {
+
+                            }
+                        });
                         mainRecycler.setAdapter(adapter);
                     },
                     error -> Log.e("NewsFragment:", error != null ? error : "Unknown")
             );
+        }
     }
 
     @Nullable

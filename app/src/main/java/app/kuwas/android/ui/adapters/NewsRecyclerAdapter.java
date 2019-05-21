@@ -25,12 +25,18 @@ import io.brookmg.soccerethiopiaapi.data.NewsItem;
 public class NewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<NewsItem> news;
+    private OnItemActionListener onItemActionListener;
 
     private final int HEADER = 0;
     private final int NEWS = 1;
 
     public NewsRecyclerAdapter(List<NewsItem> news) {
+        this(news, null);
+    }
+
+    public NewsRecyclerAdapter(List<NewsItem> news, OnItemActionListener listener) {
         this.news = news;
+        this.onItemActionListener = listener;
     }
 
     @NonNull
@@ -77,6 +83,13 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((ViewHolder) holder).news_author.setText(news.get(position - 1).getNewsAuthorName());
             ((ViewHolder) holder).news_published.setText(_getTimeGap(news.get(position - 1).getNewsPublishedOn().getTime()));
             Glide.with(((ViewHolder) holder).news_image).load(news.get(position - 1).getNewsImage()).into(((ViewHolder) holder).news_image);
+            if (onItemActionListener != null) {
+                ((ViewHolder) holder).itemView.setOnClickListener(v -> onItemActionListener.onItemClicked(holder.getAdapterPosition()-1));
+                ((ViewHolder) holder).itemView.setOnLongClickListener(v -> {
+                    onItemActionListener.onItemLongClicked(v, holder.getAdapterPosition() - 1);
+                    return false;
+                });
+            }
         }
     }
 
