@@ -1,6 +1,8 @@
 package app.kuwas.android.ui.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.ViewUtils;
 import androidx.coordinatorlayout.widget.ViewGroupUtils;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +44,7 @@ public class NewsPreviewFragment extends BaseFragment {
     private RecyclerView newsTagsHolder;
     private AppCompatTextView newsContent;
     private NewsItem item;
+    private String transitionName;
 
     public static NewsPreviewFragment newInstance() {
         return newInstance(new Bundle());
@@ -49,13 +53,22 @@ public class NewsPreviewFragment extends BaseFragment {
     public static NewsPreviewFragment newInstance(Bundle bundle) {
         NewsPreviewFragment fragment = new NewsPreviewFragment();
         fragment.setArguments(bundle);
+        fragment.setNewsItem((NewsItem) bundle.getSerializable("news"));
+        fragment.setNewsTransitionName(bundle.getString("news_transition"));
         return fragment;
+    }
+
+    private void setNewsTransitionName(String transitionName) {
+        this.transitionName = transitionName;
+    }
+
+    private void setNewsItem(NewsItem item) {
+        this.item = item;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        item = (NewsItem) getArguments().getSerializable("news");
         refresh();
     }
 
@@ -72,7 +85,20 @@ public class NewsPreviewFragment extends BaseFragment {
             App.getInstance().getApi().getNewsItemContent(item,
                     newItem -> newsContent.setText(newItem.getNewsContent()),
                     error -> Log.v("NewsItem" , error != null ? error : "Unknown"));
+            startPostponedEnterTransition();
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        postponeEnterTransition();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ViewCompat.setTransitionName(newsImage, transitionName);
     }
 
     @Nullable

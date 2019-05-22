@@ -1,5 +1,6 @@
 package app.kuwas.android.ui.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionInflater;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
@@ -46,7 +49,15 @@ public class NewsFragment extends BaseFragment {
                             public void onItemClicked(View view, int position) {
                                 Bundle newsArgs = new Bundle();
                                 newsArgs.putSerializable("news", news.get(position));
-                                ((MainActivity) getActivity()).changeFragment(Constants.TAG_NEWS_PREVIEW, newsArgs);
+
+                                ViewCompat.setTransitionName(view, "news_item_" + position);
+                                newsArgs.putString("news_transition" , ViewCompat.getTransitionName(view));
+                                NewsFragment.this.setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.default_transition));
+
+                                if (Build.VERSION.SDK_INT >= 21)
+                                    NewsFragment.this.setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.no_transition));
+
+                                changeFragment(Constants.TAG_NEWS_PREVIEW, newsArgs, view);
                             }
 
                             @Override

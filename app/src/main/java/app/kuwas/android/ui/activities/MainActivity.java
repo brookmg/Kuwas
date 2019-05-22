@@ -25,11 +25,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.transition.TransitionInflater;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -71,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
         _fragmentContainer = findViewById(R.id.fragmentContainer);
 
         fragmentHelper = new FragmentHelper();
-        changeFragment(TAG_HOME, new Bundle());
+        changeFragment(TAG_HOME, new Bundle(), null);
 
     }
 
     public void changeFabState(@FabState int state) {
-        if (currentFragment != null && currentFragment.get() != null && currentFragment.get() instanceof BaseFragment)
+        if (currentFragment != null && currentFragment.get() instanceof BaseFragment)
             ((BaseFragment) currentFragment.get()).changeFabState(state);
     }
 
@@ -98,28 +101,36 @@ public class MainActivity extends AppCompatActivity {
         setCurrentFragment((BaseFragment) getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1));
     }
 
-    public void changeFragment (String fragmentTag , Bundle bundle) {
+    public void changeFragment (String fragmentTag , Bundle bundle, @Nullable View view) {
         switch (fragmentTag) {
             case TAG_HOME: {
                 BaseFragment baseFragment = HomeFragment.newInstance();
-                fragStarter(fragmentTag , baseFragment , bundle);
+                fragStarter(fragmentTag , baseFragment , bundle, view);
                 break;
             }
 
             case TAG_NEWS_PREVIEW: {
                 BaseFragment baseFragment = NewsPreviewFragment.newInstance(bundle);
-                fragStarter(fragmentTag , baseFragment, bundle);
+
+                if (Build.VERSION.SDK_INT >= 21) {
+                    baseFragment.setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.move));
+                    baseFragment.setEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.no_transition));
+                }
+
+                fragStarter(fragmentTag , baseFragment, bundle, view);
             }
         }
     }
 
-    private void fragStarter (String fragTag , BaseFragment baseFragment , Bundle bundle) {
+    private void fragStarter (String fragTag , BaseFragment baseFragment , Bundle bundle, View sharedView) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer , baseFragment , fragTag);
+        if (sharedView != null){
+            String transitionName = ViewCompat.getTransitionName(sharedView);
+            fragmentTransaction.addSharedElement(sharedView , transitionName != null ? transitionName : "\\[_0_0_]/");
+        }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
-        fragmentHelper.addFragmentToQueue(baseFragment);
         setCurrentFragment(baseFragment);
     }
 

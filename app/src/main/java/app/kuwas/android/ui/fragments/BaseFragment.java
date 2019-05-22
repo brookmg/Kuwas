@@ -1,6 +1,11 @@
 package app.kuwas.android.ui.fragments;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.fragment.app.Fragment;
+
+import app.kuwas.android.ui.activities.MainActivity;
 
 import static app.kuwas.android.utils.FabStates.FabState;
 
@@ -14,10 +19,18 @@ public abstract class BaseFragment extends Fragment {
 
     public void refresh () {}
 
-    void runOnUiThread(Runnable run) {
+    final void runOnUiThread(Runnable run) {
         if (getActivity() != null) {
             getActivity().runOnUiThread(run);
         }
+    }
+
+    final void changeFragment(String tag, Bundle bundle) {
+        if (getActivity() != null) ((MainActivity) getActivity()).changeFragment(tag, bundle, null);
+    }
+
+    final void changeFragment(String tag, Bundle bundle, View view) {
+        if (getActivity() != null) ((MainActivity) getActivity()).changeFragment(tag, bundle, view);
     }
 
 }
