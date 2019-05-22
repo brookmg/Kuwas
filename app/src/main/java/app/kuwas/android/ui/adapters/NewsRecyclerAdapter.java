@@ -1,5 +1,6 @@
 package app.kuwas.android.ui.adapters;
 
+import android.os.Build;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -84,7 +86,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((ViewHolder) holder).news_published.setText(_getTimeGap(news.get(position - 1).getNewsPublishedOn().getTime()));
             Glide.with(((ViewHolder) holder).news_image).load(news.get(position - 1).getNewsImage()).into(((ViewHolder) holder).news_image);
             if (onItemActionListener != null) {
-                ((ViewHolder) holder).itemView.setOnClickListener(v -> onItemActionListener.onItemClicked(holder.getAdapterPosition()-1));
+                ((ViewHolder) holder).itemView.setOnClickListener(v -> onItemActionListener.onItemClicked(holder.itemView, holder.getAdapterPosition()-1));
                 ((ViewHolder) holder).itemView.setOnLongClickListener(v -> {
                     onItemActionListener.onItemLongClicked(v, holder.getAdapterPosition() - 1);
                     return false;

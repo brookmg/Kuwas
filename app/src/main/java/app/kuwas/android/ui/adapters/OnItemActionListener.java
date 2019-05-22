@@ -29,6 +29,6 @@ import android.view.View;
  * inside the project EthioMusic .
  */
 public interface OnItemActionListener {
-        void onItemClicked(int position);
+        void onItemClicked(View view, int position);
         void onItemLongClicked(View view, int position);
 }

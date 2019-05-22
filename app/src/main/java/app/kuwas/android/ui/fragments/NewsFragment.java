@@ -43,7 +43,7 @@ public class NewsFragment extends BaseFragment {
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
                         NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(news, new OnItemActionListener() {
                             @Override
-                            public void onItemClicked(int position) {
+                            public void onItemClicked(View view, int position) {
                                 Bundle newsArgs = new Bundle();
                                 newsArgs.putSerializable("news", news.get(position));
                                 ((MainActivity) getActivity()).changeFragment(Constants.TAG_NEWS_PREVIEW, newsArgs);
