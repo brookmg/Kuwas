@@ -109,6 +109,8 @@ public class NewsPreviewFragment extends BaseFragment {
         newsContent = mainView.findViewById(R.id.news_content);
         newsTagsHolder = mainView.findViewById(R.id.news_tags_holder);
 
+        mainView.findViewById(R.id.back_button).setOnClickListener(v -> getActivity().onBackPressed());
+
         return mainView;
     }
 }

@@ -32,6 +32,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/back_button"
+                app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+                app:tint="@color/black_0"
+                app:fabSize="mini"
+                app:backgroundTint="@color/white_0"
+                app:rippleColor="@color/green_1"
+                android:layout_marginTop="32dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                app:srcCompat="@drawable/ic_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
