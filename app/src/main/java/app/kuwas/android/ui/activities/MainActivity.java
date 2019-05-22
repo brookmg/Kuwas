@@ -86,25 +86,16 @@ public class MainActivity extends AppCompatActivity {
         else return TAG_HOME;
     }
 
-    private void goToPreviousFragment() {
-        BaseFragment lastFragment = fragmentHelper.getItemFromQueue(fragmentHelper.queueSize() -2);
-        goBackFrag(getFragmentTag(lastFragment) , lastFragment, lastFragment.getArguments());
-        setCurrentFragment(lastFragment);
-        fragmentHelper.removeLastFragment();
-    }
-
     @Override
     public void onBackPressed() {
-        if (currentFragment != null && currentFragment.get() != null) {
-            //This is some fragment that has loaded
-            if (currentFragment.get() instanceof HomeFragment) {
-                Snackbar.make(_fragmentContainer, "sure you want to exit?" , Snackbar.LENGTH_SHORT).setAction("Yap!" , (v) -> finish()).show();
-            } else {
-                goToPreviousFragment();
-            }
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            //there are more items in the back stack. We are not on the home frag
+            getSupportFragmentManager().popBackStackImmediate();
         } else {
-            super.onBackPressed();
+            Snackbar.make(_fragmentContainer, "sure you want to exit?" , Snackbar.LENGTH_SHORT).setAction("Yap!" , (v) -> finish()).show();
         }
+
+        setCurrentFragment((BaseFragment) getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1));
     }
 
     public void changeFragment (String fragmentTag , Bundle bundle) {
@@ -125,20 +116,12 @@ public class MainActivity extends AppCompatActivity {
     private void fragStarter (String fragTag , BaseFragment baseFragment , Bundle bundle) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer , baseFragment , fragTag);
-        fragmentTransaction.addToBackStack(fragTag);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         fragmentHelper.addFragmentToQueue(baseFragment);
         setCurrentFragment(baseFragment);
     }
-
-    private void goBackFrag (String fragTag , BaseFragment baseFragment , Bundle bundle) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer , baseFragment , fragTag);
-        fragmentTransaction.addToBackStack(fragTag);
-        fragmentTransaction.commit();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
