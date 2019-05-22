@@ -42,7 +42,6 @@ import app.kuwas.android.R;
 import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
 import app.kuwas.android.ui.fragments.NewsPreviewFragment;
-import app.kuwas.android.utils.FragmentHelper;
 
 import static app.kuwas.android.utils.Constants.TAG_HOME;
 import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
@@ -51,7 +50,6 @@ import static app.kuwas.android.utils.FabStates.FabState;
 public class MainActivity extends AppCompatActivity {
 
     private FrameLayout _fragmentContainer;
-    private FragmentHelper fragmentHelper;
     private WeakReference<Fragment> currentFragment;
 
     private void setCurrentFragment(BaseFragment fragment) {
@@ -73,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         _fragmentContainer = findViewById(R.id.fragmentContainer);
 
-        fragmentHelper = new FragmentHelper();
         changeFragment(TAG_HOME, new Bundle(), null);
 
     }
@@ -83,11 +80,6 @@ public class MainActivity extends AppCompatActivity {
             ((BaseFragment) currentFragment.get()).changeFabState(state);
     }
 
-    private String getFragmentTag(BaseFragment fragment) {
-        if (fragment instanceof HomeFragment) return TAG_HOME;
-        else if (fragment instanceof NewsPreviewFragment) return TAG_NEWS_PREVIEW;
-        else return TAG_HOME;
-    }
 
     @Override
     public void onBackPressed() {
