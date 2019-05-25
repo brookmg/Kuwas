@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         currentFragment = new WeakReference<>(fragment);
     }
 
+    public void setAppBarElevation(Integer elevation) {
+        if (currentFragment.get() instanceof HomeFragment) {
+            ((HomeFragment) currentFragment.get()).setElevationLevel(elevation);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

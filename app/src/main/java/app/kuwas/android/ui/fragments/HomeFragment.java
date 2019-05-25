@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,6 +30,7 @@ import static app.kuwas.android.utils.FabStates.STATE_EXPAND;
 @SuppressWarnings("FieldCanBeLocal")
 public class HomeFragment extends BaseFragment {
 
+    private AppBarLayout appBarLayout;
     private TabAdapter tabAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -40,10 +43,15 @@ public class HomeFragment extends BaseFragment {
         return fragment;
     }
 
+    public void setElevationLevel(Integer elevationLevel) {
+        ViewCompat.setElevation(appBarLayout, elevationLevel);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.home_fragment, container, false);
+        appBarLayout = mainView.findViewById(R.id.appbar_layout);
         tabLayout = mainView.findViewById(R.id.tab_layout);
         viewPager = mainView.findViewById(R.id.main_view_pager);
         refreshFab = mainView.findViewById(R.id.refresh_fab);

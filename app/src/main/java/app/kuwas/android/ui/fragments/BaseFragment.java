@@ -3,6 +3,7 @@ package app.kuwas.android.ui.fragments;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import app.kuwas.android.ui.activities.MainActivity;
@@ -14,6 +15,8 @@ import static app.kuwas.android.utils.FabStates.FabState;
  * inside the project Kuwas .
  */
 public abstract class BaseFragment extends Fragment {
+
+    private int appBarElevation = 0;
 
     public void changeFabState (@FabState int state) {}
 
@@ -33,4 +36,12 @@ public abstract class BaseFragment extends Fragment {
         if (getActivity() != null) ((MainActivity) getActivity()).changeFragment(tag, bundle, view);
     }
 
+    final void setAppBarElevation(Integer elevation) {
+        appBarElevation = elevation;
+        if (getActivity() != null) ((MainActivity) getActivity()).setAppBarElevation(elevation);
+    }
+
+    final int getAppBarElevation() {
+        return appBarElevation;
+    }
 }
