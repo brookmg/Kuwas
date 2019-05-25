@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewGroupCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
@@ -22,6 +24,9 @@ import app.kuwas.android.ui.adapters.OnItemActionListener;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.FabStates;
 
+import static java.lang.Math.min;
+import static java.lang.Math.round;
+
 /**
  * Created by BrookMG on 4/9/2019 in app.kuwas.android.ui.fragments
  * inside the project Kuwas .
@@ -29,6 +34,7 @@ import app.kuwas.android.utils.FabStates;
 public class NewsFragment extends BaseFragment {
 
     private RecyclerView mainRecycler;
+    private Integer recyclerViewY = 0;
 
     static NewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -72,11 +78,18 @@ public class NewsFragment extends BaseFragment {
         }
     }
 
+    private void computeRecyclerViewScrollForAppbarElevation(Integer yDiff) {
+        recyclerViewY += yDiff; //not reliable, but it's one way to find scroll position to compute the elevation for the elevation
+        setAppBarElevation(round(min(recyclerViewY * 0.8f, 19f)));
+        Log.v("SCROLL" , recyclerViewY + "");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.news_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainNewsRecyclerView);
+        mainRecycler.setHasFixedSize(true); //for performance increments
 
         refresh();
 
@@ -85,6 +98,7 @@ public class NewsFragment extends BaseFragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (getActivity() instanceof MainActivity) {
+                    computeRecyclerViewScrollForAppbarElevation(dy);
                     if (dy < 0) ((MainActivity) getActivity()).changeFabState(FabStates.STATE_EXPAND);    //scrolling upward so expand fab
                     else if (dy > 0) ((MainActivity) getActivity()).changeFabState(FabStates.STATE_COLLAPSE); //scrolling downward so shrink fab
                 }

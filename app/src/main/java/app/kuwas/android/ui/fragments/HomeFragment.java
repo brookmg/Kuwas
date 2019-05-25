@@ -65,6 +65,23 @@ public class HomeFragment extends BaseFragment {
             viewPager.setAdapter(tabAdapter);
             viewPager.setOffscreenPageLimit(3);
             tabLayout.setupWithViewPager(viewPager);
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    setElevationLevel(((BaseFragment) tabAdapter.getmFragments()
+                            .get(tab.getPosition())).getAppBarElevation());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
         }
 
         refreshFab.setOnClickListener(view -> refreshAllFragments(tabAdapter.getmFragments()));
