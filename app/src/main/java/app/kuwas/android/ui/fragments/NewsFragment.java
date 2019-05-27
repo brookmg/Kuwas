@@ -81,7 +81,6 @@ public class NewsFragment extends BaseFragment {
     private void computeRecyclerViewScrollForAppbarElevation(Integer yDiff) {
         recyclerViewY += yDiff; //not reliable, but it's one way to find scroll position to compute the elevation for the elevation
         setAppBarElevation(round(min(recyclerViewY * 0.8f, 19f)));
-        Log.v("SCROLL" , recyclerViewY + "");
     }
 
     @Nullable
