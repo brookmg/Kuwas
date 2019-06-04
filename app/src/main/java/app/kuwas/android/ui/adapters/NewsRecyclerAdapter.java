@@ -20,6 +20,8 @@ import java.util.List;
 import app.kuwas.android.R;
 import io.brookmg.soccerethiopiaapi.data.NewsItem;
 
+import static app.kuwas.android.utils.Utils.getTimeGap;
+
 /**
  * Created by BrookMG on 5/5/2019 in app.kuwas.android.ui.adapters
  * inside the project Kuwas .
@@ -53,25 +55,6 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private static String _getTimeGap(long fromTimeMil) {
-
-        long diff = (new Date().getTime()) - fromTimeMil;
-
-        if (diff < DateUtils.MINUTE_IN_MILLIS)
-        { return "just now"; }
-        else if (diff < DateUtils.HOUR_IN_MILLIS)
-        { return Math.round((float) diff/DateUtils.MINUTE_IN_MILLIS) + "m ago"; }
-        else if (diff < DateUtils.DAY_IN_MILLIS)
-        { return Math.round((float) diff/DateUtils.HOUR_IN_MILLIS) + "h ago"; }
-        else if (diff < DateUtils.WEEK_IN_MILLIS)
-        { return Math.round((float) diff/DateUtils.DAY_IN_MILLIS) + "d ago"; }
-        else if (diff < DateUtils.YEAR_IN_MILLIS)
-        { return Math.round((float) diff/DateUtils.WEEK_IN_MILLIS) + "w ago"; }
-        else
-        { return Math.round((float) diff/DateUtils.YEAR_IN_MILLIS) + "y ago"; }
-
-    }
-
     @Override
     public int getItemViewType(int position) {
         return position == 0 ? HEADER : NEWS;   //the first item should be the header
@@ -83,7 +66,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (getItemViewType(position) == NEWS) {
             ((ViewHolder) holder).news_title.setText(news.get(position - 1).getNewsTitle());
             ((ViewHolder) holder).news_author.setText(news.get(position - 1).getNewsAuthorName());
-            ((ViewHolder) holder).news_published.setText(_getTimeGap(news.get(position - 1).getNewsPublishedOn().getTime()));
+            ((ViewHolder) holder).news_published.setText(getTimeGap(news.get(position - 1).getNewsPublishedOn().getTime()));
             Glide.with(((ViewHolder) holder).news_image).load(news.get(position - 1).getNewsImage()).into(((ViewHolder) holder).news_image);
             if (onItemActionListener != null) {
                 ((ViewHolder) holder).itemView.setOnClickListener(v -> onItemActionListener.onItemClicked(holder.itemView, holder.getAdapterPosition()-1));
