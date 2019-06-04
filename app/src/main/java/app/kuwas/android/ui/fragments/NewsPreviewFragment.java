@@ -32,6 +32,7 @@ import app.kuwas.android.ui.adapters.TagsChipRecyclerAdapter;
 import io.brookmg.soccerethiopiaapi.data.NewsItem;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
+import static app.kuwas.android.utils.Utils.getTimeGap;
 import static app.kuwas.android.utils.Utils.setMargins;
 
 /**
@@ -42,7 +43,7 @@ public class NewsPreviewFragment extends BaseFragment {
 
     private AppCompatImageView newsImage;
     private RecyclerView newsTagsHolder;
-    private AppCompatTextView newsContent;
+    private AppCompatTextView newsContent, newsTitle, newsDateTimePlusAuthor;
     private NewsItem item;
     private String transitionName;
 
@@ -83,7 +84,11 @@ public class NewsPreviewFragment extends BaseFragment {
             newsTagsHolder.setAdapter(new TagsChipRecyclerAdapter(item.getNewsTags()));
 
             App.getInstance().getApi().getNewsItemContent(item,
-                    newItem -> newsContent.setText(newItem.getNewsContent()),
+                    newItem -> {
+                        newsContent.setText(newItem.getNewsContent());
+                        newsTitle.setText(newItem.getNewsTitle());
+                        newsDateTimePlusAuthor.setText(String.format("%s by %s", getTimeGap(newItem.getNewsPublishedOn().getTime()), newItem.getNewsAuthorName()));
+                    },
                     error -> Log.v("NewsItem" , error != null ? error : "Unknown"));
             startPostponedEnterTransition();
         }
@@ -108,6 +113,8 @@ public class NewsPreviewFragment extends BaseFragment {
         newsImage = mainView.findViewById(R.id.news_image);
         newsContent = mainView.findViewById(R.id.news_content);
         newsTagsHolder = mainView.findViewById(R.id.news_tags_holder);
+        newsTitle = mainView.findViewById(R.id.news_title);
+        newsDateTimePlusAuthor = mainView.findViewById(R.id.news_date_time_plus_author);
 
         mainView.findViewById(R.id.back_button).setOnClickListener(v -> getActivity().onBackPressed());
 
