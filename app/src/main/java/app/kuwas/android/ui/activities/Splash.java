@@ -17,19 +17,30 @@
 package app.kuwas.android.ui.activities;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.ViewAnimator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
+
 import app.kuwas.android.R;
 
 import static android.view.View.GONE;
+import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 import static android.view.View.VISIBLE;
+import static app.kuwas.android.utils.Utils.pxToDp;
 
 public class Splash extends AppCompatActivity {
 
@@ -44,49 +55,62 @@ public class Splash extends AppCompatActivity {
         revealable = findViewById(R.id.revealable);
         loadingText = findViewById(R.id.loading);
 
-        revealable.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                revealable.removeOnLayoutChangeListener(this);
-                _computeAndReveal(v);
-            }
-        });
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        _computeAndReveal(revealable);
     }
 
     private void _computeAndReveal(View revealView) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator animator = ViewAnimationUtils.
-                    createCircularReveal(revealView, revealView.getWidth() / 2 ,
-                            revealView.getHeight() / 2, 20,
-                            revealView.getHeight())
-                    .setDuration(1500);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, displayMetrics.widthPixels * 2);
+        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        valueAnimator.addUpdateListener(animation -> {
+            ConstraintLayout.LayoutParams layoutParams = ((ConstraintLayout.LayoutParams) revealView.getLayoutParams());
+            layoutParams.width = pxToDp(Splash.this, ((Integer) animation.getAnimatedValue()));
+            revealView.setLayoutParams(layoutParams);
+        });
 
-            new Handler().postDelayed(() -> {
-                loadingText.setVisibility(GONE);
-                animator.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        revealable.setVisibility(VISIBLE);
-                    }
+        new Handler().postDelayed(() -> {
+            loadingText.animate().alpha(0f).setDuration(1_000).start();
+            valueAnimator.setDuration(1_000);
+            valueAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    //revealable.setVisibility(VISIBLE);
+                }
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        revealable.setVisibility(VISIBLE);
-                    }
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    //revealable.setVisibility(VISIBLE);
+                    Intent noReturn = new Intent(Splash.this, MainActivity.class);
+                    noReturn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(noReturn);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.stay_still);
+                    finish();
+                }
 
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
+                @Override
+                public void onAnimationCancel(Animator animation) {
 
-                    }
+                }
 
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
+                @Override
+                public void onAnimationRepeat(Animator animation) {
 
-                    }
-                });
-                animator.start();
-            } , 5_000);
-        }
+                }
+            });
+            valueAnimator.start();
+        }, 2_500);
     }
+
 }

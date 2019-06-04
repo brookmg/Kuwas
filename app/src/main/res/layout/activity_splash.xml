@@ -9,8 +9,9 @@
     tools:context=".ui.activities.Splash">
 
     <LinearLayout android:id="@+id/revealable"
-        android:layout_width="match_parent"
-        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
         android:background="@color/green_1"
         android:layout_height="match_parent" />
@@ -20,14 +21,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/ic_first"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        android:layout_width="210dp"
+        android:layout_height="210dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/loading"
         android:text="@string/loading"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textColor="#333"
