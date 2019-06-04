@@ -17,11 +17,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:fullBackupContent="true">
 
-        <activity android:name="app.kuwas.android.ui.activities.Splash" />
         <activity
-            android:name="app.kuwas.android.ui.activities.MainActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|screenLayout|screenSize|keyboard|keyboardHidden"
+            android:name="app.kuwas.android.ui.activities.Splash"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="app.kuwas.android.ui.activities.MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenLayout|screenSize|keyboard|keyboardHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
