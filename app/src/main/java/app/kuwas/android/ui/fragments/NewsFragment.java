@@ -16,6 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
+
 import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
@@ -23,6 +30,7 @@ import app.kuwas.android.ui.adapters.NewsRecyclerAdapter;
 import app.kuwas.android.ui.adapters.OnItemActionListener;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.FabStates;
+import io.brookmg.soccerethiopiaapi.data.NewsItem;
 
 import static java.lang.Math.min;
 import static java.lang.Math.round;
@@ -43,18 +51,38 @@ public class NewsFragment extends BaseFragment {
         return fragment;
     }
 
+    private List<NewsItem> removeRepeatedNews(List<NewsItem> items) {
+        ArrayList<NewsItem> returnable = new ArrayList<>();
+        for (NewsItem item : items) {
+            if (!listContainsNews(returnable, item.getNewsId())) returnable.add(item);
+        }
+        return returnable;
+    }
+
+    private boolean listContainsNews(List<NewsItem> items, int id) {
+        for (NewsItem item: items) if (item.getNewsId() == id) return true;
+        return false;
+    }
+
     @Override
     public void refresh() {
         super.refresh();
         if (mainRecycler != null) {
             App.getInstance().getApi().getLatestNews(
                     news -> {
+                        Collections.sort(news, (o1, o2) -> {
+                            if (o1.getNewsPublishedOn().getTime() == o2.getNewsPublishedOn().getTime()) return 0;
+                            return (o1.getNewsPublishedOn().getTime() > o2.getNewsPublishedOn().getTime()) ? -1 : 1;
+                        });
+
+                        List<NewsItem> filteredNews = new ArrayList<>(removeRepeatedNews(news));
+
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(news, new OnItemActionListener() {
+                        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(filteredNews, new OnItemActionListener() {
                             @Override
                             public void onItemClicked(View view, int position) {
                                 Bundle newsArgs = new Bundle();
-                                newsArgs.putSerializable("news", news.get(position));
+                                newsArgs.putSerializable("news", filteredNews.get(position));
 
                                 ViewCompat.setTransitionName(view, "news_item_" + position);
                                 newsArgs.putString("news_transition" , ViewCompat.getTransitionName(view));
