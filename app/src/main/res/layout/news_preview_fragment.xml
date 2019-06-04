@@ -71,9 +71,8 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/news_date_time_plus_author"
-            android:textStyle="normal"
+            android:textStyle="italic"
             android:paddingLeft="16dp"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:paddingRight="16dp"
             tools:text="@tools:sample/lorem"
             app:layout_constraintTop_toBottomOf="@+id/news_title"
