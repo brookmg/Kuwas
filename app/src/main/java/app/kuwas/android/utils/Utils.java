@@ -86,4 +86,10 @@ public class Utils {
 
     }
 
+    public static void run(Runnable task, int times) {
+        for (int i = 0; i < times; i++) {
+            task.run();
+        }
+    }
+
 }
