@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -37,12 +38,15 @@ import io.brookmg.soccerethiopiaapi.data.LeagueItemStatus;
 import io.brookmg.soccerethiopiaapi.data.LeagueScheduleItem;
 import io.brookmg.soccerethiopiaapi.data.Team;
 
+import static app.kuwas.android.utils.Utils.run;
+
 /**
  * Created by BrookMG on 5/5/2019 in app.kuwas.android.ui.adapters
  * inside the project Kuwas .
  */
 public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private List<Boolean> leagueScheduleItemsShouldShowDate;
     private List<LeagueScheduleItem> leagueScheduleItems;
 
     private final int HEADER = 0;
@@ -51,6 +55,32 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public ScoresRecyclerAdapter(List<LeagueScheduleItem> leagueScheduleItems) {
         Collections.reverse(leagueScheduleItems);
         this.leagueScheduleItems = leagueScheduleItems;
+        setupLeagueScheduleShouldShowDateBooleanList();
+    }
+
+    private void setupLeagueScheduleShouldShowDateBooleanList () {
+        leagueScheduleItemsShouldShowDate = new ArrayList<>(leagueScheduleItems.size());
+        run(() -> leagueScheduleItemsShouldShowDate.add(false), leagueScheduleItems.size());
+
+        // starting from the top, toggle the values on the list to `true` for positions that
+        // correspond to league items with different date from what comes before them
+
+        for (LeagueScheduleItem item : leagueScheduleItems) {
+            if (leagueScheduleItems.indexOf(item) == 0) {
+                leagueScheduleItemsShouldShowDate.remove(0);
+                leagueScheduleItemsShouldShowDate.add(0, true);
+                continue;
+            }
+
+            if (!item.getGameDate().equals(
+                    leagueScheduleItems.get(leagueScheduleItems.indexOf(item) -1).getGameDate()
+            )) replaceItem(leagueScheduleItemsShouldShowDate, leagueScheduleItems.indexOf(item), true);
+        }
+    }
+
+    private <T> void replaceItem ( List<T> fromList, int atPosition, T withItem ) {
+        fromList.remove(atPosition);
+        fromList.add(atPosition, withItem);
     }
 
     @NonNull
@@ -71,10 +101,7 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             position -= 1;  // the first view is taken by the header
             Map<Team, Integer> team_result = leagueScheduleItems.get(position).getGameDetail();
             ((ViewHolder) holder).datetime.setText(leagueScheduleItems.get(position).getGameDate());
-
-            if (position > 0 && leagueScheduleItems.get(position).getGameDate()
-                    .equals(leagueScheduleItems.get(position-1).getGameDate()))
-                ((ViewHolder) holder).datetime.setVisibility(View.GONE);
+            ((ViewHolder) holder).datetime.setVisibility(leagueScheduleItemsShouldShowDate.get(position) ? View.VISIBLE : View.GONE);
 
             ((ViewHolder) holder).team_1_name.setText(team_result.keySet().toArray(new Team[0])[0].getTeamFullName());
             ((ViewHolder) holder).team_2_name.setText(team_result.keySet().toArray(new Team[0])[1].getTeamFullName());
