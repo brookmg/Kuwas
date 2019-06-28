@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -36,6 +37,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 
 import app.kuwas.android.R;
+import app.kuwas.android.utils.Constants;
 
 import static android.view.View.GONE;
 import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -80,6 +82,14 @@ public class Splash extends AppCompatActivity {
             revealView.setLayoutParams(layoutParams);
         });
 
+        final boolean hasBestFavorites;
+        hasBestFavorites = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString(Constants.PREFERENCE_FAV_TEAMS, "[]") != null &&
+                !PreferenceManager.getDefaultSharedPreferences(this)
+                        .getString(Constants.PREFERENCE_FAV_TEAMS, "[]")
+                        .equals("[]");
+
+
         new Handler().postDelayed(() -> {
             loadingText.animate().alpha(0f).setDuration(1_000).start();
             valueAnimator.setDuration(1_000);
@@ -92,7 +102,7 @@ public class Splash extends AppCompatActivity {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     //revealable.setVisibility(VISIBLE);
-                    Intent noReturn = new Intent(Splash.this, MainActivity.class);
+                    Intent noReturn = new Intent(Splash.this, hasBestFavorites ? MainActivity.class : FavoriteTeam.class);
                     noReturn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(noReturn);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.stay_still);

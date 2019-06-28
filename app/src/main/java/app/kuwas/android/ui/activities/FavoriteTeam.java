@@ -25,24 +25,33 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import app.kuwas.android.App;
 import app.kuwas.android.ui.adapters.FavoriteRecyclerAdapter;
 import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.ui.adapters.TagsChipRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
 import io.brookmg.soccerethiopiaapi.data.Team;
+import io.brookmg.soccerethiopiaapi.errors.TeamNotFoundException;
 import io.brookmg.soccerethiopiaapi.utils.Constants;
 import app.kuwas.android.R;
+import io.brookmg.soccerethiopiaapi.utils.Utils;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
@@ -83,6 +92,14 @@ public class FavoriteTeam extends AppCompatActivity {
                 continueButton.show(true);
                 break;
         }
+    }
+
+    private void goToMainActivity() {
+        Intent noReturn = new Intent(this, MainActivity.class);
+        noReturn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(noReturn);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay_still);
+        finish();
     }
 
     @Override
@@ -126,7 +143,12 @@ public class FavoriteTeam extends AppCompatActivity {
 
         continueButton.setOnClickListener(view -> {
             // get selected items from the adapter
-            
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String teamsToString = Arrays.toString(selectedTeamNames.toArray());
+            sharedPreferences.edit().putString(app.kuwas.android.utils.Constants.PREFERENCE_FAV_TEAMS, teamsToString).apply();
+
+            Toast.makeText(this, "Cool. All is done.", Toast.LENGTH_SHORT).show();
+            goToMainActivity();
         });
 
         mainFavoriteRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
