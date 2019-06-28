@@ -24,6 +24,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             app:layout_scrollFlags="enterAlwaysCollapsed"
             android:layout_height="wrap_content">

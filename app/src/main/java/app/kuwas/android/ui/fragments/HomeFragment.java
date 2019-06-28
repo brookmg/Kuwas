@@ -23,6 +23,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -34,6 +36,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.List;
 
 import app.kuwas.android.R;
+import app.kuwas.android.ui.activities.MainActivity;
 import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.utils.FabStates;
 
@@ -46,6 +49,7 @@ import static app.kuwas.android.utils.FabStates.STATE_EXPAND;
 @SuppressWarnings("FieldCanBeLocal")
 public class HomeFragment extends BaseFragment {
 
+    private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private TabAdapter tabAdapter;
     private TabLayout tabLayout;
@@ -67,6 +71,8 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.home_fragment, container, false);
+
+        toolbar = mainView.findViewById(R.id.toolbar);
         appBarLayout = mainView.findViewById(R.id.appbar_layout);
         tabLayout = mainView.findViewById(R.id.tab_layout);
         viewPager = mainView.findViewById(R.id.main_view_pager);
@@ -81,6 +87,11 @@ public class HomeFragment extends BaseFragment {
             viewPager.setAdapter(tabAdapter);
             viewPager.setOffscreenPageLimit(3);
             tabLayout.setupWithViewPager(viewPager);
+            ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+
+            if (getActivity() instanceof  MainActivity && ((MainActivity) getActivity()).getSupportActionBar() != null)
+                ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
