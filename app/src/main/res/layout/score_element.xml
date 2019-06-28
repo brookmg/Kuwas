@@ -64,44 +64,20 @@
             tools:text="Sidama Buna" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/team_1_score"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:maxLines="2"
-            android:textColor="@color/black_0"
-            app:layout_constraintBottom_toBottomOf="@+id/team_1_image_holder"
-            app:layout_constraintEnd_toStartOf="@+id/two_dots"
-            app:layout_constraintTop_toTopOf="@+id/team_1_image_holder"
-            tools:text="2" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/two_dots"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:textColor="@color/black_0"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/team_1_image_holder"
+            android:id="@+id/teams_score"
             app:layout_constraintStart_toEndOf="@id/team_1_name"
             app:layout_constraintEnd_toStartOf="@id/team_2_name"
             app:layout_constraintTop_toTopOf="@+id/team_1_image_holder"
-            android:text=":" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/team_2_score"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toBottomOf="@id/team_1_image_holder"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:gravity="center"
             android:maxLines="2"
+            app:autoSizeTextType="uniform"
+            android:padding="5dp"
+            tools:text="1 : 1"
             android:textColor="@color/black_0"
-            app:layout_constraintBottom_toBottomOf="@+id/team_2_image_holder"
-            app:layout_constraintStart_toEndOf="@+id/two_dots"
-            app:layout_constraintTop_toTopOf="@+id/team_2_image_holder"
-            tools:text="5" />
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/team_2_name"

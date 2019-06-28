@@ -107,11 +107,14 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((ViewHolder) holder).team_2_name.setText(team_result.keySet().toArray(new Team[0])[1].getTeamFullName());
 
             if (leagueScheduleItems.get(holder.getAdapterPosition() -1).getGameStatus() == LeagueItemStatus.STATUS_TOOK_PLACE) {
-                ((ViewHolder) holder).team_1_score.setText(String.format(Locale.US, "%d", team_result.get(team_result.keySet().toArray(new Team[0])[0])));
-                ((ViewHolder) holder).team_2_score.setText(String.format(Locale.US, "%d", team_result.get(team_result.keySet().toArray(new Team[0])[1])));
+                ((ViewHolder) holder).teams_score.setText(
+                        String.format(Locale.US, "%d : %d",
+                                team_result.get(team_result.keySet().toArray(new Team[0])[0]),
+                                team_result.get(team_result.keySet().toArray(new Team[0])[1])
+                        )
+                );
             } else {
-                ((ViewHolder) holder).team_1_score.setText("-");
-                ((ViewHolder) holder).team_2_score.setText("-");
+                ((ViewHolder) holder).teams_score.setText("- : -");
             }
 
             Glide.with(((ViewHolder) holder).team_1_image).load(team_result.keySet().toArray(new Team[0])[0].getTeamLogo()).into(((ViewHolder) holder).team_1_image);
@@ -133,8 +136,9 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     class ViewHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView team_1_image, team_2_image;
-        AppCompatTextView team_1_name, team_1_score;
-        AppCompatTextView team_2_name, team_2_score;
+        AppCompatTextView team_1_name;
+        AppCompatTextView team_2_name;
+        AppCompatTextView teams_score;
         AppCompatTextView datetime;
 
         ViewHolder(@NonNull View itemView) {
@@ -142,8 +146,9 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             team_1_image = itemView.findViewById(R.id.team_1_image);
             team_2_image = itemView.findViewById(R.id.team_2_image);
 
-            team_1_score = itemView.findViewById(R.id.team_1_score);
-            team_2_score = itemView.findViewById(R.id.team_2_score);
+            teams_score = itemView.findViewById(R.id.teams_score);
+//            team_1_score = itemView.findViewById(R.id.team_1_score);
+//            team_2_score = itemView.findViewById(R.id.team_2_score);
 
             team_1_name = itemView.findViewById(R.id.team_1_name);
             team_2_name = itemView.findViewById(R.id.team_2_name);
