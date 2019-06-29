@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Brook Mezgebu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/numberHolder"
+        app:contentPadding="5dp"
+        android:layout_width="70dp"
+        android:layout_margin="@dimen/fab_margin"
+        app:cardBackgroundColor="@color/white_0"
+        app:cardElevation="9dp"
+        app:cardCornerRadius="@dimen/fab_margin"
+        android:layout_height="70dp">
+
+        <TextView
+            android:text="@string/hash_tag_symbol"
+            android:textColor="@color/black_0"
+            android:padding="5dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/player_rank"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            tools:text="1"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_height="wrap_content" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintTop_toTopOf="@id/numberHolder"
+        app:layout_constraintStart_toEndOf="@+id/numberHolder"
+        app:layout_constraintEnd_toStartOf="@+id/player_team_icon"
+        tools:text="@string/app_name"
+        android:gravity="start"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:id="@+id/player_name"
+        android:textColor="@color/black_0"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:textStyle="bold"
+        app:autoSizeTextType="uniform"
+        android:layout_width="0dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fab_margin" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintTop_toBottomOf="@+id/player_name"
+        app:layout_constraintStart_toEndOf="@+id/numberHolder"
+        app:layout_constraintBottom_toBottomOf="@+id/numberHolder"
+        tools:text="Goals: 99"
+        android:gravity="start"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:id="@+id/player_goals"
+        android:textColor="@color/black_0"
+        android:layout_marginLeft="@dimen/fab_margin"
+        app:autoSizeTextType="uniform"
+        android:layout_width="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fab_margin" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/player_team_icon"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/fab_margin"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/player_s_team_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/player_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/player_country_flag"
+        app:layout_constraintTop_toBottomOf="@id/player_name"
+        app:layout_constraintStart_toEndOf="@id/player_goals"
+        android:layout_width="wrap_content"
+        android:contentDescription="@string/player_s_country"
+        android:layout_height="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

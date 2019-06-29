@@ -5,4 +5,7 @@
     <string name="choose_favorite_team">Choose Favorite Team</string>
     <string name="continue_text">Continue</string>
     <string name="select_atleast_one_team">select atleast one team</string>
+    <string name="hash_tag_symbol">#</string>
+    <string name="player_s_team_icon">Player\'s team icon</string>
+    <string name="player_s_country">Player\'s country</string>
 </resources>
