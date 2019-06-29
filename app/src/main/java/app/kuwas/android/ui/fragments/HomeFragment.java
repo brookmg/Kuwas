@@ -83,6 +83,7 @@ public class HomeFragment extends BaseFragment {
             tabAdapter.addFragment(NewsFragment.newInstance(), "News");
             tabAdapter.addFragment(ScoresFragment.newInstance(), "Scores");
             tabAdapter.addFragment(StandingFragment.newInstance(), "Standing");
+            tabAdapter.addFragment(TopPlayersFragment.newInstance(), "Top Players");
 
             viewPager.setAdapter(tabAdapter);
             viewPager.setOffscreenPageLimit(3);
