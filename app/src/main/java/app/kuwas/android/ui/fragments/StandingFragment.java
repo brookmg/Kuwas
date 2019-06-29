@@ -60,6 +60,7 @@ public class StandingFragment extends BaseFragment {
                         mainTable.populateTable(ranking);
                         mainTable.invalidate();
                     }, error -> Log.e("Ranking" , error)
+                    , true
             );
     }
 
