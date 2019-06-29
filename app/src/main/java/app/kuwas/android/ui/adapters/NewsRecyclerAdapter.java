@@ -86,10 +86,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Glide.with(((ViewHolder) holder).news_image).load(news.get(position - 1).getNewsImage()).into(((ViewHolder) holder).news_image);
             if (onItemActionListener != null) {
                 ((ViewHolder) holder).itemView.setOnClickListener(v -> onItemActionListener.onItemClicked(holder.itemView, holder.getAdapterPosition()-1));
-                ((ViewHolder) holder).itemView.setOnLongClickListener(v -> {
-                    onItemActionListener.onItemLongClicked(v, holder.getAdapterPosition() - 1);
-                    return false;
-                });
+                ((ViewHolder) holder).itemView.setOnLongClickListener(v -> onItemActionListener.onItemLongClicked(v, holder.getAdapterPosition() - 1));
             }
         }
     }

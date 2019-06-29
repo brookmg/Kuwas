@@ -106,8 +106,8 @@ public class NewsFragment extends BaseFragment {
                             }
 
                             @Override
-                            public void onItemLongClicked(View view, int position) {
-
+                            public boolean onItemLongClicked(View view, int position) {
+                                return false;
                             }
                         });
                         mainRecycler.setAdapter(adapter);
