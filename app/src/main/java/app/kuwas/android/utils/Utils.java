@@ -16,7 +16,10 @@
 
 package app.kuwas.android.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -89,6 +92,16 @@ public class Utils {
     public static void run(Runnable task, int times) {
         for (int i = 0; i < times; i++) {
             task.run();
+        }
+    }
+
+    public static void openPlayStore(Activity activity) {
+        if (activity == null) return;
+        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity object
+        try {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
         }
     }
 

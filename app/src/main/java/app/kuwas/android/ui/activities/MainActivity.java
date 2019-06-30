@@ -46,6 +46,7 @@ import app.kuwas.android.ui.fragments.NewsPreviewFragment;
 import static app.kuwas.android.utils.Constants.TAG_HOME;
 import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
 import static app.kuwas.android.utils.FabStates.FabState;
+import static app.kuwas.android.utils.Utils.openPlayStore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         if (currentFragment.get() instanceof HomeFragment) {
             ((HomeFragment) currentFragment.get()).setElevationLevel(elevation);
         }
+    }
+
+    private boolean isThereUpdateAvailable() {
+        // TODO: 6/30/2019 CHECK FIREBASE REMOTE CONFIG FOR LATEST APP VERSION AND COMPARE
+        return false;   // return false for now.
     }
 
     @Override
@@ -136,18 +142,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(0).setVisible(isThereUpdateAvailable());   // make it only visible if there is an update available
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_update) {
+            openPlayStore(this);    // probably will change this to play core lib impl ... but not yet
             return true;
         }
 

@@ -2,11 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="app.kuwas.android.ui.activities.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_update"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_check"
+        android:icon="@drawable/ic_update"
+        app:iconTint="@color/blue_1"
         android:visible="false"
-        android:title="@string/action_settings"
+        android:title="@string/update_available"
         app:showAsAction="always" />
+
 </menu>

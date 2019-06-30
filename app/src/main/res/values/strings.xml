@@ -8,4 +8,5 @@
     <string name="hash_tag_symbol">#</string>
     <string name="player_s_team_icon">Player\'s team icon</string>
     <string name="player_s_country">Player\'s country</string>
+    <string name="update_available">Update Available</string>
 </resources>
