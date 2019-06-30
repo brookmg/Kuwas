@@ -22,21 +22,23 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground"
-        android:layout_width="210dp"
-        android:layout_height="210dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/loading"
-        android:text="@string/loading"
-        app:layout_constraintTop_toBottomOf="@+id/image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textColor="#333"
-        android:textSize="22sp"
+        android:layout_width="200dp"
         android:padding="10dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="200dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/loading_animation_view"
+        android:scaleType="fitXY"
+        app:lottie_fileName="maliya_animation.json"
+        app:lottie_repeatMode="reverse"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:tint="@color/black_0"
+        app:lottie_scale="0.2"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

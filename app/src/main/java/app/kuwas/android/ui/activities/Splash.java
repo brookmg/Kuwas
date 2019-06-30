@@ -47,7 +47,6 @@ import static app.kuwas.android.utils.Utils.pxToDp;
 public class Splash extends AppCompatActivity {
 
     LinearLayout revealable;
-    AppCompatTextView loadingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         revealable = findViewById(R.id.revealable);
-        loadingText = findViewById(R.id.loading);
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
@@ -91,7 +89,6 @@ public class Splash extends AppCompatActivity {
 
 
         new Handler().postDelayed(() -> {
-            loadingText.animate().alpha(0f).setDuration(1_000).start();
             valueAnimator.setDuration(1_000);
             valueAnimator.addListener(new Animator.AnimatorListener() {
                 @Override
