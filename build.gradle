@@ -6,10 +6,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+        maven { url "https://kotlin.bintray.com/kotlinx/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.google.gms:google-services:4.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,6 +22,37 @@ ext {
     apiMajorVersion = 0
     apiMinorVersion = 2
     apiBuildVersion = 1
+
+    firebaseVersion = '16.0.8'
+    firebaseStorage = '16.1.0'
+    firebaseDatabase = '16.1.0'
+    firebasePref = '16.2.4'
+    firebaseMessaging = '17.4.0'
+    firebaseAds = '17.2.0'
+    firebaseInappMessaging = '17.1.0'
+    firebaseFirestore = '18.1.0'
+    firebaseCrash = '16.2.1'
+    firebaseInvite = '16.1.1'
+    firebaseAuth = '16.2.0'
+    firebaseDeepLinks = '17.0.0'
+
+    firebase = [
+            invites: "com.google.firebase:firebase-invites:$firebaseInvite",
+            ads: "com.google.firebase:firebase-ads:$firebaseAds",
+            config: "com.google.firebase:firebase-config:$firebasePref",
+            messaging: "com.google.firebase:firebase-messaging:$firebaseMessaging",
+            auth: "com.google.firebase:firebase-auth:$firebaseAuth",
+            database: "com.google.firebase:firebase-database:$firebaseDatabase",
+            core: "com.google.firebase:firebase-core:$firebaseVersion",
+            crash: "com.google.firebase:firebase-crash:$firebaseCrash",
+            firestore: "com.google.firebase:firebase-firestore:$firebaseFirestore",
+            googlead: "com.google.android.gms:play-services-ads:15.0.1",
+            inappmessaging: "com.google.firebase:firebase-inappmessaging-display:$firebaseMessaging",
+            performance: "com.google.firebase:firebase-perf:$firebasePref",
+            fireUI: 'com.firebaseui:firebase-ui-database:3.3.0',
+            storage: "com.google.firebase:firebase-storage:$firebaseStorage",
+            deeplinks: "com.google.firebase:firebase-dynamic-links:$firebaseDeepLinks"
+    ]
 }
 
 allprojects {

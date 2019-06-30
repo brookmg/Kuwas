@@ -40,13 +40,20 @@ dependencies {
     //LIFECYCLE
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
-    //ROOM ;)
+    //ROOM ✊🏼
     implementation 'androidx.room:room-runtime:2.1.0-beta01'
     annotationProcessor 'androidx.room:room-compiler:2.1.0-beta01'
     androidTestImplementation 'androidx.room:room-testing:2.1.0-beta01'
+
+    //FIREBASE 🔥
+    //ETHIO-TELECOM SHUT DOWN THE INTERNET 😡.
+    //implementation firebase.core
+    //implementation firebase.config
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     implementation('com.github.bumptech.glide:glide:4.8.0') { exclude group: "com.android.support" }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

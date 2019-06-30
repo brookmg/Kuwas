@@ -16,3 +16,5 @@
 *.apk
 *.aab
 build
+
+app/google-services.json
