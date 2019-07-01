@@ -16,5 +16,6 @@
 *.apk
 *.aab
 build
+play_releases
 
 app/google-services.json
