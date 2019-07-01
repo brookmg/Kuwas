@@ -16,6 +16,7 @@
 
 package app.kuwas.android.ui.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -41,6 +41,7 @@ import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.utils.FabStates;
 
 import static app.kuwas.android.utils.FabStates.STATE_EXPAND;
+import static app.kuwas.android.utils.Utils.dpToPx;
 
 /**
  * Created by BrookMG on 4/9/2019 in app.kuwas.android.ui.fragments
@@ -67,6 +68,14 @@ public class HomeFragment extends BaseFragment {
         ViewCompat.setElevation(appBarLayout, elevationLevel);
     }
 
+    // TODO: 7/1/2019 FIGURE OUT A WAY TO ADDRESS POPUP AND MULTI-SCREEN CASES
+    private void handleTopPaddingOnAppBarLayout(AppBarLayout appBarLayout) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // the sdk is greater than lollipop; the app is being drawn under the status bar
+            appBarLayout.setPadding(0, getActivity() != null ? dpToPx(getActivity(), 24) : 0, 0, 0);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,6 +86,8 @@ public class HomeFragment extends BaseFragment {
         tabLayout = mainView.findViewById(R.id.tab_layout);
         viewPager = mainView.findViewById(R.id.main_view_pager);
         refreshFab = mainView.findViewById(R.id.refresh_fab);
+
+        handleTopPaddingOnAppBarLayout(appBarLayout);
 
         if (getActivity() != null) {
             tabAdapter = new TabAdapter(getChildFragmentManager());
