@@ -53,6 +53,7 @@ import io.brookmg.soccerethiopiaapi.utils.Constants;
 import app.kuwas.android.R;
 import io.brookmg.soccerethiopiaapi.utils.Utils;
 
+import static app.kuwas.android.utils.Utils.dpToPx;
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
 import static java.lang.Math.round;
@@ -67,6 +68,14 @@ public class FavoriteTeam extends AppCompatActivity {
     TagsChipRecyclerAdapter mainTagsAdapter = new TagsChipRecyclerAdapter(selectedTeamNames);
     int recyclerViewY = 0;
     AppCompatTextView nothingSelected;
+
+    // TODO: 7/1/2019 FIGURE OUT A WAY TO ADDRESS POPUP AND MULTI-SCREEN CASES
+    private void handleTopPaddingOnAppBarLayout(AppBarLayout appBarLayout) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // the sdk is greater than lollipop; the app is being drawn under the status bar
+            appBarLayout.setPadding(0, dpToPx(this, 24), 0, 0);
+        }
+    }
 
     private void computeRecyclerViewScrollForAppbarElevation(Integer yDiff) {
         recyclerViewY += yDiff; //not reliable, but it's one way to find scroll position to compute the elevation for the elevation
@@ -107,16 +116,16 @@ public class FavoriteTeam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_team);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white_0y));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                getWindow().getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                );
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            );
 
         appBarLayout = findViewById(R.id.appbar_layout);
+
+        handleTopPaddingOnAppBarLayout(appBarLayout);
         nothingSelected = findViewById(R.id.nothing_selected);
         mainFavoriteRecyclerView = findViewById(R.id.main_favorite_recycler_view);
         selectedTeams = findViewById(R.id.selected_teams);

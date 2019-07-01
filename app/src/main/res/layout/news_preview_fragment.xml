@@ -39,7 +39,6 @@
                 app:fabSize="mini"
                 app:backgroundTint="@color/white_0"
                 app:rippleColor="@color/green_1"
-                android:layout_marginTop="32dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 app:srcCompat="@drawable/ic_back"

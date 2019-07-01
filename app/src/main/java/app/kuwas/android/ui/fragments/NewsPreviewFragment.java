@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
@@ -89,6 +90,14 @@ public class NewsPreviewFragment extends BaseFragment {
         refresh();
     }
 
+    private void handleTopMarginOnFAB(FloatingActionButton button) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // the sdk is greater than lollipop; the app is being drawn under the status bar
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
+            marginParams.setMargins(0, getActivity() != null ? dpToPx(getActivity(), 32) : 0, 0, 0);
+        }
+    }
+
     @Override
     public void refresh() {
         super.refresh();
@@ -131,6 +140,7 @@ public class NewsPreviewFragment extends BaseFragment {
         newsTagsHolder = mainView.findViewById(R.id.news_tags_holder);
         newsTitle = mainView.findViewById(R.id.news_title);
         newsDateTimePlusAuthor = mainView.findViewById(R.id.news_date_time_plus_author);
+        handleTopMarginOnFAB(mainView.findViewById(R.id.back_button));
 
         mainView.findViewById(R.id.back_button).setOnClickListener(v -> getActivity().onBackPressed());
 

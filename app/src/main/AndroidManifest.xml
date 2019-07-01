@@ -21,9 +21,7 @@
             android:name=".ui.activities.FavoriteTeam"
             android:configChanges="orientation|screenLayout|screenSize|keyboard|keyboardHidden"
             android:label="@string/choose_favorite_team"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activities.Splash"
             android:configChanges="orientation|screenLayout|screenSize|keyboard|keyboardHidden"
