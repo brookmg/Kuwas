@@ -46,9 +46,9 @@ dependencies {
     androidTestImplementation 'androidx.room:room-testing:2.1.0-beta01'
 
     //FIREBASE 🔥
-    //ETHIO-TELECOM SHUT DOWN THE INTERNET 😡.
-    //implementation firebase.core
-    //implementation firebase.config
+
+    implementation firebase.core
+    implementation firebase.config
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

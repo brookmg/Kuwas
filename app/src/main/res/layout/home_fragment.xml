@@ -47,7 +47,7 @@
             app:tabTextColor="@color/black_0"
             app:layout_scrollFlags="snap"
             android:id="@+id/tab_layout"
-            app:tabContentStart="25dp"
+            app:tabContentStart="32dp"
             app:tabMode="scrollable"
             app:layout_scrollInterpolator="@android:anim/overshoot_interpolator"
             app:tabSelectedTextColor="@color/green_0"

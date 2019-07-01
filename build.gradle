@@ -23,10 +23,10 @@ ext {
     apiMinorVersion = 2
     apiBuildVersion = 1
 
-    firebaseVersion = '16.0.8'
+    firebaseVersion = '17.0.0'
     firebaseStorage = '16.1.0'
     firebaseDatabase = '16.1.0'
-    firebasePref = '16.2.4'
+    firebasePref = '18.0.0'
     firebaseMessaging = '17.4.0'
     firebaseAds = '17.2.0'
     firebaseInappMessaging = '17.1.0'
