@@ -23,6 +23,11 @@ ext {
     apiMinorVersion = 2
     apiBuildVersion = 1
 
+    appVersionMajor = 1
+    appVersionMinor = 0
+    appVersionMinorMinor = 0    //didn't know what to call this 🤔
+    buildNum = 20
+
     firebaseVersion = '17.0.0'
     firebaseStorage = '16.1.0'
     firebaseDatabase = '16.1.0'
