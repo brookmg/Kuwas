@@ -26,4 +26,7 @@ public class Constants {
     public static final String TAG_NEWS_PREVIEW = "tag_news_preview";
     public static final String PREFERENCE_FAV_TEAMS = "pref_fav_teams";
 
+    // remote config keys start here
+    public static final String FRC_LATEST_VERSION = "latest_version";
+
 }

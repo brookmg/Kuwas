@@ -17,6 +17,13 @@
 package app.kuwas.android;
 
 import android.app.Application;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
@@ -28,11 +35,18 @@ public class App extends Application {
 
     private static App instance;
     private SoccerEthiopiaApi api;
+    private FirebaseRemoteConfig remoteConfig;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        remoteConfig = FirebaseRemoteConfig.getInstance();
+        remoteConfig.fetchAndActivate().addOnCompleteListener(
+                task -> Log.d("REMOTE_CONFIG", "completed - " +
+                        (task.isComplete() && task.isSuccessful() ? "YAP" : "NOP"))
+        );
 
         api = new SoccerEthiopiaApi(this, true);
     }
@@ -43,5 +57,9 @@ public class App extends Application {
 
     public SoccerEthiopiaApi getApi() {
         return api;
+    }
+
+    public FirebaseRemoteConfig getRemoteConfig() {
+        return remoteConfig;
     }
 }

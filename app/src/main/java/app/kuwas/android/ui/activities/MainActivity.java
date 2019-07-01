@@ -16,9 +16,11 @@
 
 package app.kuwas.android.ui.activities;
 
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,14 +37,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.TransitionInflater;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.lang.ref.WeakReference;
 
+import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
 import app.kuwas.android.ui.fragments.NewsPreviewFragment;
 
+import static app.kuwas.android.utils.Constants.FRC_LATEST_VERSION;
 import static app.kuwas.android.utils.Constants.TAG_HOME;
 import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
 import static app.kuwas.android.utils.FabStates.FabState;
@@ -63,9 +68,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isThereUpdateAvailable() {
-        // TODO: 6/30/2019 CHECK FIREBASE REMOTE CONFIG FOR LATEST APP VERSION AND COMPARE
-        return false;   // return false for now.
+    private boolean isThereUpdateAvailable() throws PackageManager.NameNotFoundException {
+        long latestVersion = App.getInstance().getRemoteConfig().getLong(FRC_LATEST_VERSION);
+        long currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        Log.d("UPDATE_STATUS", "available - " + (latestVersion > currentVersion ? "YAP" : "NOP"));
+        return latestVersion > currentVersion;   // return true if an update available.
     }
 
     @Override
@@ -142,7 +149,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(0).setVisible(isThereUpdateAvailable());   // make it only visible if there is an update available
+        try {
+            menu.getItem(0).setVisible(isThereUpdateAvailable());   // make it only visible if there is an update available
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
