@@ -14,7 +14,7 @@
 
     <item android:id="@+id/support_development"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_check"
+        android:icon="@drawable/ic_support_development"
         app:iconTint="@color/green_0"
         android:visible="true"
         android:title="@string/support_development"
