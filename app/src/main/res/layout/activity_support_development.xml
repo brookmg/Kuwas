@@ -99,5 +99,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/donate_10" />
 
+    <LinearLayout
+        android:id="@+id/split_container"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/donate_10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/dash_1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_margin="10dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:background="@color/black_0"
+            android:alpha="0.5"
+            android:layout_height="1dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/or_text"
+            android:text="OR"
+            android:layout_weight="1"
+            android:textColor="@color/black_0"
+            android:alpha="0.5"
+            android:gravity="center"
+            android:padding="10dp"
+            style="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/dash_2"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:alpha="0.5"
+            android:background="@color/black_0"
+            android:layout_margin="10dp"
+            android:layout_height="1dp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/rate_us"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        app:backgroundTint="@color/green_0"
+        android:textColor="@color/white_0"
+        app:layout_constraintTop_toBottomOf="@+id/split_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/rate_us_on_playstore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
