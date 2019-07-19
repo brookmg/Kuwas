@@ -17,6 +17,7 @@
 package app.kuwas.android.ui.activities;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -176,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_update) {
             openPlayStore(this);    // probably will change this to play core lib impl ... but not yet
             return true;
+        } else if (id == R.id.support_development) {
+            startActivity(new Intent(this, SupportDevelopmentActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
