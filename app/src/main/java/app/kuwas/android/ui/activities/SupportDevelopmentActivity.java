@@ -16,9 +16,12 @@
 
 package app.kuwas.android.ui.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.PaymentResponse;
@@ -28,27 +31,63 @@ import com.yenepaySDK.model.OrderedItem;
 
 import app.kuwas.android.R;
 
+import static app.kuwas.android.utils.Utils.dpToPx;
+
 public class SupportDevelopmentActivity extends YenePayPaymentActivity {
 
     private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
+
+    private void handleTopPaddingOnAppBarLayout(AppBarLayout appBarLayout) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // the sdk is greater than lollipop; the app is being drawn under the status bar
+            appBarLayout.setPadding(0, dpToPx(this, 24), 0, 0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support_development);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            );
+
         setupPaymentProcess();
-        try {
-            startCheckOut(5);
-        } catch (InvalidPaymentException e) {
-            e.printStackTrace();
-            Log.e("YenePayImpl" , e.toString());
-        }
+        findViewById(R.id.donate_5).setOnClickListener(v -> {
+            try {
+                startCheckOut(5);
+            } catch (InvalidPaymentException e) {
+                e.printStackTrace();
+                Log.e("YenePayImpl" , e.toString());
+            }
+        });
+
+        findViewById(R.id.donate_10).setOnClickListener(v -> {
+            try {
+                startCheckOut(10);
+            } catch (InvalidPaymentException e) {
+                e.printStackTrace();
+                Log.e("YenePayImpl" , e.toString());
+            }
+        });
+
+        findViewById(R.id.donate_15).setOnClickListener(v -> {
+            try {
+                startCheckOut(15);
+            } catch (InvalidPaymentException e) {
+                e.printStackTrace();
+                Log.e("YenePayImpl" , e.toString());
+            }
+        });
     }
 
     private void setupPaymentProcess() {
         paymentManager.setPaymentProcess(PaymentOrderManager.PROCESS_CART);
-        paymentManager.setReturnUrl("app.kuwas.android://dev_supported");
+        paymentManager.setReturnUrl("app.kuwas.android:/dev_supported");
 
         paymentManager.setUseSandboxEnabled(true);  // TODO: set this to false when moving to production
         paymentManager.setShoppingCartMode(false);
@@ -61,6 +100,19 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
                 paymentManager.startCheckout(this);
                 break;
             }
+
+            case 10: {
+                paymentManager.addItem(new OrderedItem("10birr4kuwas", "Support Kuwas Development (10Br)", 1, 10.0));
+                paymentManager.startCheckout(this);
+                break;
+            }
+
+            case 15: {
+                paymentManager.addItem(new OrderedItem("15birr4kuwas", "Support Kuwas Development (15Br)", 1, 15.0));
+                paymentManager.startCheckout(this);
+                break;
+            }
+
             default: {
                 // we only have 5 birr ticket for now
                 paymentManager.addItem(new OrderedItem("5birr4kuwas", "Support Kuwas Development (5Br)", 1, 5.0));
