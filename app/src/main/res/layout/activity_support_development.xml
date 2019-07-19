@@ -27,6 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+        app:tint="@color/black_0"
+        app:fabSize="mini"
+        app:backgroundTint="@color/white_0"
+        android:layout_marginLeft="8dp"
+        app:rippleColor="@color/green_1"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />

@@ -94,7 +94,7 @@ public class NewsPreviewFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // the sdk is greater than lollipop; the app is being drawn under the status bar
             ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
-            marginParams.setMargins(0, getActivity() != null ? dpToPx(getActivity(), 32) : 0, 0, 0);
+            marginParams.setMargins(getActivity() != null ? dpToPx(getActivity(), 8) : 0, getActivity() != null ? dpToPx(getActivity(), 32) : 0, 0, 0);
         }
     }
 
