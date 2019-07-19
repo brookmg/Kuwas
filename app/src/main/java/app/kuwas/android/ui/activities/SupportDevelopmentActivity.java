@@ -20,8 +20,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.PaymentResponse;
@@ -38,12 +40,14 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
 
     private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
 
-    private void handleTopPaddingOnAppBarLayout(AppBarLayout appBarLayout) {
+    private void handleTopMarginOnFAB(FloatingActionButton button) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // the sdk is greater than lollipop; the app is being drawn under the status bar
-            appBarLayout.setPadding(0, dpToPx(this, 24), 0, 0);
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
+            marginParams.setMargins( dpToPx(this, 8), dpToPx(this, 32), 0, 0);
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
             );
 
         setupPaymentProcess();
+        handleTopMarginOnFAB(findViewById(R.id.back_button));
+        findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
         findViewById(R.id.rate_us).setOnClickListener(v -> openPlayStore(this));
         findViewById(R.id.donate_5).setOnClickListener(v -> {
             try {
@@ -138,5 +144,10 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
         super.onPaymentResponseError(error);
         // Log this error
         Log.e("YenePayImpl" , error);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
