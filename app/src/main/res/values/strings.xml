@@ -9,4 +9,10 @@
     <string name="player_s_team_icon">Player\'s team icon</string>
     <string name="player_s_country">Player\'s country</string>
     <string name="update_available">Update Available</string>
+    <string name="support_development">Support Development</string>
+    <string name="support_the_development_of_kuwas_application">Support the development of kuwas application</string>
+    <string name="donate_5_birr">Donate 5 Birr</string>
+    <string name="donate_10_birr">Donate 10 Birr</string>
+    <string name="donate_15_birr">Donate 15 Birr</string>
+    <string name="donate_20_birr">Donate 20 Birr</string>
 </resources>

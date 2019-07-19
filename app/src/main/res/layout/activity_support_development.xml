@@ -22,4 +22,82 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.SupportDevelopmentActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/support_development_anim"
+        android:layout_width="0dp"
+        android:layout_height="290dp"
+        app:layout_constraintBottom_toTopOf="@+id/support_development"
+        app:layout_constraintEnd_toEndOf="@+id/support_development"
+        app:layout_constraintStart_toStartOf="@+id/support_development"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_scale="0.3"
+        app:lottie_loop="true"
+        app:lottie_fileName="support.json"
+        android:scaleType="fitXY"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/support_development"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:padding="16dp"
+        android:text="@string/support_the_development_of_kuwas_application"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/TextAppearance.MaterialComponents.Button"
+        android:textColor="@color/black_0"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/support_development_anim" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/donate_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        app:tint="@color/green_0"
+        app:layout_constraintTop_toBottomOf="@+id/support_development"
+        app:srcCompat="@drawable/ic_drink"
+        android:contentDescription="@string/donate_5_birr"
+        app:layout_constraintEnd_toStartOf="@+id/donate_10"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/donate_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/ic_taxi"
+        app:tint="@color/green_0"
+        android:contentDescription="@string/donate_10_birr"
+        app:layout_constraintTop_toBottomOf="@+id/support_development"
+        app:layout_constraintEnd_toStartOf="@+id/donate_15"
+        app:layout_constraintStart_toEndOf="@+id/donate_5" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/donate_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/ic_pizza"
+        app:layout_constraintTop_toBottomOf="@+id/support_development"
+        app:tint="@color/green_0"
+        android:contentDescription="@string/donate_15_birr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/donate_10" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
