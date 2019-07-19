@@ -32,6 +32,7 @@ import com.yenepaySDK.model.OrderedItem;
 import app.kuwas.android.R;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
+import static app.kuwas.android.utils.Utils.openPlayStore;
 
 public class SupportDevelopmentActivity extends YenePayPaymentActivity {
 
@@ -57,6 +58,7 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
             );
 
         setupPaymentProcess();
+        findViewById(R.id.rate_us).setOnClickListener(v -> openPlayStore(this));
         findViewById(R.id.donate_5).setOnClickListener(v -> {
             try {
                 startCheckOut(5);
