@@ -16,6 +16,7 @@
 
 package app.kuwas.android.ui.adapters;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import app.kuwas.android.R;
 import io.brookmg.soccerethiopiaapi.data.Player;
@@ -82,7 +84,29 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             Glide.with(((ViewHolder) holder).playerCurrentTeam).load(
                     players.get(position - 1).getCurrentTeam().getTeamLogo()
             ).apply(RequestOptions.circleCropTransform()).into(((ViewHolder) holder).playerCurrentTeam);
-            // TODO: 6/29/2019 A way to get flag icon of a country. some kind of repo and load that to the imageview
+
+            new Thread(() -> {
+                try {
+
+                    Drawable drawable = Glide.with(holder.itemView).asDrawable().load(
+                            "https://www.countryflags.io/" + players.get(position - 1)
+                                    .getAlpha2CountryCode(((ViewHolder) holder)
+                                            .playerCountry.getContext())
+                                    + "/flat/64.png")
+                            .submit().get();
+
+                    ((ViewHolder) holder).playerCountry.post(() ->
+                            ((ViewHolder) holder).playerName
+                                    .setCompoundDrawablesWithIntrinsicBounds(
+                                            null, null,
+                                            drawable, null));
+
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
 
             if (onItemActionListener != null) {
                 holder.itemView.setOnClickListener(view -> onItemActionListener.onItemClicked(view, holder.getAdapterPosition()));
