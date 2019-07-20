@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
@@ -29,6 +30,10 @@ import com.yenepaySDK.PaymentResponse;
 import com.yenepaySDK.YenePayPaymentActivity;
 import com.yenepaySDK.errors.InvalidPaymentException;
 import com.yenepaySDK.model.OrderedItem;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import app.kuwas.android.R;
 
@@ -38,6 +43,7 @@ import static app.kuwas.android.utils.Utils.openPlayStore;
 public class AboutActivity extends YenePayPaymentActivity {
 
     private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
+    private RecyclerView aboutCardsRecyclerView, usedLibrariesRecyclerView;
 
     private void handleTopMarginOnFAB(FloatingActionButton button) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -64,30 +70,9 @@ public class AboutActivity extends YenePayPaymentActivity {
         handleTopMarginOnFAB(findViewById(R.id.back_button));
         findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
         findViewById(R.id.rate_us).setOnClickListener(v -> openPlayStore(this));
-        findViewById(R.id.donate_5).setOnClickListener(v -> {
-            try {
-                startCheckOut(5);
-            } catch (InvalidPaymentException e) {
-                e.printStackTrace();
-                Log.e("YenePayImpl" , e.toString());
+
             }
         });
-
-        findViewById(R.id.donate_10).setOnClickListener(v -> {
-            try {
-                startCheckOut(10);
-            } catch (InvalidPaymentException e) {
-                e.printStackTrace();
-                Log.e("YenePayImpl" , e.toString());
-            }
-        });
-
-        findViewById(R.id.donate_15).setOnClickListener(v -> {
-            try {
-                startCheckOut(15);
-            } catch (InvalidPaymentException e) {
-                e.printStackTrace();
-                Log.e("YenePayImpl" , e.toString());
             }
         });
     }
