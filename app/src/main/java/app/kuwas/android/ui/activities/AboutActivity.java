@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
@@ -36,7 +35,7 @@ import app.kuwas.android.R;
 import static app.kuwas.android.utils.Utils.dpToPx;
 import static app.kuwas.android.utils.Utils.openPlayStore;
 
-public class SupportDevelopmentActivity extends YenePayPaymentActivity {
+public class AboutActivity extends YenePayPaymentActivity {
 
     private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
 
@@ -52,7 +51,7 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_support_development);
+        setContentView(R.layout.activity_about);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             getWindow().getDecorView().setSystemUiVisibility(
@@ -97,7 +96,7 @@ public class SupportDevelopmentActivity extends YenePayPaymentActivity {
         paymentManager.setPaymentProcess(PaymentOrderManager.PROCESS_CART);
         paymentManager.setReturnUrl("app.kuwas.android:/dev_supported");
 
-        paymentManager.setUseSandboxEnabled(true);  // TODO: set this to false when moving to production
+        paymentManager.setUseSandboxEnabled(false);  // TODO: set this to false when moving to production
         paymentManager.setShoppingCartMode(false);
     }
 

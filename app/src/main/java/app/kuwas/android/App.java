@@ -21,15 +21,11 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.model.YenePayConfiguration;
 
-import app.kuwas.android.ui.activities.SupportDevelopmentActivity;
+import app.kuwas.android.ui.activities.AboutActivity;
 import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
 /**
@@ -55,8 +51,8 @@ public class App extends Application {
 
         api = new SoccerEthiopiaApi(this, true);
 
-        PendingIntent completionIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, SupportDevelopmentActivity.class), 0);
-        PendingIntent cancelIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, SupportDevelopmentActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent completionIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
+        PendingIntent cancelIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
 
         YenePayConfiguration.setDefaultInstance(
                 new YenePayConfiguration.Builder(this)
