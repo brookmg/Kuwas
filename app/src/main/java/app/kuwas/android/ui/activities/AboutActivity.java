@@ -16,13 +16,20 @@
 
 package app.kuwas.android.ui.activities;
 
+import android.content.ComponentName;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsServiceConnection;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
@@ -36,9 +43,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import app.kuwas.android.R;
+import app.kuwas.android.ui.adapters.AboutItemsRecyclerAdapter;
+import app.kuwas.android.ui.adapters.UsedLibrariesRecyclerAdapter;
 
+import static app.kuwas.android.utils.Utils.bindCustomTabsService;
 import static app.kuwas.android.utils.Utils.dpToPx;
 import static app.kuwas.android.utils.Utils.openPlayStore;
+import static app.kuwas.android.utils.Utils.openUrlInCustomTab;
 
 public class AboutActivity extends YenePayPaymentActivity {
 
@@ -53,6 +64,28 @@ public class AboutActivity extends YenePayPaymentActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bindCustomTabsService(this, new CustomTabsServiceConnection() {
+            @Override
+            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+                client.warmup(0);
+                client.newSession(null);
+                Log.d("CHROME", name.flattenToShortString());
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        });
+    }
+
+    @Nullable
+    private View.OnClickListener clickToGo(String link) {
+        return link != null && !link.isEmpty() ? v -> openUrlInCustomTab(this, link) : null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +104,87 @@ public class AboutActivity extends YenePayPaymentActivity {
         findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
         findViewById(R.id.rate_us).setOnClickListener(v -> openPlayStore(this));
 
+        //TODO: This about screen content should be fetched from remote config
+        ArrayList<AboutItemsRecyclerAdapter.AboutItem> aboutItemArrayList = new ArrayList<>();
+        aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Kuwas" ,
+                "Kuwas is an app designed to help people around " +
+                        "the world get latest and accurate information " +
+                        "about the Ethiopian premier league. " , "", null));
+
+        aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Changelog",
+                "Been working on kuwas for sometime now. " +
+                        "First the library behind the app then the app itself. " +
+                        "Click the button below to see the progress.", "ChangeLog", v -> {
+            // open custom chrome tab to our change log
+
+        }));
+
+        aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Privacy Policy",
+                "We do not take any personal information without" +
+                        " your consent. You can read the full " +
+                        "privacy policy by clicking the button below.", "Privacy Policy", v -> {
+            // open custom chrome tab to our privacy log
+            openUrlInCustomTab(this, "https://kuwas.something.com/privacy");
+        }));
+
+        aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Group",
+                "Join our telegram group if you wish to know " +
+                        "more about the upcoming updates and discuss " +
+                        "about kuwas and what we should add or remove next.", "Telegram", v -> {
+            // open telegram
+            openUrlInCustomTab(this, "https://t.me/kuwasappgroup");
+        }));
+
+        ArrayList<UsedLibrariesRecyclerAdapter.LibItem> libItems = new ArrayList<>();
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "Soccer Ethiopia API" ,
+                "BrookMG", clickToGo("https://github.com/brookmg/Soccer-Ethiopia-Api")));
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "YenePay" ,
+                "YenePay", clickToGo("https://yenepay.com")));
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "Material Components" ,
+                "Google", clickToGo("")));
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "Lottie" ,
+                "Airbnb", clickToGo("")));
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "Room" ,
+                "Google", clickToGo("")));
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "Firebase" ,
+                "Google", clickToGo("https://firebase.com")));
+
+        libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
+                "Glide" ,
+                "BumpTech", clickToGo("")));
+
+        aboutCardsRecyclerView = findViewById(R.id.main_content_recycler_view);
+        aboutCardsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
             }
         });
+        aboutCardsRecyclerView.setAdapter(new AboutItemsRecyclerAdapter(aboutItemArrayList));
+        aboutCardsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        usedLibrariesRecyclerView = findViewById(R.id.libraries_used_recycler_view);
+        usedLibrariesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
             }
         });
+
+        usedLibrariesRecyclerView.setAdapter(new UsedLibrariesRecyclerAdapter(libItems));
+        usedLibrariesRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     private void setupPaymentProcess() {
