@@ -27,8 +27,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Px;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsServiceConnection;
+import androidx.core.content.ContextCompat;
 
 import java.util.Date;
+
+import app.kuwas.android.R;
 
 /**
  * Created by BrookMG on 5/20/2019 in app.kuwas.android.utils
@@ -103,6 +109,17 @@ public class Utils {
         } catch (android.content.ActivityNotFoundException anfe) {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
         }
+    }
+
+    public static boolean bindCustomTabsService(Context context, CustomTabsServiceConnection connection) {
+        return CustomTabsClient.bindCustomTabsService(context, "com.android.chrome", connection);
+    }
+
+    public static void openUrlInCustomTab(Context context, String url) {
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                .setToolbarColor(ContextCompat.getColor(context, R.color.green_0))
+                .enableUrlBarHiding().setShowTitle(true).build();
+        customTabsIntent.launchUrl(context, Uri.parse(url));
     }
 
 }

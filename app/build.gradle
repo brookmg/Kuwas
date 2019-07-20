@@ -60,6 +60,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     implementation 'com.github.YenePay:yenepay.sdk.android:0.0.10'
+    implementation 'com.android.support:customtabs:28.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
