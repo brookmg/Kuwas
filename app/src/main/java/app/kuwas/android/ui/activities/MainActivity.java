@@ -16,36 +16,24 @@
 
 package app.kuwas.android.ui.activities;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.TransitionInflater;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.lang.ref.WeakReference;
 
@@ -55,11 +43,6 @@ import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
 import app.kuwas.android.ui.fragments.NewsPreviewFragment;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-import static android.view.WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
-import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
 import static app.kuwas.android.utils.Constants.FRC_LATEST_VERSION;
 import static app.kuwas.android.utils.Constants.TAG_HOME;
 import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
@@ -178,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             openPlayStore(this);    // probably will change this to play core lib impl ... but not yet
             return true;
         } else if (id == R.id.support_development) {
-            startActivity(new Intent(this, SupportDevelopmentActivity.class));
+            startActivity(new Intent(this, AboutActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
