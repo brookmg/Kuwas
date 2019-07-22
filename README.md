@@ -19,6 +19,9 @@
 </tr>
 </table></p>
 
+#### You can find this app on play-store 
+<p><a href='https://play.google.com/store/apps/details?id=app.kuwas.android&utm_source=github&utm_campaign=ReadmeKuwasGithub&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='በGoogle Play ላይ ያግኙት' src='https://play.google.com/intl/en_us/badges/images/generic/am_badge_web_generic.png'/></a></p>
+
 ## Features
 
 * [X] AD-FREE
