@@ -16,6 +16,7 @@
 
 package app.kuwas.android.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
+import app.kuwas.android.ui.activities.TeamInformation;
 import app.kuwas.android.ui.adapters.ScoresRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
 
@@ -60,7 +62,11 @@ public class ScoresFragment extends BaseFragment {
             App.getInstance().getApi().getThisWeekLeagueSchedule(
                     scheduleItems -> {
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                        mainRecycler.setAdapter(new ScoresRecyclerAdapter(scheduleItems));
+                        mainRecycler.setAdapter(new ScoresRecyclerAdapter(scheduleItems, team -> {
+                            Intent intent = new Intent(getActivity(), TeamInformation.class);
+                            intent.putExtra("team", team);
+                            startActivity(intent);
+                        }));
                     },
                     error -> Log.e("ScoresFragment" , error)
             );

@@ -49,11 +49,22 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private List<Boolean> leagueScheduleItemsShouldShowDate;
     private List<LeagueScheduleItem> leagueScheduleItems;
 
+    public interface OnTeamClicked {
+        void onClick(Team team);
+    }
+
+    private OnTeamClicked teamClicked;
+
     private final int HEADER = 0;
     private final int SCORE = 1;
 
     public ScoresRecyclerAdapter(List<LeagueScheduleItem> leagueScheduleItems) {
+        this(leagueScheduleItems, null);
+    }
+
+    public ScoresRecyclerAdapter(List<LeagueScheduleItem> leagueScheduleItems, OnTeamClicked teamClicked) {
         Collections.reverse(leagueScheduleItems);
+        this.teamClicked = teamClicked;
         this.leagueScheduleItems = leagueScheduleItems;
         setupLeagueScheduleShouldShowDateBooleanList();
     }
@@ -119,7 +130,14 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             Glide.with(((ViewHolder) holder).team_1_image).load(team_result.keySet().toArray(new Team[0])[0].getTeamLogo()).into(((ViewHolder) holder).team_1_image);
             Glide.with(((ViewHolder) holder).team_2_image).load(team_result.keySet().toArray(new Team[0])[1].getTeamLogo()).into(((ViewHolder) holder).team_2_image);
+
+            ((ViewHolder) holder).team_1_image.setOnClickListener(v -> fireTeamClicked(team_result.keySet().toArray(new Team[0])[0]));
+            ((ViewHolder) holder).team_2_image.setOnClickListener(v -> fireTeamClicked(team_result.keySet().toArray(new Team[0])[1]));
         }
+    }
+
+    private void fireTeamClicked(Team team) {
+        if (teamClicked != null) teamClicked.onClick(team);
     }
 
     @Override
