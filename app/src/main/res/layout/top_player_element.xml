@@ -27,12 +27,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/numberHolder"
         app:contentPadding="5dp"
-        android:layout_width="70dp"
+        android:layout_width="55dp"
         android:layout_margin="@dimen/fab_margin"
         app:cardBackgroundColor="@color/white_0"
         app:cardElevation="9dp"
         app:cardCornerRadius="@dimen/fab_margin"
-        android:layout_height="70dp">
+        android:layout_height="55dp">
 
         <TextView
             android:text="@string/hash_tag_symbol"
