@@ -16,6 +16,7 @@
 
 package app.kuwas.android.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +31,9 @@ import androidx.core.widget.NestedScrollView;
 import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
+import app.kuwas.android.ui.activities.TeamInformation;
 import app.kuwas.android.ui.widgets.StandingTable;
+import io.brookmg.soccerethiopiaapi.data.Team;
 
 import static java.lang.Math.min;
 import static java.lang.Math.round;
@@ -74,6 +77,12 @@ public class StandingFragment extends BaseFragment {
                 (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) ->
                         setAppBarElevation(round(min(scrollY * 0.4f , 12f)))
         );
+
+        mainTable.setOnTableRowClickedCallback(team -> {
+            Intent intent = new Intent(getActivity(), TeamInformation.class);
+            intent.putExtra("team", team);
+            startActivity(intent);
+        });
         return mainView;
     }
 }

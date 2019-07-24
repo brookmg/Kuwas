@@ -139,7 +139,7 @@ public class TeamInformationAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         } else {
             ViewGroup.LayoutParams params = ((HeaderViewHolder) holder).blankView.getLayoutParams();
-            params.height = dpToPx(holder.itemView.getContext(), 50);
+            params.height = dpToPx(holder.itemView.getContext(), 56);
             ((HeaderViewHolder) holder).blankView.setLayoutParams(params);
         }
     }

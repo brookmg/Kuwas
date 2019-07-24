@@ -37,6 +37,7 @@ import java.util.Locale;
 
 import app.kuwas.android.R;
 import io.brookmg.soccerethiopiaapi.data.RankItem;
+import io.brookmg.soccerethiopiaapi.data.Team;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
 
@@ -50,6 +51,12 @@ public class StandingTable extends TableLayout {
         void apply(View item);
     }
 
+    public interface OnTableRowClicked {
+        void onClick(Team team);
+    }
+
+    OnTableRowClicked onTableRowClickedCallback;
+
     public StandingTable(Context context) {
         super(context);
     }
@@ -61,12 +68,22 @@ public class StandingTable extends TableLayout {
     public void populateTable(List<RankItem> ranks) {
         setStretchAllColumns(true);
         bringToFront();
-        addRows(generateTableRow(0, null));
-        for (RankItem rank : ranks) addRows(generateTableRow(1, rank));
+        addRows(null, generateTableRow(0, null));
+        for (RankItem rank : ranks) addRows(rank, generateTableRow(1, rank));
     }
 
-    private void addRows(TableRow ...rows) {
-        for (TableRow row : rows) addView(row);
+    public void setOnTableRowClickedCallback(OnTableRowClicked onTableRowClicked) {
+        this.onTableRowClickedCallback = onTableRowClicked;
+    }
+
+    private void addRows(RankItem rankItem, TableRow ...rows) {
+        for (TableRow row : rows) {
+            row.setOnClickListener(v -> {
+                if (onTableRowClickedCallback != null && rankItem != null)
+                    onTableRowClickedCallback.onClick(rankItem.getTeam());
+            });
+            addView(row);
+        }
     }
 
     private void addMultipleViews(ViewGroup viewGroup, View... items){
