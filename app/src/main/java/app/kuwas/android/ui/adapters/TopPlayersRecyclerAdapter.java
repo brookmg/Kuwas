@@ -24,17 +24,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import app.kuwas.android.App;
 import app.kuwas.android.R;
 import io.brookmg.soccerethiopiaapi.data.Player;
+import io.brookmg.soccerethiopiaapi.data.Team;
 
 /**
  * Created by BrookMG on 5/5/2019 in app.kuwas.android.ui.adapters
@@ -74,6 +80,12 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         return position == 0 ? HEADER : PLAYERS;   //the first item should be the header
     }
 
+    private List<String> filterOutStringFromTeams(List<Team> teams) {
+        List<String> names = new ArrayList<>();
+        for (Team team : teams) names.add(team.getTeamFullName());
+        return names;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // decrease one from position because the header is also counted
@@ -84,6 +96,29 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             Glide.with(((ViewHolder) holder).playerCurrentTeam).load(
                     players.get(position - 1).getCurrentTeam().getTeamLogo()
             ).apply(RequestOptions.circleCropTransform()).into(((ViewHolder) holder).playerCurrentTeam);
+
+            ((ViewHolder) holder).moreDetails.setOnExpansionUpdateListener((expansionFraction, state) -> {
+                if (state == ExpandableLayout.State.EXPANDED) {
+                    App.getInstance().getApi().getPlayerDetail(players.get(position - 1), player -> {
+                        ((ViewHolder) holder).playerNumberContent.setText(String.format(Locale.US, "%d", player.getNumber()));
+                        ((ViewHolder) holder).playerPosition.setText(player.getPlayerPosition());
+                        ((ViewHolder) holder).previousTeamsRecycler.setLayoutManager(new LinearLayoutManager(
+                                ((ViewHolder) holder).previousTeamsRecycler.getContext(),
+                                RecyclerView.HORIZONTAL,
+                                false
+                        ));
+
+                        if (!player.getPreviousTeams().isEmpty())
+                            ((ViewHolder) holder).previousTeamsRecycler.setAdapter(
+                                    new TagsChipRecyclerAdapter(filterOutStringFromTeams(player.getPreviousTeams()))
+                            );
+                        else
+                            ((ViewHolder) holder).playerPreviousTeamsTitle.setVisibility(View.GONE);
+                    }, error -> {
+
+                    });
+                }
+            });
 
             new Thread(() -> {
                 try {
@@ -109,7 +144,10 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             }).start();
 
             if (onItemActionListener != null) {
-                holder.itemView.setOnClickListener(view -> onItemActionListener.onItemClicked(view, holder.getAdapterPosition()));
+                holder.itemView.setOnClickListener(view -> {
+                    ((ViewHolder) holder).moreDetails.toggle(true);
+                    onItemActionListener.onItemClicked(view, holder.getAdapterPosition());
+                });
                 holder.itemView.setOnLongClickListener(view -> onItemActionListener.onItemLongClicked(view, holder.getAdapterPosition()));
             }
 
@@ -123,8 +161,10 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        AppCompatTextView playerRank, playerName, playerGoals;
+        AppCompatTextView playerRank, playerName, playerGoals, playerNumberContent, playerPosition, playerPreviousTeamsTitle;
         AppCompatImageView playerCurrentTeam, playerCountry;
+        ExpandableLayout moreDetails;
+        RecyclerView previousTeamsRecycler;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -133,6 +173,11 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             playerGoals = itemView.findViewById(R.id.player_goals);
             playerCurrentTeam = itemView.findViewById(R.id.player_team_icon);
             playerCountry = itemView.findViewById(R.id.player_country_flag);
+            moreDetails = itemView.findViewById(R.id.main_expandable_layout);
+            playerNumberContent = itemView.findViewById(R.id.playing_as_number_content);
+            playerPosition = itemView.findViewById(R.id.player_position_content);
+            previousTeamsRecycler = itemView.findViewById(R.id.player_previous_teams_content);
+            playerPreviousTeamsTitle = itemView.findViewById(R.id.player_previous_teams_title);
         }
     }
 

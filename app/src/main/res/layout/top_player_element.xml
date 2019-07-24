@@ -24,7 +24,6 @@
     <androidx.cardview.widget.CardView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/numberHolder"
         app:contentPadding="5dp"
         android:layout_width="55dp"
@@ -62,7 +61,6 @@
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:id="@+id/player_name"
         android:textColor="@color/black_0"
-        android:layout_marginLeft="@dimen/fab_margin"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
         android:layout_width="0dp"
@@ -71,36 +69,31 @@
         android:layout_marginStart="@dimen/fab_margin" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        app:layout_constraintTop_toBottomOf="@+id/player_name"
-        app:layout_constraintStart_toEndOf="@+id/numberHolder"
-        app:layout_constraintBottom_toBottomOf="@+id/numberHolder"
-        tools:text="Goals: 99"
-        android:gravity="start"
-        style="@style/TextAppearance.MaterialComponents.Caption"
         android:id="@+id/player_goals"
-        android:textColor="@color/black_0"
-        android:layout_marginLeft="@dimen/fab_margin"
-        app:autoSizeTextType="uniform"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fab_margin" />
+        android:layout_marginStart="@dimen/fab_margin"
+        android:gravity="start"
+        android:padding="5dp"
+        android:textColor="@color/black_0"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toEndOf="@+id/numberHolder"
+        app:layout_constraintTop_toBottomOf="@+id/player_name"
+        tools:text="Goals: 99" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/player_team_icon"
         android:layout_width="60dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/fab_margin"
-        tools:srcCompat="@tools:sample/avatars"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="28dp"
         android:contentDescription="@string/player_s_team_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_expandable_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/player_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/player_country_flag"
@@ -109,5 +102,87 @@
         android:layout_width="wrap_content"
         android:contentDescription="@string/player_s_country"
         android:layout_height="0dp" />
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/main_expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_expanded="false"
+        app:layout_constraintTop_toBottomOf="@id/player_goals">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/playing_as_number_title"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/player_s_number"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:textStyle="normal"
+                android:textColor="@color/black_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/playing_as_number_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/player_s_number"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/playing_as_number_title"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:textStyle="normal"
+                android:textColor="@color/grey_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/player_position_title"
+                app:layout_constraintTop_toBottomOf="@+id/playing_as_number_title"
+                android:text="@string/player_s_position"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:textStyle="normal"
+                android:textColor="@color/black_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/player_position_content"
+                app:layout_constraintTop_toBottomOf="@+id/playing_as_number_content"
+                android:text="@string/player_s_number"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/player_position_title"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:textStyle="normal"
+                android:textColor="@color/grey_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/player_previous_teams_title"
+                app:layout_constraintTop_toBottomOf="@+id/player_position_title"
+                android:text="@string/player_s_previous_teams"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/TextAppearance.MaterialComponents.Button"
+                android:textStyle="normal"
+                android:textColor="@color/black_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/player_previous_teams_content"
+                app:layout_constraintTop_toBottomOf="@+id/player_previous_teams_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
