@@ -22,4 +22,7 @@
     <string name="twitter">Twitter</string>
     <string name="e_mail">E-mail</string>
     <string name="team_information">Team Information</string>
+    <string name="player_s_number">Player\'s Number</string>
+    <string name="player_s_position">Player\'s Position</string>
+    <string name="player_s_previous_teams">Player\'s Previous Teams</string>
 </resources>

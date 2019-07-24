@@ -32,6 +32,7 @@ import java.util.Arrays;
 import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
+import app.kuwas.android.ui.adapters.OnItemActionListener;
 import app.kuwas.android.ui.adapters.ScoresRecyclerAdapter;
 import app.kuwas.android.ui.adapters.TopPlayersRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
@@ -64,7 +65,17 @@ public class TopPlayersFragment extends BaseFragment {
                     players -> {
                         Log.d("players", Arrays.toString(players.toArray()));
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                        mainRecycler.setAdapter(new TopPlayersRecyclerAdapter(players));
+                        mainRecycler.setAdapter(new TopPlayersRecyclerAdapter(players, new OnItemActionListener() {
+                            @Override
+                            public void onItemClicked(View view, int position) {
+
+                            }
+
+                            @Override
+                            public boolean onItemLongClicked(View view, int position) {
+                                return false;
+                            }
+                        }) );
                     },
                     error -> Log.e("TopPFragment" , error)
             );
