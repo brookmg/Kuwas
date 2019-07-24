@@ -27,7 +27,7 @@
 * [X] Team standing 
 * [X] High performing players
 * [X] Team details
-* [ ] Complete player detail
+* [X] Complete player detail
 * [ ] Betting odds for teams 🤑
 * [ ] Include other leagues
 
