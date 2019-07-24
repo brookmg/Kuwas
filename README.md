@@ -26,7 +26,7 @@
 * [X] Weekly team scores
 * [X] Team standing 
 * [X] High performing players
-* [ ] Team details
+* [X] Team details
 * [ ] Complete player detail
 * [ ] Betting odds for teams 🤑
 * [ ] Include other leagues
