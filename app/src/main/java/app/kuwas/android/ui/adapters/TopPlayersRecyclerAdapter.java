@@ -93,7 +93,7 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
                                     .getAlpha2CountryCode(((ViewHolder) holder)
                                             .playerCountry.getContext())
                                     + "/flat/64.png")
-                            .submit().get();
+                            .submit(40,40).get();
 
                     ((ViewHolder) holder).playerCountry.post(() ->
                             ((ViewHolder) holder).playerName
