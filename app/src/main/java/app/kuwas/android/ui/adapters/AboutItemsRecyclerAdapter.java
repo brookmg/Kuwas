@@ -16,10 +16,12 @@
 
 package app.kuwas.android.ui.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -57,6 +59,17 @@ public class AboutItemsRecyclerAdapter extends RecyclerView.Adapter<AboutItemsRe
 
         if (items.get(position).getActionOnClickListener() == null) holder.actionButton.setVisibility(View.GONE);
         holder.actionButton.setOnClickListener(items.get(position).getActionOnClickListener());
+
+        if (items.get(position).getItemBackgroundColor() != null) {
+            holder.itemView.setBackgroundColor(items.get(position).getItemBackgroundColor());
+        }
+
+        if (items.get(position).getItemTextColor() != null) {
+            holder.titleTextView.setTextColor(items.get(position).getItemTextColor());
+            holder.contentTextView.setTextColor(items.get(position).getItemTextColor());
+            holder.actionButton.setTextColor(items.get(position).getItemTextColor());
+        }
+
     }
 
     @Override
@@ -70,11 +83,22 @@ public class AboutItemsRecyclerAdapter extends RecyclerView.Adapter<AboutItemsRe
         private String actionText;
         private View.OnClickListener actionOnClickListener;
 
+        // Optional
+        private Integer itemBackgroundColor;
+        private Integer itemTextColor;
+
         public AboutItem(String title, String content, String actionText, View.OnClickListener actionOnClickListener) {
+            this(title, content, actionText, actionOnClickListener, null, null);
+        }
+
+        public AboutItem(String title, String content, String actionText, View.OnClickListener actionOnClickListener,
+                          Integer itemBackgroundColor, Integer itemTextColor) {
             this.title = title;
             this.content = content;
             this.actionText = actionText;
             this.actionOnClickListener = actionOnClickListener;
+            this.itemBackgroundColor = itemBackgroundColor;
+            this.itemTextColor = itemTextColor;
         }
 
         public String getTitle() {
@@ -91,6 +115,14 @@ public class AboutItemsRecyclerAdapter extends RecyclerView.Adapter<AboutItemsRe
 
         public View.OnClickListener getActionOnClickListener() {
             return actionOnClickListener;
+        }
+
+        public Integer getItemBackgroundColor() {
+            return itemBackgroundColor;
+        }
+
+        public Integer getItemTextColor() {
+            return itemTextColor;
         }
     }
 
