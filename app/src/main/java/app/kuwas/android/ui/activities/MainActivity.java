@@ -160,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_update) {
             openPlayStore(this);    // probably will change this to play core lib impl ... but not yet
             return true;
-        } else if (id == R.id.support_development) {
-            startActivity(new Intent(this, AboutActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
