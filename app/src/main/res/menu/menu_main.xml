@@ -12,12 +12,4 @@
         android:title="@string/update_available"
         app:showAsAction="always" />
 
-    <item android:id="@+id/support_development"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_support_development"
-        app:iconTint="@color/green_0"
-        android:visible="true"
-        android:title="@string/support_development"
-        app:showAsAction="always" />
-
 </menu>
