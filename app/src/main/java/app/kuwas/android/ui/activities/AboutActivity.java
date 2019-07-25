@@ -24,13 +24,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.PaymentResponse;
@@ -38,9 +38,7 @@ import com.yenepaySDK.YenePayPaymentActivity;
 import com.yenepaySDK.errors.InvalidPaymentException;
 import com.yenepaySDK.model.OrderedItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import app.kuwas.android.R;
 import app.kuwas.android.ui.adapters.AboutItemsRecyclerAdapter;
@@ -56,11 +54,11 @@ public class AboutActivity extends YenePayPaymentActivity {
     private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
     private RecyclerView aboutCardsRecyclerView, usedLibrariesRecyclerView;
 
-    private void handleTopMarginOnFAB(FloatingActionButton button) {
+    private void handleTopMarginOnFAB(AppCompatImageButton button) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // the sdk is greater than lollipop; the app is being drawn under the status bar
             ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
-            marginParams.setMargins( dpToPx(this, 8), dpToPx(this, 32), 0, 0);
+            marginParams.setMargins( 0, dpToPx(this, 32), 0, 0);
         }
     }
 

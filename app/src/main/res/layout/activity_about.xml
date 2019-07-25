@@ -27,19 +27,18 @@
         android:layout_height="wrap_content"
         tools:context=".ui.activities.AboutActivity">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            app:tint="@color/black_0"
-            app:fabSize="mini"
+            android:padding="16dp"
             app:backgroundTint="@color/white_0"
-            app:rippleColor="@color/green_1"
-            android:layout_marginStart="8dp"
+            app:fabSize="mini"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
+            app:rippleColor="@color/green_1"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/black_0" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/about_screen_title"
