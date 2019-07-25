@@ -118,7 +118,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/libraries_used_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/rate_us"
+            app:layout_constraintTop_toBottomOf="@+id/split_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
