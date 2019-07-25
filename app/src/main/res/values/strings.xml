@@ -25,4 +25,9 @@
     <string name="player_s_number">Player\'s Number</string>
     <string name="player_s_position">Player\'s Position</string>
     <string name="player_s_previous_teams">Player\'s Previous Teams</string>
+    <string name="news_tab">News</string>
+    <string name="scores_tab">Scores</string>
+    <string name="standing_tab">Standing</string>
+    <string name="refresh_all">Refresh All</string>
+    <string name="menu">Menu</string>
 </resources>

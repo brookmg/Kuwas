@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 Brook Mezgebu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="false"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:layout_width="18dp"
+        android:layout_height="2dp"
+        android:background="@color/grey_0"
+        android:id="@+id/draggable_sign" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:text="@string/menu"
+        style="@style/TextAppearance.MaterialComponents.Button"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:id="@+id/menu_title"
+        app:layout_constraintTop_toBottomOf="@+id/draggable_sign"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/menu_items_recycler_view"
+         app:layout_constraintTop_toBottomOf="@+id/menu_title"
+         app:layout_constraintStart_toStartOf="parent"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
