@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsServiceConnection;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -100,13 +101,12 @@ public class AboutActivity extends YenePayPaymentActivity {
         setupPaymentProcess();
         handleTopMarginOnFAB(findViewById(R.id.back_button));
         findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
-        findViewById(R.id.rate_us).setOnClickListener(v -> openPlayStore(this));
 
         //TODO: This about screen content should be fetched from remote config
         ArrayList<AboutItemsRecyclerAdapter.AboutItem> aboutItemArrayList = new ArrayList<>();
         aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Kuwas" ,
                 "Kuwas is an app designed to help people around " +
-                        "the world get latest and accurate information " +
+                        "the world get latest and accurate` information " +
                         "about the Ethiopian premier league. " , "", null));
 
         aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Changelog",
@@ -132,6 +132,13 @@ public class AboutActivity extends YenePayPaymentActivity {
             // open telegram
             openUrlInCustomTab(this, "https://t.me/kuwasappgroup");
         }));
+
+        aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Rate & Review",
+                "Rate this app on playstore and also give us " +
+                        "your honest review to support this app and  " +
+                        "inorder to figure out what's priority.", "PlayStore", v -> {
+            openPlayStore(this);
+        }, ContextCompat.getColor(this, R.color.green_0), ContextCompat.getColor(this, R.color.white_0)));
 
         ArrayList<UsedLibrariesRecyclerAdapter.LibItem> libItems = new ArrayList<>();
 
