@@ -25,8 +25,19 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            app:contentInsetStart="0dp"
             app:layout_scrollFlags="enterAlwaysCollapsed"
             android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/menu_btn"
+                android:layout_width="wrap_content"
+                android:padding="16dp"
+                android:background="@android:color/transparent"
+                app:backgroundTint="@android:color/transparent"
+                android:layout_gravity="start"
+                app:srcCompat="@drawable/ic_menu"
+                android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -58,19 +69,19 @@
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/news_tab"
                 android:layout_width="wrap_content"
-                android:text="News"
+                android:text="@string/news_tab"
                 android:layout_height="wrap_content" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/scores_tab"
                 android:layout_width="wrap_content"
-                android:text="Scores"
+                android:text="@string/scores_tab"
                 android:layout_height="wrap_content" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/teams_tab"
                 android:layout_width="wrap_content"
-                android:text="Standing"
+                android:text="@string/standing_tab"
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.tabs.TabLayout>
@@ -82,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_gravity="bottom|end"
         app:elevation="5dp"
-        android:text="Refresh All"
+        android:text="@string/refresh_all"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/green_0"
         app:cornerRadius="4dp"

@@ -16,32 +16,45 @@
 
 package app.kuwas.android.ui.fragments;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.kuwas.android.R;
+import app.kuwas.android.ui.activities.AboutActivity;
 import app.kuwas.android.ui.activities.MainActivity;
+import app.kuwas.android.ui.adapters.MenuSheetAdapter;
 import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.utils.FabStates;
 
 import static app.kuwas.android.utils.FabStates.STATE_EXPAND;
 import static app.kuwas.android.utils.Utils.dpToPx;
+import static app.kuwas.android.utils.Utils.openPlayStore;
 
 /**
  * Created by BrookMG on 4/9/2019 in app.kuwas.android.ui.fragments
@@ -56,6 +69,8 @@ public class HomeFragment extends BaseFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ExtendedFloatingActionButton refreshFab;
+    private AppCompatImageButton menuButton;
+    private BottomSheetBehavior sheetBehavior;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -86,6 +101,7 @@ public class HomeFragment extends BaseFragment {
         tabLayout = mainView.findViewById(R.id.tab_layout);
         viewPager = mainView.findViewById(R.id.main_view_pager);
         refreshFab = mainView.findViewById(R.id.refresh_fab);
+        menuButton = mainView.findViewById(R.id.menu_btn);
 
         handleTopPaddingOnAppBarLayout(appBarLayout);
 
@@ -124,8 +140,38 @@ public class HomeFragment extends BaseFragment {
         }
 
         refreshFab.setOnClickListener(view -> refreshAllFragments(tabAdapter.getmFragments()));
+        menuButton.setOnClickListener(view -> showBottomSheetDialog());
 
         return mainView;
+    }
+
+    private void showBottomSheetDialog() {
+        if (getActivity() == null) return;
+        View bottomSheetContent = LayoutInflater.from(getActivity()).inflate(R.layout.menu_bottom_sheet_layout, null, false);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+
+        RecyclerView recyclerView = bottomSheetContent.findViewById(R.id.menu_items_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+
+        List<MenuSheetAdapter.MenuItem> items = new ArrayList<>();
+        items.add(new MenuSheetAdapter.MenuItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_support_dev) , "Support Development" , v -> {
+            Snackbar.make(viewPager, "Thanks for your kind thoughts. We are implementing the functionality." , Snackbar.LENGTH_SHORT).show();
+            bottomSheetDialog.dismiss();
+        }));
+        items.add(new MenuSheetAdapter.MenuItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_rate_review) , "Rate and Review" , v -> {
+            openPlayStore(getActivity());
+            bottomSheetDialog.dismiss();
+        }));
+        items.add(new MenuSheetAdapter.MenuItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_about) , "About" , v -> {
+            Intent aboutIntent = new Intent(getActivity() , AboutActivity.class);
+            startActivity(aboutIntent);
+            bottomSheetDialog.dismiss();
+        }));
+
+        recyclerView.setAdapter(new MenuSheetAdapter(items));
+
+        bottomSheetDialog.setContentView(bottomSheetContent);
+        bottomSheetDialog.show();
     }
 
     private void refreshAllFragments(List<Fragment> fragments) {
