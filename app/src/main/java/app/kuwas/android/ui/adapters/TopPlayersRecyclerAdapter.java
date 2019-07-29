@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -48,19 +49,24 @@ import io.brookmg.soccerethiopiaapi.data.Team;
  */
 public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int UNSELECTED = -1;
+
     private List<Player> players;
+    private int selectedPosition = UNSELECTED;
     private OnItemActionListener onItemActionListener;
+    private RecyclerView recyclerView;
 
     private final int HEADER = 0;
     private final int PLAYERS = 1;
 
-    public TopPlayersRecyclerAdapter(List<Player> players) {
-        this(players, null);
+    public TopPlayersRecyclerAdapter(RecyclerView recyclerView, List<Player> players) {
+        this(recyclerView, players, null);
     }
 
-    public TopPlayersRecyclerAdapter(List<Player> players, OnItemActionListener listener) {
+    public TopPlayersRecyclerAdapter(RecyclerView recyclerView, List<Player> players, OnItemActionListener listener) {
         this.players = players;
         this.onItemActionListener = listener;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -90,6 +96,11 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // decrease one from position because the header is also counted
         if (getItemViewType(position) == PLAYERS) {
+            boolean isSelected = selectedPosition == holder.getAdapterPosition();
+
+            ((ViewHolder) holder).setItemSelected(isSelected);
+            ((ViewHolder) holder).moreDetails.setExpanded(isSelected, false);
+
             ((ViewHolder) holder).playerName.setText(players.get(position - 1).getFullName());
             ((ViewHolder) holder).playerRank.setText(String.format(Locale.US, "%d", players.get(position - 1).getPlayerRank()));
             ((ViewHolder) holder).playerGoals.setText(String.format(Locale.US, "Goals: %d" , players.get(position - 1).getGoalsInThisSession()));
@@ -144,10 +155,6 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             }).start();
 
             if (onItemActionListener != null) {
-                holder.itemView.setOnClickListener(view -> {
-                    ((ViewHolder) holder).moreDetails.toggle(true);
-                    onItemActionListener.onItemClicked(view, holder.getAdapterPosition());
-                });
                 holder.itemView.setOnLongClickListener(view -> onItemActionListener.onItemLongClicked(view, holder.getAdapterPosition()));
             }
 
@@ -160,11 +167,12 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         return players.size() + 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         AppCompatTextView playerRank, playerName, playerGoals, playerNumberContent, playerPosition, playerPreviousTeamsTitle;
         AppCompatImageView playerCurrentTeam, playerCountry;
         ExpandableLayout moreDetails;
         RecyclerView previousTeamsRecycler;
+        FrameLayout selectedIndicator;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -178,6 +186,33 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             playerPosition = itemView.findViewById(R.id.player_position_content);
             previousTeamsRecycler = itemView.findViewById(R.id.player_previous_teams_content);
             playerPreviousTeamsTitle = itemView.findViewById(R.id.player_previous_teams_title);
+            selectedIndicator = itemView.findViewById(R.id.selected_indicator);
+
+            itemView.setOnClickListener(this);
+        }
+
+        void setItemSelected(boolean selected) {
+            selectedIndicator.setVisibility(selected ? View.VISIBLE : View.GONE);
+        }
+
+        @Override
+        public void onClick(View v) {
+            ViewHolder holder = (ViewHolder) recyclerView.findViewHolderForAdapterPosition(selectedPosition);
+            if (holder != null) {
+                holder.moreDetails.collapse();
+                holder.setItemSelected(false);
+            }
+
+            int position = getAdapterPosition();
+            if (position == selectedPosition) {
+                selectedPosition = UNSELECTED;
+            } else {
+                moreDetails.expand();
+                selectedPosition = position;
+                setItemSelected(true);
+            }
+
+            onItemActionListener.onItemClicked(v, getAdapterPosition());
         }
     }
 

@@ -21,6 +21,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/selected_indicator"
+        android:background="@color/green_0x"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <androidx.cardview.widget.CardView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
