@@ -65,7 +65,7 @@ public class TopPlayersFragment extends BaseFragment {
                     players -> {
                         Log.d("players", Arrays.toString(players.toArray()));
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
-                        mainRecycler.setAdapter(new TopPlayersRecyclerAdapter(players, new OnItemActionListener() {
+                        mainRecycler.setAdapter(new TopPlayersRecyclerAdapter(mainRecycler, players, new OnItemActionListener() {
                             @Override
                             public void onItemClicked(View view, int position) {
 

@@ -14,6 +14,7 @@
     <color name="text_grey_0">#6c757a</color>
     <color name="blue_0">#2a359a</color>
     <color name="green_0">#00b67c</color>
+    <color name="green_0x">#6600b67c</color>
     <color name="black_0">#000000</color>
 
     <color name="red_1">#e4494a</color>
