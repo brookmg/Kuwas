@@ -17,9 +17,11 @@
 package app.kuwas.android.ui.activities;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,6 +34,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.PaymentResponse;
@@ -40,9 +44,11 @@ import com.yenepaySDK.errors.InvalidPaymentException;
 import com.yenepaySDK.model.OrderedItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.kuwas.android.R;
 import app.kuwas.android.ui.adapters.AboutItemsRecyclerAdapter;
+import app.kuwas.android.ui.adapters.MenuSheetAdapter;
 import app.kuwas.android.ui.adapters.UsedLibrariesRecyclerAdapter;
 
 import static app.kuwas.android.utils.Utils.bindCustomTabsService;
@@ -52,7 +58,7 @@ import static app.kuwas.android.utils.Utils.openUrlInCustomTab;
 
 public class AboutActivity extends YenePayPaymentActivity {
 
-    private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
+    private PaymentOrderManager paymentManager = new PaymentOrderManager("0178" , "5birr4kuwas");
     private RecyclerView aboutCardsRecyclerView, usedLibrariesRecyclerView;
 
     private void handleTopMarginOnFAB(AppCompatImageButton button) {
@@ -133,6 +139,14 @@ public class AboutActivity extends YenePayPaymentActivity {
             openUrlInCustomTab(this, "https://t.me/kuwasappgroup");
         }));
 
+        aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Support Development",
+                "If you like the app and feel like Ethiopian " +
+                        "football is not being appreciated much,  " +
+                        "feel free to support the development of this app.", "Support", v -> {
+            // open telegram
+            showBottomSheetDialog();
+        }));
+
         aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Rate & Review",
                 "Rate this app on playstore and also give us " +
                         "your honest review to support this app and  " +
@@ -196,53 +210,99 @@ public class AboutActivity extends YenePayPaymentActivity {
         paymentManager.setPaymentProcess(PaymentOrderManager.PROCESS_CART);
         paymentManager.setReturnUrl("app.kuwas.android:/dev_supported");
 
-        paymentManager.setUseSandboxEnabled(false);  // TODO: set this to false when moving to production
+        paymentManager.setUseSandboxEnabled(true);  // TODO: set this to false when moving to production
         paymentManager.setShoppingCartMode(false);
     }
 
     private void startCheckOut(int price) throws InvalidPaymentException {
-        switch (price) {
-            case 5: {
-                paymentManager.addItem(new OrderedItem("5birr4kuwas", "Support Kuwas Development (5Br)", 1, 5.0));
-                paymentManager.startCheckout(this);
-                break;
-            }
 
-            case 10: {
-                paymentManager.addItem(new OrderedItem("10birr4kuwas", "Support Kuwas Development (10Br)", 1, 10.0));
-                paymentManager.startCheckout(this);
-                break;
-            }
+        paymentManager.addItem(new OrderedItem(
+                price + "birr4kuwas",
+                "Support Kuwas Development (" + price + "Br)",
+                1,
+                price
+        ));
+        paymentManager.startCheckout(this);
 
-            case 15: {
-                paymentManager.addItem(new OrderedItem("15birr4kuwas", "Support Kuwas Development (15Br)", 1, 15.0));
-                paymentManager.startCheckout(this);
-                break;
-            }
-
-            default: {
-                // we only have 5 birr ticket for now
-                paymentManager.addItem(new OrderedItem("5birr4kuwas", "Support Kuwas Development (5Br)", 1, 5.0));
-                paymentManager.startCheckout(this);
-            }
-        }
     }
+
+    private void showBottomSheetDialog() {
+
+        View bottomSheetContent = LayoutInflater.from(this).inflate(R.layout.support_dev_bottom_sheet_layout, null, false);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+
+        RecyclerView recyclerView = bottomSheetContent.findViewById(R.id.menu_items_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        List<MenuSheetAdapter.MenuItem> items = new ArrayList<>();
+        items.add(new MenuSheetAdapter.MenuItem(
+                ContextCompat.getDrawable(this, R.drawable.ic_action_coffee) ,
+                "5 BIRR" ,
+                v -> {
+                    try {
+                        startCheckOut(5);
+                    } catch (InvalidPaymentException e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+
+        items.add(new MenuSheetAdapter.MenuItem(
+                ContextCompat.getDrawable(this, R.drawable.ic_action_soda) ,
+                "10 BIRR" ,
+                v -> {
+                    try {
+                        startCheckOut(10);
+                    } catch (InvalidPaymentException e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+
+        items.add(new MenuSheetAdapter.MenuItem(
+                ContextCompat.getDrawable(this, R.drawable.ic_action_cookie_with_fine_chips) ,
+                "15 BIRR" ,
+                v -> {
+                    try {
+                        startCheckOut(15);
+                    } catch (InvalidPaymentException e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+
+        items.add(new MenuSheetAdapter.MenuItem(
+                ContextCompat.getDrawable(this, R.drawable.ic_action_hot_air_balloon) ,
+                "25 BIRR" ,
+                v -> {
+                    try {
+                        startCheckOut(25);
+                    } catch (InvalidPaymentException e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+
+        recyclerView.setAdapter(new MenuSheetAdapter(items));
+        bottomSheetDialog.setContentView(bottomSheetContent);
+        bottomSheetDialog.show();
+    }
+
 
     @Override
     public void onPaymentResponseArrived(PaymentResponse response) {
-        super.onPaymentResponseArrived(response);
         Bundle paymentInformation = new Bundle();
         paymentInformation.putString("User", response.getCustomerName() + " (" + response.getCustomerEmail() + ")");
         paymentInformation.putString(FirebaseAnalytics.Param.CURRENCY, "ETB");
         paymentInformation.putDouble(FirebaseAnalytics.Param.VALUE, response.getGrandTotal());
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.ECOMMERCE_PURCHASE, paymentInformation);
+        Snackbar.make(usedLibrariesRecyclerView , "Thank you for your generosity. We will put your " + response.getGrandTotal() + " into good use." , 4_000).show();
     }
 
     @Override
     public void onPaymentResponseError(String error) {
         super.onPaymentResponseError(error);
-        // Log this error
-        Log.e("YenePayImpl" , error);
+        Snackbar.make(usedLibrariesRecyclerView , "Sorry. An error occured while processing your payment" , 4_000).show();
     }
 
     @Override

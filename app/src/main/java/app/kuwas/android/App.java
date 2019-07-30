@@ -52,11 +52,11 @@ public class App extends Application {
         api = new SoccerEthiopiaApi(this, true);
 
         PendingIntent completionIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
-        PendingIntent cancelIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent cancelIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
 
         YenePayConfiguration.setDefaultInstance(
                 new YenePayConfiguration.Builder(this)
-                        .setGlobalCancelIntent(completionIntent)
+                        .setGlobalCompletionIntent(completionIntent)
                         .setGlobalCancelIntent(cancelIntent)
                         .build());
     }

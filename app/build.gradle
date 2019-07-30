@@ -12,7 +12,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [
-                yenepayReturnScheme: "app.kuwas.android.yene"
+                yenepayReturnScheme: "app.kuwas.android"
         ]
     }
     buildTypes {
