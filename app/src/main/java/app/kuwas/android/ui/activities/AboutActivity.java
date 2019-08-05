@@ -30,6 +30,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.browser.customtabs.CustomTabsClient;
 import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +51,7 @@ import app.kuwas.android.R;
 import app.kuwas.android.ui.adapters.AboutItemsRecyclerAdapter;
 import app.kuwas.android.ui.adapters.MenuSheetAdapter;
 import app.kuwas.android.ui.adapters.UsedLibrariesRecyclerAdapter;
+import app.kuwas.android.utils.Utils;
 
 import static app.kuwas.android.utils.Utils.bindCustomTabsService;
 import static app.kuwas.android.utils.Utils.dpToPx;
@@ -58,7 +60,7 @@ import static app.kuwas.android.utils.Utils.openUrlInCustomTab;
 
 public class AboutActivity extends YenePayPaymentActivity {
 
-    private PaymentOrderManager paymentManager = new PaymentOrderManager("0178" , "5birr4kuwas");
+    private PaymentOrderManager paymentManager = new PaymentOrderManager("2251" , "5birr4kuwas");
     private RecyclerView aboutCardsRecyclerView, usedLibrariesRecyclerView;
 
     private void handleTopMarginOnFAB(AppCompatImageButton button) {
@@ -107,6 +109,7 @@ public class AboutActivity extends YenePayPaymentActivity {
         setupPaymentProcess();
         handleTopMarginOnFAB(findViewById(R.id.back_button));
         findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
+        NestedScrollView mainScrollView = findViewById(R.id.container);
 
         //TODO: This about screen content should be fetched from remote config
         ArrayList<AboutItemsRecyclerAdapter.AboutItem> aboutItemArrayList = new ArrayList<>();
@@ -120,7 +123,7 @@ public class AboutActivity extends YenePayPaymentActivity {
                         "First the library behind the app then the app itself. " +
                         "Click the button below to see the progress.", "ChangeLog", v -> {
             // open custom chrome tab to our change log
-
+            openUrlInCustomTab(this, "https://github.com/brookmg/kuwas/releases");
         }));
 
         aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Privacy Policy",
@@ -128,7 +131,7 @@ public class AboutActivity extends YenePayPaymentActivity {
                         " your consent. You can read the full " +
                         "privacy policy by clicking the button below.", "Privacy Policy", v -> {
             // open custom chrome tab to our privacy log
-            openUrlInCustomTab(this, "https://kuwas.something.com/privacy");
+            openUrlInCustomTab(this, "https://kuwas.flycricket.io/privacy.html");
         }));
 
         aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Group",
@@ -143,9 +146,9 @@ public class AboutActivity extends YenePayPaymentActivity {
                 "If you like the app and feel like Ethiopian " +
                         "football is not being appreciated much,  " +
                         "feel free to support the development of this app.", "Support", v -> {
-            // open telegram
+            // show donate dialog
             showBottomSheetDialog();
-        }));
+        }, R.drawable.yenepay));
 
         aboutItemArrayList.add(new AboutItemsRecyclerAdapter.AboutItem("Rate & Review",
                 "Rate this app on playstore and also give us " +
@@ -166,15 +169,15 @@ public class AboutActivity extends YenePayPaymentActivity {
 
         libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
                 "Material Components" ,
-                "Google", clickToGo("")));
+                "Google", clickToGo("https://material.io")));
 
         libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
                 "Lottie" ,
-                "Airbnb", clickToGo("")));
+                "Airbnb", clickToGo("https://airbnb.io/lottie")));
 
         libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
                 "Room" ,
-                "Google", clickToGo("")));
+                "Google", clickToGo("https://developers.android.com/jetpack/androix/releases/room")));
 
         libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
                 "Firebase" ,
@@ -182,7 +185,7 @@ public class AboutActivity extends YenePayPaymentActivity {
 
         libItems.add(new UsedLibrariesRecyclerAdapter.LibItem(
                 "Glide" ,
-                "BumpTech", clickToGo("")));
+                "BumpTech", clickToGo("https://bumptech.github.io/glide")));
 
         aboutCardsRecyclerView = findViewById(R.id.main_content_recycler_view);
         aboutCardsRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false){
@@ -204,13 +207,19 @@ public class AboutActivity extends YenePayPaymentActivity {
 
         usedLibrariesRecyclerView.setAdapter(new UsedLibrariesRecyclerAdapter(libItems));
         usedLibrariesRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        try {
+            if (getIntent().getBooleanExtra("goto_support" , false)) {
+                mainScrollView.post(() -> mainScrollView.smoothScrollBy(0 , dpToPx(this, 500)));
+            }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     private void setupPaymentProcess() {
         paymentManager.setPaymentProcess(PaymentOrderManager.PROCESS_CART);
         paymentManager.setReturnUrl("app.kuwas.android:/dev_supported");
 
-        paymentManager.setUseSandboxEnabled(true);  // TODO: set this to false when moving to production
+        paymentManager.setUseSandboxEnabled(false);  // TODO: set this to false when moving to production
         paymentManager.setShoppingCartMode(false);
     }
 
