@@ -67,4 +67,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/corner_badge"
+        app:layout_constraintTop_toTopOf="@id/title_text_view"
+        app:layout_constraintBottom_toTopOf="@+id/content_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:maxWidth="100dp"
+        android:gravity="bottom"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -155,8 +155,11 @@ public class HomeFragment extends BaseFragment {
 
         List<MenuSheetAdapter.MenuItem> items = new ArrayList<>();
         items.add(new MenuSheetAdapter.MenuItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_support_dev) , "Support Development" , v -> {
-            Snackbar.make(viewPager, "Thanks for your kind thoughts. We are implementing the functionality." , Snackbar.LENGTH_SHORT).show();
+//            Snackbar.make(viewPager, "Thanks for your kind thoughts. We are implementing the functionality." , Snackbar.LENGTH_SHORT).show();
             bottomSheetDialog.dismiss();
+            Intent intent = new Intent(getActivity(), AboutActivity.class);
+            intent.putExtra("goto_support" , true);
+            startActivity(intent);
         }));
         items.add(new MenuSheetAdapter.MenuItem(ContextCompat.getDrawable(getActivity(), R.drawable.ic_rate_review) , "Rate and Review" , v -> {
             openPlayStore(getActivity());
