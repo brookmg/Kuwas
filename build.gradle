@@ -24,9 +24,9 @@ ext {
     apiBuildVersion = 1
 
     appVersionMajor = 1
-    appVersionMinor = 0
+    appVersionMinor = 1
     appVersionBuild = 0
-    iterationNumber = 30
+    iterationNumber = 10
 
     firebaseVersion = '17.0.0'
     firebaseStorage = '16.1.0'
