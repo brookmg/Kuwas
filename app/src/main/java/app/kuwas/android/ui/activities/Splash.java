@@ -71,7 +71,6 @@ public class Splash extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE | (Utils.getCurrentTheme(this) == 0 ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0));
         }
         _computeAndReveal(revealable);
-        setCurrentTheme(this, 0);
     }
 
     private void _computeAndReveal(View revealView) {
