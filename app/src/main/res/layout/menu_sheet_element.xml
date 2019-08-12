@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toStartOf="@id/menu_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/menu_title"
-        app:tint="@color/black_0"
+        app:tint="?appTextColorPrimary"
         tools:srcCompat="@drawable/ic_menu" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -46,6 +46,7 @@
         style="@style/TextAppearance.MaterialComponents.Button"
         android:gravity="center_vertical"
         tools:text="About"
+        android:textColor="?appTextColorPrimary"
         android:layout_weight="5"
         android:layout_height="match_parent" />
 

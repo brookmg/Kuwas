@@ -35,14 +35,14 @@
         app:contentPadding="5dp"
         android:layout_width="55dp"
         android:layout_margin="@dimen/fab_margin"
-        app:cardBackgroundColor="@color/white_0"
+        app:cardBackgroundColor="?attr/appCardColor"
         app:cardElevation="9dp"
         app:cardCornerRadius="@dimen/fab_margin"
         android:layout_height="55dp">
 
         <TextView
             android:text="@string/hash_tag_symbol"
-            android:textColor="@color/black_0"
+            android:textColor="?attr/appTextColorPrimary"
             android:padding="5dp"
             android:textSize="12sp"
             android:layout_width="wrap_content"
@@ -53,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:textColor="?attr/appTextColorPrimary"
             tools:text="1"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_height="wrap_content" />
@@ -67,7 +68,7 @@
         android:gravity="start"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:id="@+id/player_name"
-        android:textColor="@color/black_0"
+        android:textColor="?attr/appTextColorPrimary"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
         android:layout_width="0dp"
@@ -83,7 +84,7 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:gravity="start"
         android:padding="5dp"
-        android:textColor="@color/black_0"
+        android:textColor="?attr/appTextColorPrimary"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toEndOf="@+id/numberHolder"
         app:layout_constraintTop_toBottomOf="@+id/player_name"
@@ -129,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:textStyle="normal"
-                android:textColor="@color/black_0"
+                android:textColor="?attr/appTextColorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -141,7 +142,7 @@
                 app:layout_constraintStart_toEndOf="@+id/playing_as_number_title"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:textStyle="normal"
-                android:textColor="@color/grey_0"
+                android:textColor="?attr/appTextColorSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -153,7 +154,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:textStyle="normal"
-                android:textColor="@color/black_0"
+                android:textColor="?attr/appTextColorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -165,7 +166,7 @@
                 app:layout_constraintStart_toEndOf="@+id/player_position_title"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:textStyle="normal"
-                android:textColor="@color/grey_0"
+                android:textColor="?attr/appTextColorSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -177,7 +178,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:textStyle="normal"
-                android:textColor="@color/black_0"
+                android:textColor="?attr/appTextColorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

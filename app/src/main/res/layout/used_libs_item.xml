@@ -30,7 +30,7 @@
         android:paddingTop="16dp"
         android:textSize="16sp"
         tools:text="Test Title"
-        android:textColor="@color/black_0"
+        android:textColor="?attr/appTextColorPrimary"
         android:id="@+id/title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -46,6 +46,7 @@
         android:textSize="14sp"
         android:textStyle="normal"
         android:ellipsize="marquee"
+        android:textColor="?attr/appTextColorSecondary"
         android:maxLines="4"
         tools:text="@tools:sample/lorem/random"
         android:id="@+id/desc_text_view"

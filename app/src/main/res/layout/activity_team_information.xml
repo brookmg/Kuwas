@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:background="@color/white_0y"
+        android:background="?attr/appBackgroundColorTransparent"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -47,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:padding="16dp"
                 android:id="@+id/back_button"
+                android:tint="?appTextColorPrimary"
                 app:srcCompat="@drawable/ic_back"
                 android:layout_height="wrap_content" />
 
@@ -70,6 +71,7 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     tools:text="Kidus Gorgis FC"
+                    android:textColor="?appTextColorPrimary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/team_icon"
                     android:layout_width="wrap_content"

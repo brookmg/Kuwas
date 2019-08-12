@@ -38,11 +38,13 @@ import androidx.core.view.ViewPropertyAnimatorCompat;
 
 import app.kuwas.android.R;
 import app.kuwas.android.utils.Constants;
+import app.kuwas.android.utils.Utils;
 
 import static android.view.View.GONE;
 import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 import static android.view.View.VISIBLE;
 import static app.kuwas.android.utils.Utils.pxToDp;
+import static app.kuwas.android.utils.Utils.setCurrentTheme;
 
 public class Splash extends AppCompatActivity {
 
@@ -51,6 +53,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(Utils.getCurrentTheme(this) == 0 ? R.style.KuwasLightTheme : R.style.KuwasDarkTheme);
         setContentView(R.layout.activity_splash);
 
         revealable = findViewById(R.id.revealable);
@@ -60,13 +63,15 @@ public class Splash extends AppCompatActivity {
             getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | (Utils.getCurrentTheme(this) == 0 ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0)
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
             else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | (Utils.getCurrentTheme(this) == 0 ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0));
         }
         _computeAndReveal(revealable);
+        setCurrentTheme(this, 0);
     }
 
     private void _computeAndReveal(View revealView) {
