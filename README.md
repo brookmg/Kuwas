@@ -31,6 +31,7 @@
 * [X] High performing players
 * [X] Team details
 * [X] Complete player detail
+* [X] Dark mode 🌃 
 * [ ] Betting odds for teams 🤑
 * [ ] Include other leagues
 
