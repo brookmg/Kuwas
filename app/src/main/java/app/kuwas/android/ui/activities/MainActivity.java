@@ -16,7 +16,6 @@
 
 package app.kuwas.android.ui.activities;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,12 +41,15 @@ import app.kuwas.android.R;
 import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
 import app.kuwas.android.ui.fragments.NewsPreviewFragment;
+import app.kuwas.android.utils.Utils;
 
 import static app.kuwas.android.utils.Constants.FRC_LATEST_VERSION;
 import static app.kuwas.android.utils.Constants.TAG_HOME;
 import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
 import static app.kuwas.android.utils.FabStates.FabState;
+import static app.kuwas.android.utils.Utils.getCurrentTheme;
 import static app.kuwas.android.utils.Utils.openPlayStore;
+import static app.kuwas.android.utils.Utils.setCurrentTheme;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,19 +76,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(Utils.getCurrentTheme(this) == 0 ? R.style.KuwasLightTheme : R.style.KuwasDarkTheme);
         setContentView(R.layout.activity_main);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            );
+            if (Utils.getCurrentTheme(this) == 0)
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                );
+            else
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                );
 
         _fragmentContainer = findViewById(R.id.fragmentContainer);
 
         changeFragment(TAG_HOME, new Bundle(), null);
-
     }
 
     public void changeFabState(@FabState int state) {
@@ -94,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
             ((BaseFragment) currentFragment.get()).changeFabState(state);
     }
 
+    private void changeTheme() {
+        int currentTheme = Utils.getCurrentTheme(this);
+        if (currentTheme == 0) Utils.setCurrentTheme(this , 1);
+        else Utils.setCurrentTheme(this, 0);
+        recreate();
+    }
 
     @Override
     public void onBackPressed() {
@@ -104,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             Snackbar.make(_fragmentContainer, "sure you want to exit?" , Snackbar.LENGTH_SHORT).setAction("Yap!" , (v) -> finish()).show();
         }
 
+        if (getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1) instanceof BaseFragment)
         setCurrentFragment((BaseFragment) getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1));
     }
 
@@ -146,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         try {
             menu.getItem(0).setVisible(isThereUpdateAvailable());   // make it only visible if there is an update available
+            menu.getItem(1).setIcon(getCurrentTheme(this) == 0 ? R.drawable.ic_night_theme : R.drawable.ic_light_theme);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -159,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_update) {
             openPlayStore(this);    // probably will change this to play core lib impl ... but not yet
+            return true;
+        } else if (id == R.id.action_theme) {
+            changeTheme();
             return true;
         }
 

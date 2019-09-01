@@ -19,6 +19,7 @@ package app.kuwas.android;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -26,6 +27,7 @@ import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.model.YenePayConfiguration;
 
 import app.kuwas.android.ui.activities.AboutActivity;
+import app.kuwas.android.utils.Utils;
 import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
 /**
@@ -59,6 +61,33 @@ public class App extends Application {
                         .setGlobalCompletionIntent(completionIntent)
                         .setGlobalCancelIntent(cancelIntent)
                         .build());
+
+        // system wide dark mode?
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                Utils.setCurrentTheme(this, 1);
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                Utils.setCurrentTheme(this, 0);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int currentNightMode = getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                Utils.setCurrentTheme(this, 1);
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                Utils.setCurrentTheme(this , 0);
+                break;
+        }
     }
 
     public static App getInstance() {

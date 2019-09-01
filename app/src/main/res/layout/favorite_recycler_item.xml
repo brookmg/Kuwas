@@ -44,7 +44,7 @@
         app:layout_constraintStart_toEndOf="@id/team_logo"
         app:layout_constraintTop_toBottomOf="@id/team_logo"
         app:srcCompat="@drawable/ic_check_circle"
-        app:tint="@color/green_0" />
+        app:tint="?attr/appAccentColor" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/team_name"
@@ -60,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white_0w"
+        android:background="?attr/appBackgroundColorMoreTransparent"
         android:id="@+id/overlay"
         android:layout_width="wrap_content"
         android:layout_height="0dp" />

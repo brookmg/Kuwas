@@ -34,6 +34,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.adapters.TeamInformationAdapter;
+import app.kuwas.android.utils.Utils;
 import io.brookmg.soccerethiopiaapi.data.Team;
 
 public class TeamInformation extends AppCompatActivity {
@@ -47,6 +48,7 @@ public class TeamInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(Utils.getCurrentTheme(this) == 0 ? R.style.KuwasLightTheme : R.style.KuwasDarkTheme);
         setContentView(R.layout.activity_team_information);
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)

@@ -30,4 +30,5 @@
     <string name="standing_tab">Standing</string>
     <string name="refresh_all">Refresh All</string>
     <string name="menu">Menu</string>
+    <string name="theme">Theme</string>
 </resources>

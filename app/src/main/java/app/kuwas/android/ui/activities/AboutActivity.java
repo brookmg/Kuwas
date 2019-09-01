@@ -97,13 +97,14 @@ public class AboutActivity extends YenePayPaymentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(Utils.getCurrentTheme(this) == 0 ? R.style.KuwasLightTheme : R.style.KuwasDarkTheme);
         setContentView(R.layout.activity_about);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                             View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                            (Utils.getCurrentTheme(this) == 0 ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0)
             );
 
         setupPaymentProcess();

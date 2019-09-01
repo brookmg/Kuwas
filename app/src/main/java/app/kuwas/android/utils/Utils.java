@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -120,6 +121,14 @@ public class Utils {
                 .setToolbarColor(ContextCompat.getColor(context, R.color.green_0))
                 .enableUrlBarHiding().setShowTitle(true).build();
         customTabsIntent.launchUrl(context, Uri.parse(url));
+    }
+
+    public static int getCurrentTheme(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(Constants.PREFERENCE_THEME , 0);
+    }
+
+    public static void setCurrentTheme(Context context, int theme) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(Constants.PREFERENCE_THEME , theme).apply();
     }
 
 }

@@ -33,13 +33,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            app:backgroundTint="@color/white_0"
+            app:backgroundTint="?attr/appBackgroundColor"
             app:fabSize="mini"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/green_1"
+            app:rippleColor="?attr/appAccentColor"
             app:srcCompat="@drawable/ic_back"
-            app:tint="@color/black_0" />
+            app:tint="?attr/appTextColorPrimary" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/about_screen_title"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="@+id/back_button"
             app:layout_constraintStart_toEndOf="@+id/back_button"
             style="@style/TextAppearance.MaterialComponents.Button"
-            android:textColor="@color/black_0"
+            android:textColor="?attr/appTextColorPrimary"
             android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -68,7 +68,7 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/main_content_recycler_view"
             style="@style/TextAppearance.MaterialComponents.Button"
-            android:textColor="@color/black_0"
+            android:textColor="?attr/appTextColorPrimary"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_margin="10dp"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                android:background="@color/black_0"
+                android:background="?attr/appTextColorPrimary"
                 android:alpha="0.5"
                 android:layout_height="1dp" />
 
@@ -98,7 +98,7 @@
                 android:id="@+id/or_text"
                 android:text="OR"
                 android:layout_weight="1"
-                android:textColor="@color/black_0"
+                android:textColor="?attr/appTextColorPrimary"
                 android:alpha="0.5"
                 android:gravity="center"
                 android:padding="10dp"
@@ -111,7 +111,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:alpha="0.5"
-                android:background="@color/black_0"
+                android:background="?attr/appTextColorPrimary"
                 android:layout_margin="10dp"
                 android:layout_height="1dp" />
 
@@ -126,7 +126,7 @@
             android:text="@string/libraries_used"
             android:textStyle="bold"
             style="@style/TextAppearance.MaterialComponents.Button"
-            android:textColor="@color/black_0"
+            android:textColor="?attr/appTextColorPrimary"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent" />
 

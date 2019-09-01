@@ -29,7 +29,7 @@
         tools:text="Full-name"
         style="@style/TextAppearance.MaterialComponents.Button"
         android:padding="16dp"
-        android:textColor="@color/black_0"
+        android:textColor="?attr/appTextColorPrimary"
         android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -41,7 +41,7 @@
         tools:text="Rockstar Games"
         style="@style/TextAppearance.MaterialComponents.Body1"
         android:padding="16dp"
-        android:textColor="@color/grey_0"
+        android:textColor="?attr/appTextColorPrimary"
         android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

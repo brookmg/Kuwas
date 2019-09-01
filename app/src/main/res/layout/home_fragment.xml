@@ -19,7 +19,7 @@
         app:liftOnScroll="true"
         app:elevation="5dp"
         app:expanded="true"
-        android:background="@color/white_0y"
+        android:background="?attr/appBackgroundColorTransparent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
@@ -37,6 +37,7 @@
                 app:backgroundTint="@android:color/transparent"
                 android:layout_gravity="start"
                 app:srcCompat="@drawable/ic_menu"
+                android:tint="?attr/appTextColorPrimary"
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -47,21 +48,21 @@
                 app:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:text="@string/app_name"
-                android:textColor="@color/black_0"
+                android:textColor="?attr/appTextColorPrimary"
                 android:layout_height="wrap_content" />
 
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
-            app:tabTextColor="@color/black_0"
+            app:tabTextColor="?attr/appTextColorPrimary"
             app:layout_scrollFlags="snap"
             android:id="@+id/tab_layout"
             app:tabContentStart="32dp"
             app:tabMode="scrollable"
             app:layout_scrollInterpolator="@android:anim/overshoot_interpolator"
-            app:tabSelectedTextColor="@color/green_0"
-            app:tabIndicatorColor="@color/green_0"
+            app:tabSelectedTextColor="?attr/appAccentColor"
+            app:tabIndicatorColor="?attr/appAccentColor"
             app:tabIndicatorFullWidth="false"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content">
@@ -95,7 +96,7 @@
         app:elevation="5dp"
         android:text="@string/refresh_all"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/green_0"
+        app:backgroundTint="?attr/appAccentColor"
         app:cornerRadius="4dp"
         app:icon="@drawable/ic_first"
         app:layout_anchorGravity="bottom|end"

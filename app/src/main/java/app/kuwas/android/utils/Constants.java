@@ -25,6 +25,7 @@ public class Constants {
     public static final String TAG_HOME = "tag_home";
     public static final String TAG_NEWS_PREVIEW = "tag_news_preview";
     public static final String PREFERENCE_FAV_TEAMS = "pref_fav_teams";
+    public static final String PREFERENCE_THEME = "pref_theme";
 
     // remote config keys start here
     public static final String FRC_LATEST_VERSION = "latest_version";

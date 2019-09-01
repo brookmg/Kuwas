@@ -33,7 +33,7 @@
         app:liftOnScroll="true"
         app:elevation="5dp"
         app:expanded="true"
-        android:background="@color/white_0y"
+        android:background="?attr/appBackgroundColorTransparent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
@@ -49,7 +49,7 @@
                 app:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:text="@string/choose_favorite_team"
-                android:textColor="@color/black_0"
+                android:textColor="?attr/appTextColorPrimary"
                 android:layout_height="wrap_content" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -65,6 +65,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:textSize="13sp"
+            android:textColor="?appTextColorPrimary"
             android:text="@string/select_atleast_one_team"
             app:textAllCaps="true"
             android:visibility="visible"
@@ -76,15 +77,15 @@
         android:layout_width="200dp"
         android:id="@+id/continue_button"
         android:text="@string/continue_text"
-        android:textColor="@color/white_0"
+        android:textColor="?attr/appBackgroundColor"
         android:gravity="center"
-        app:backgroundTint="@color/green_0"
+        app:backgroundTint="?attr/appAccentColor"
         app:icon="@drawable/ic_check"
         app:elevation="8dp"
         app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.LargeComponent"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        app:iconTint="@color/white_0"
+        app:iconTint="?attr/appBackgroundColor"
         android:layout_height="wrap_content" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -47,11 +47,11 @@ import app.kuwas.android.ui.adapters.FavoriteRecyclerAdapter;
 import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.ui.adapters.TagsChipRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
+import app.kuwas.android.utils.Utils;
 import io.brookmg.soccerethiopiaapi.data.Team;
 import io.brookmg.soccerethiopiaapi.errors.TeamNotFoundException;
 import io.brookmg.soccerethiopiaapi.utils.Constants;
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.utils.Utils;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
 import static java.lang.Math.abs;
@@ -114,13 +114,14 @@ public class FavoriteTeam extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(Utils.getCurrentTheme(this) == 0 ? R.style.KuwasLightTheme : R.style.KuwasDarkTheme);
         setContentView(R.layout.activity_favorite_team);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    (Utils.getCurrentTheme(this) == 0 ? View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0)
             );
 
         appBarLayout = findViewById(R.id.appbar_layout);

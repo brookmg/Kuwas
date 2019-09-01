@@ -40,6 +40,7 @@ import io.brookmg.soccerethiopiaapi.data.RankItem;
 import io.brookmg.soccerethiopiaapi.data.Team;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
+import static app.kuwas.android.utils.Utils.getCurrentTheme;
 
 /**
  * Created by BrookMG on 5/19/2019 in app.kuwas.android.ui.widgets
@@ -110,7 +111,7 @@ public class StandingTable extends TableLayout {
                 applyToAllViews((textview) -> {
                     ((AppCompatTextView) textview).setGravity(Gravity.CENTER);
                     // TODO: 5/19/2019 Don't forget this when you decide to apply themes
-                    ((AppCompatTextView) textview).setTextColor(ContextCompat.getColor(getContext(), R.color.black_0));
+                    ((AppCompatTextView) textview).setTextColor(ContextCompat.getColor(getContext(), getCurrentTheme(getContext()) == 0 ? R.color.black_0 : R.color.white_0));
                     ((AppCompatTextView) textview).setTypeface(null, Typeface.BOLD);
                     textview.setPadding(dpToPx(getContext(), 16) , dpToPx(getContext(), 12),
                             dpToPx(getContext(), 16), dpToPx(getContext(), 12));
@@ -137,6 +138,11 @@ public class StandingTable extends TableLayout {
             applyToAllViews(
                     textview -> {
                         ((AppCompatTextView) textview).setGravity(Gravity.CENTER);
+                        ((AppCompatTextView) textview).setTextColor(
+                                getCurrentTheme(getContext()) == 0 ?
+                                        ContextCompat.getColor(getContext(), R.color.black_0):
+                                        ContextCompat.getColor(getContext(), R.color.white_0)
+                        );
                         textview.setPadding(dpToPx(getContext(), 16) , dpToPx(getContext(), 16),
                                 dpToPx(getContext(), 16), dpToPx(getContext(), 16));
                     },
