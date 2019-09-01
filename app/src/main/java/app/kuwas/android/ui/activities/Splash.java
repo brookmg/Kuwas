@@ -19,6 +19,9 @@ package app.kuwas.android.ui.activities;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +39,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieProperty;
+import com.airbnb.lottie.model.KeyPath;
+import com.airbnb.lottie.value.LottieFrameInfo;
+import com.airbnb.lottie.value.SimpleLottieValueCallback;
+
 import app.kuwas.android.R;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
@@ -49,6 +58,7 @@ import static app.kuwas.android.utils.Utils.setCurrentTheme;
 public class Splash extends AppCompatActivity {
 
     LinearLayout revealable;
+    LottieAnimationView lottieAnimationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,18 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         revealable = findViewById(R.id.revealable);
+        lottieAnimationView = findViewById(R.id.loading_animation_view);
+
+        lottieAnimationView.addValueCallback(
+                new KeyPath("**"),
+                LottieProperty.COLOR_FILTER,
+                frameInfo -> new PorterDuffColorFilter(
+                        ContextCompat.getColor(
+                                Splash.this ,
+                            Utils.getCurrentTheme(Splash.this) == 0 ? R.color.black_0 : R.color.colorPrimaryDark
+                        ), PorterDuff.Mode.SRC_ATOP
+                )
+        );
 
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
