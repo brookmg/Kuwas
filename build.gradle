@@ -24,7 +24,7 @@ ext {
     apiBuildVersion = 1
 
     appVersionMajor = 1
-    appVersionMinor = 1
+    appVersionMinor = 2
     appVersionBuild = 0
     iterationNumber = 10
 
