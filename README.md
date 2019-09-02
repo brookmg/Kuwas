@@ -9,13 +9,15 @@
 <td><img src="screenshots/designed.png" width="150" /></td>
 <td><img src="screenshots/scores.png" width="150" /></td>
 <td><img src="screenshots/standing.png" width="150" /></td>
-<td><img src="screenshots/bestplayer.png" width="150" /></td></tr>
+<td><img src="screenshots/bestplayer.png" width="150" /></td>
+<td><img src="screenshots/dark.png" width="150" /></td></tr>
 <tr>
 <td><p align="center">Latest Sport News</p></td>
 <td><p align="center">Designed For Reading</p></td>
 <td><p align="center">Updated Team Scores</p></td>
 <td><p align="center">Accurate Team Standing</p></td>
 <td><p align="center">Current Best Players In League</p></td>
+<td><p align="center">Now with dark mode 😍</p></td>
 </tr>
 </table></p>
 
