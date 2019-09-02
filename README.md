@@ -9,17 +9,23 @@
 <td><img src="screenshots/designed.png" width="150" /></td>
 <td><img src="screenshots/scores.png" width="150" /></td>
 <td><img src="screenshots/standing.png" width="150" /></td>
-<td><img src="screenshots/bestplayer.png" width="150" /></td>
-<td><img src="screenshots/dark.png" width="150" /></td></tr>
+<td><img src="screenshots/bestplayer.png" width="150" /></td></tr>
 <tr>
 <td><p align="center">Latest Sport News</p></td>
 <td><p align="center">Designed For Reading</p></td>
 <td><p align="center">Updated Team Scores</p></td>
 <td><p align="center">Accurate Team Standing</p></td>
 <td><p align="center">Current Best Players In League</p></td>
+</tr>
+</table></p>
+<table border="1">
+<tr>
+<td><img src="screenshots/dark.png" width="150" /></td></tr>
+<tr>
 <td><p align="center">Now with dark mode 😍</p></td>
 </tr>
 </table></p>
+
 
 #### You can find this app on play-store 
 <p><a href='https://play.google.com/store/apps/details?id=app.kuwas.android&utm_source=github&utm_campaign=ReadmeKuwasGithub&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="200" alt='በGoogle Play ላይ ያግኙት' src='https://play.google.com/intl/en_us/badges/images/generic/am_badge_web_generic.png'/></a></p>
