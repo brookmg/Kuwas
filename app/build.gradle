@@ -54,6 +54,10 @@ dependencies {
 
     implementation firebase.core
     implementation firebase.config
+    implementation firebase.performance
+    implementation firebase.messaging
+
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
@@ -65,3 +69,4 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+googleServices { disableVersionCheck = false }
