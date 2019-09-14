@@ -49,6 +49,7 @@ public class ScoresFragment extends BaseFragment {
     private RecyclerView mainRecycler;
     private Integer recyclerViewY = 0;
     private RelativeLayout contentLoadingIndicator;
+    private View errorLayout;
 
     static ScoresFragment newInstance() {
         Bundle args = new Bundle();
@@ -83,10 +84,12 @@ public class ScoresFragment extends BaseFragment {
                             startActivity(intent);
                         }));
                         hideLoadingLayout();
+                        changeErrorVisibility(false);
                     },
                     error -> {
                         Log.e("ScoresFragment" , error);
                         hideLoadingLayout();
+                        changeErrorVisibility(true);
                     }
             );
     }
@@ -96,14 +99,21 @@ public class ScoresFragment extends BaseFragment {
         setAppBarElevation(round(min(recyclerViewY * 0.4f, 19f)));
     }
 
+    private void changeErrorVisibility(boolean show) {
+        errorLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        errorLayout.animate().alpha(show ? 1 : 0).setDuration(500).start();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.scores_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainScoresRecyclerView);
         contentLoadingIndicator = mainView.findViewById(R.id.loading_layout);
+        errorLayout = mainView.findViewById(R.id.error_layout);
 
         refresh();
+        mainView.findViewById(R.id.refresh_button).setOnClickListener(v -> refresh());
 
         mainRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

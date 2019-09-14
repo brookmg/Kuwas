@@ -58,6 +58,7 @@ public class NewsFragment extends BaseFragment {
     private RecyclerView mainRecycler;
     private Integer recyclerViewY = 0;
     private RelativeLayout contentLoadingIndicator;
+    private View errorLayout;
 
     static NewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -89,6 +90,11 @@ public class NewsFragment extends BaseFragment {
         if (contentLoadingIndicator != null) {
             contentLoadingIndicator.animate().alpha(0f).setDuration(500).start();
         }
+    }
+
+    private void changeErrorVisibility(boolean show) {
+        errorLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        errorLayout.animate().alpha(show ? 1 : 0).setDuration(500).start();
     }
 
     @Override
@@ -129,10 +135,12 @@ public class NewsFragment extends BaseFragment {
                         });
                         mainRecycler.setAdapter(adapter);
                         hideLoadingLayout();
+                        changeErrorVisibility(false);
                     },
                     error -> {
                         Log.e("NewsFragment:", error != null ? error : "Unknown");
                         hideLoadingLayout();
+                        changeErrorVisibility(true);
                     }
             );
         }
@@ -149,9 +157,11 @@ public class NewsFragment extends BaseFragment {
         View mainView = inflater.inflate(R.layout.news_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainNewsRecyclerView);
         contentLoadingIndicator = mainView.findViewById(R.id.loading_layout);
+        errorLayout = mainView.findViewById(R.id.error_layout);
         mainRecycler.setHasFixedSize(true); //for performance increments
 
         refresh();
+        mainView.findViewById(R.id.refresh_button).setOnClickListener(v -> refresh());
 
         mainRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

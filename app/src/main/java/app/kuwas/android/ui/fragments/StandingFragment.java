@@ -47,6 +47,7 @@ public class StandingFragment extends BaseFragment {
 
     private StandingTable mainTable;
     private RelativeLayout contentLoadingIndicator;
+    private View errorLayout;
 
     static StandingFragment newInstance() {
         Bundle args = new Bundle();
@@ -78,12 +79,19 @@ public class StandingFragment extends BaseFragment {
                         mainTable.populateTable(ranking);
                         mainTable.invalidate();
                         hideLoadingLayout();
+                        changeErrorVisibility(false);
                     }, error -> {
                         Log.e("Ranking" , error);
                         hideLoadingLayout();
+                        changeErrorVisibility(true);
                     }
                     , true
             );
+    }
+
+    private void changeErrorVisibility(boolean show) {
+        errorLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        errorLayout.animate().alpha(show ? 1 : 0).setDuration(500).start();
     }
 
     @Nullable
@@ -92,7 +100,10 @@ public class StandingFragment extends BaseFragment {
         View mainView = inflater.inflate(R.layout.standing_fragment, container, false);
         mainTable = mainView.findViewById(R.id.main_standing_table);
         contentLoadingIndicator = mainView.findViewById(R.id.loading_layout);
+        errorLayout = mainView.findViewById(R.id.error_layout);
+
         refresh();
+        mainView.findViewById(R.id.refresh_button).setOnClickListener(v -> refresh());
         ((NestedScrollView) mainView.findViewById(R.id.nested_scroll_view)).setOnScrollChangeListener(
                 (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) ->
                         setAppBarElevation(round(min(scrollY * 0.4f , 12f)))

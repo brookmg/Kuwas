@@ -34,4 +34,12 @@
 
     </RelativeLayout>
 
+    <include
+        android:id="@+id/error_layout"
+        layout="@layout/error_layout"
+        android:visibility="gone"
+        android:layout_marginTop="124dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
