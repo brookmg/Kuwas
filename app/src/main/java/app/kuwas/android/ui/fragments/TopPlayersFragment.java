@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +50,7 @@ public class TopPlayersFragment extends BaseFragment {
 
     private RecyclerView mainRecycler;
     private Integer recyclerViewY = 0;
+    private RelativeLayout contentLoadingIndicator;
 
     static TopPlayersFragment newInstance() {
         Bundle args = new Bundle();
@@ -57,9 +59,22 @@ public class TopPlayersFragment extends BaseFragment {
         return fragment;
     }
 
+    private void showLoadingLayout() {
+        if (contentLoadingIndicator != null) {
+            contentLoadingIndicator.animate().alpha(1f).setDuration(500).start();
+        }
+    }
+
+    private void hideLoadingLayout() {
+        if (contentLoadingIndicator != null) {
+            contentLoadingIndicator.animate().alpha(0f).setDuration(500).start();
+        }
+    }
+
     @Override
     public void refresh() {
         super.refresh();
+        showLoadingLayout();
         if (mainRecycler != null)
             App.getInstance().getApi().getTopPlayers(
                     players -> {
@@ -76,8 +91,12 @@ public class TopPlayersFragment extends BaseFragment {
                                 return false;
                             }
                         }) );
+                        hideLoadingLayout();
                     },
-                    error -> Log.e("TopPFragment" , error)
+                    error -> {
+                        Log.e("TopPFragment" , error);
+                        hideLoadingLayout();
+                    }
             );
     }
 
@@ -91,7 +110,7 @@ public class TopPlayersFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.scores_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainScoresRecyclerView);
-
+        contentLoadingIndicator = mainView.findViewById(R.id.loading_layout);
         refresh();
 
         mainRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
