@@ -18,7 +18,7 @@
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialogDark</item>
 
         <item name="android:windowBackground">@color/black_1</item>
-        <item name="colorPrimary">@color/black_0</item>
+        <item name="colorPrimary">@color/green_0</item>
         <item name="colorPrimaryDark">@color/black_0</item>
         <item name="colorAccent">@color/white_0</item>
         <item name="appBackgroundColor">@color/black_1</item>
