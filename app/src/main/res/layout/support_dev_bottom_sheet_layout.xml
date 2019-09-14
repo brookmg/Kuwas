@@ -38,6 +38,7 @@
         android:textStyle="bold"
         android:padding="16dp"
         android:textSize="18sp"
+        android:textColor="?appTextColorPrimary"
         android:id="@+id/menu_title"
         app:layout_constraintTop_toBottomOf="@+id/draggable_sign"
         app:layout_constraintStart_toStartOf="parent"
