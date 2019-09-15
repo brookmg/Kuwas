@@ -29,5 +29,6 @@ public class Constants {
 
     // remote config keys start here
     public static final String FRC_LATEST_VERSION = "latest_version";
+    public static final String FRC_SHOW_ADS = "show_ads";
 
 }

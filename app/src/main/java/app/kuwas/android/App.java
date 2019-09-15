@@ -29,7 +29,11 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.model.YenePayConfiguration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import app.kuwas.android.ui.activities.AboutActivity;
+import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
 import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
@@ -50,6 +54,9 @@ public class App extends MultiDexApplication {
         instance = this;
 
         remoteConfig = FirebaseRemoteConfig.getInstance();
+        Map<String, Object> defaults = new HashMap<>();
+        defaults.put(Constants.FRC_SHOW_ADS , true);
+        remoteConfig.setDefaults(defaults);
         remoteConfig.fetchAndActivate().addOnCompleteListener(
                 task -> Log.d("REMOTE_CONFIG", "completed - " +
                         (task.isComplete() && task.isSuccessful() ? "YAP" : "NOP"))

@@ -40,12 +40,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.adapters.TagsChipRecyclerAdapter;
+import app.kuwas.android.utils.Constants;
 import io.brookmg.soccerethiopiaapi.data.NewsItem;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
@@ -141,6 +144,12 @@ public class NewsPreviewFragment extends BaseFragment {
         newsTitle = mainView.findViewById(R.id.news_title);
         newsDateTimePlusAuthor = mainView.findViewById(R.id.news_date_time_plus_author);
         handleTopMarginOnFAB(mainView.findViewById(R.id.back_button));
+
+        if (App.getInstance().getRemoteConfig().getBoolean(Constants.FRC_SHOW_ADS)) {
+            AdView banner = mainView.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("2F3A40AA575193DE16F63722988863C8").build();
+            banner.loadAd(adRequest);
+        }
 
         mainView.findViewById(R.id.back_button).setOnClickListener(v -> getActivity().onBackPressed());
 
