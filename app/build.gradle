@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 28
@@ -11,6 +13,7 @@ android {
         versionName String.valueOf(appVersionMajor) + "." + String.valueOf(appVersionMinor) + "." + String.valueOf(appVersionBuild) + "." + String.valueOf(iterationNumber)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
         manifestPlaceholders = [
                 yenepayReturnScheme: "app.kuwas.android"
         ]
@@ -41,6 +44,7 @@ dependencies {
     implementation project(":soccerethiopiaapi")
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation "com.airbnb.android:lottie:3.0.1"
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     //LIFECYCLE
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
@@ -54,6 +58,11 @@ dependencies {
 
     implementation firebase.core
     implementation firebase.config
+    implementation firebase.performance
+    implementation firebase.messaging
+    implementation firebase.adslite
+
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

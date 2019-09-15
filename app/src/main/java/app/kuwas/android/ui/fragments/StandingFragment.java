@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,8 @@ import static java.lang.Math.round;
 public class StandingFragment extends BaseFragment {
 
     private StandingTable mainTable;
+    private RelativeLayout contentLoadingIndicator;
+    private View errorLayout;
 
     static StandingFragment newInstance() {
         Bundle args = new Bundle();
@@ -53,18 +56,42 @@ public class StandingFragment extends BaseFragment {
         return fragment;
     }
 
+    private void showLoadingLayout() {
+        if (contentLoadingIndicator != null) {
+            contentLoadingIndicator.animate().alpha(1f).setDuration(500).start();
+        }
+    }
+
+    private void hideLoadingLayout() {
+        if (contentLoadingIndicator != null) {
+            contentLoadingIndicator.animate().alpha(0f).setDuration(500).start();
+        }
+    }
+
     @Override
     public void refresh() {
         super.refresh();
+        showLoadingLayout();
         if (mainTable != null)
             App.getInstance().getApi().getLatestTeamRanking(
                     ranking -> {
                         mainTable.clearTable();
                         mainTable.populateTable(ranking);
                         mainTable.invalidate();
-                    }, error -> Log.e("Ranking" , error)
+                        hideLoadingLayout();
+                        changeErrorVisibility(false);
+                    }, error -> {
+                        Log.e("Ranking" , error);
+                        hideLoadingLayout();
+                        changeErrorVisibility(true);
+                    }
                     , true
             );
+    }
+
+    private void changeErrorVisibility(boolean show) {
+        errorLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        errorLayout.animate().alpha(show ? 1 : 0).setDuration(500).start();
     }
 
     @Nullable
@@ -72,7 +99,11 @@ public class StandingFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.standing_fragment, container, false);
         mainTable = mainView.findViewById(R.id.main_standing_table);
+        contentLoadingIndicator = mainView.findViewById(R.id.loading_layout);
+        errorLayout = mainView.findViewById(R.id.error_layout);
+
         refresh();
+        mainView.findViewById(R.id.refresh_button).setOnClickListener(v -> refresh());
         ((NestedScrollView) mainView.findViewById(R.id.nested_scroll_view)).setOnScrollChangeListener(
                 (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) ->
                         setAppBarElevation(round(min(scrollY * 0.4f , 12f)))

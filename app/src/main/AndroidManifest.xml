@@ -48,6 +48,11 @@
             android:configChanges="orientation|screenLayout|screenSize|keyboard|keyboardHidden"
             android:label="@string/team_information"
             android:theme="@style/KuwasLightTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1846679736594156~3305825629"/>
+
     </application>
 
 </manifest>

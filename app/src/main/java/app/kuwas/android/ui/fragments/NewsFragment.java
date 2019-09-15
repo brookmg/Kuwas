@@ -22,10 +22,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
@@ -54,6 +57,8 @@ public class NewsFragment extends BaseFragment {
 
     private RecyclerView mainRecycler;
     private Integer recyclerViewY = 0;
+    private RelativeLayout contentLoadingIndicator;
+    private View errorLayout;
 
     static NewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -75,10 +80,28 @@ public class NewsFragment extends BaseFragment {
         return false;
     }
 
+    private void showLoadingLayout() {
+        if (contentLoadingIndicator != null) {
+            contentLoadingIndicator.animate().alpha(1f).setDuration(500).start();
+        }
+    }
+
+    private void hideLoadingLayout() {
+        if (contentLoadingIndicator != null) {
+            contentLoadingIndicator.animate().alpha(0f).setDuration(500).start();
+        }
+    }
+
+    private void changeErrorVisibility(boolean show) {
+        errorLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        errorLayout.animate().alpha(show ? 1 : 0).setDuration(500).start();
+    }
+
     @Override
     public void refresh() {
         super.refresh();
         if (mainRecycler != null) {
+            showLoadingLayout();
             App.getInstance().getApi().getLatestNews(
                     news -> {
                         Collections.sort(news, (o1, o2) -> {
@@ -111,8 +134,14 @@ public class NewsFragment extends BaseFragment {
                             }
                         });
                         mainRecycler.setAdapter(adapter);
+                        hideLoadingLayout();
+                        changeErrorVisibility(false);
                     },
-                    error -> Log.e("NewsFragment:", error != null ? error : "Unknown")
+                    error -> {
+                        Log.e("NewsFragment:", error != null ? error : "Unknown");
+                        hideLoadingLayout();
+                        changeErrorVisibility(true);
+                    }
             );
         }
     }
@@ -127,9 +156,12 @@ public class NewsFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.news_fragment, container, false);
         mainRecycler = mainView.findViewById(R.id.mainNewsRecyclerView);
+        contentLoadingIndicator = mainView.findViewById(R.id.loading_layout);
+        errorLayout = mainView.findViewById(R.id.error_layout);
         mainRecycler.setHasFixedSize(true); //for performance increments
 
         refresh();
+        mainView.findViewById(R.id.refresh_button).setOnClickListener(v -> refresh());
 
         mainRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

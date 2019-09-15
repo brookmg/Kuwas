@@ -16,40 +16,39 @@
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:behavior_hideable="false"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <View
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="12dp"
-        android:layout_width="20dp"
-        android:layout_height="2dp"
-        android:background="@color/grey_0"
-        android:id="@+id/draggable_sign" />
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:text="@string/support_development"
-        style="@style/TextAppearance.MaterialComponents.Button"
-        android:textStyle="bold"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:textColor="?appTextColorPrimary"
-        android:id="@+id/menu_title"
-        app:layout_constraintTop_toBottomOf="@+id/draggable_sign"
+        android:id="@+id/errorText"
+        android:text="@string/something_went_wrong_while_processing_data"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:padding="16dp"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="?appTextColorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-     <androidx.recyclerview.widget.RecyclerView
-         android:id="@+id/menu_items_recycler_view"
-         app:layout_constraintTop_toBottomOf="@+id/menu_title"
-         app:layout_constraintStart_toStartOf="parent"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/refresh_button"
+        app:layout_constraintTop_toBottomOf="@id/errorText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="@string/refresh"
+        app:strokeColor="@color/red_0"
+        android:textColor="@color/red_0"
+        app:rippleColor="@color/red_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

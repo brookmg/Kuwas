@@ -16,6 +16,7 @@
 
 package app.kuwas.android.ui.activities;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,7 +50,6 @@ import static app.kuwas.android.utils.Constants.TAG_NEWS_PREVIEW;
 import static app.kuwas.android.utils.FabStates.FabState;
 import static app.kuwas.android.utils.Utils.getCurrentTheme;
 import static app.kuwas.android.utils.Utils.openPlayStore;
-import static app.kuwas.android.utils.Utils.setCurrentTheme;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,7 +106,9 @@ public class MainActivity extends AppCompatActivity {
         int currentTheme = Utils.getCurrentTheme(this);
         if (currentTheme == 0) Utils.setCurrentTheme(this , 1);
         else Utils.setCurrentTheme(this, 0);
-        recreate();
+        startActivity(new Intent(this, MainActivity.class));
+        overridePendingTransition(0,0);
+        finish();
     }
 
     @Override

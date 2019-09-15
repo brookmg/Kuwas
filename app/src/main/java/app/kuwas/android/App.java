@@ -22,11 +22,18 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
+
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.yenepaySDK.PaymentOrderManager;
 import com.yenepaySDK.model.YenePayConfiguration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import app.kuwas.android.ui.activities.AboutActivity;
+import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
 import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
@@ -34,7 +41,7 @@ import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
  * Created by BrookMG on 5/18/2019 in app.kuwas.android
  * inside the project Kuwas .
  */
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     private static App instance;
     private SoccerEthiopiaApi api;
@@ -43,9 +50,13 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
         instance = this;
 
         remoteConfig = FirebaseRemoteConfig.getInstance();
+        Map<String, Object> defaults = new HashMap<>();
+        defaults.put(Constants.FRC_SHOW_ADS , true);
+        remoteConfig.setDefaults(defaults);
         remoteConfig.fetchAndActivate().addOnCompleteListener(
                 task -> Log.d("REMOTE_CONFIG", "completed - " +
                         (task.isComplete() && task.isSuccessful() ? "YAP" : "NOP"))
