@@ -52,6 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/team_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="?appTextColorPrimary"
         tools:text="Buna Gebeya"
         android:layout_height="wrap_content" />
 
