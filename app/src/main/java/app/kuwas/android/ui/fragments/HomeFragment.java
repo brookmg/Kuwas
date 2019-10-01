@@ -187,10 +187,10 @@ public class HomeFragment extends BaseFragment {
     public void changeFabState(int state) {
         super.changeFabState(state);
         if (refreshFab != null) {
-            if (state == STATE_EXPAND) refreshFab.extend(true);
-            else if (state == FabStates.STATE_COLLAPSE) refreshFab.shrink(true);
-            else if (state == FabStates.STATE_HIDE) refreshFab.hide(true);
-            else if (state == FabStates.STATE_SHOW) refreshFab.show(true);
+            if (state == STATE_EXPAND) refreshFab.extend();
+            else if (state == FabStates.STATE_COLLAPSE) refreshFab.shrink();
+            else if (state == FabStates.STATE_HIDE) refreshFab.hide();
+            else if (state == FabStates.STATE_SHOW) refreshFab.show();
         }
     }
 }

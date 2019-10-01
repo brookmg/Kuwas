@@ -89,16 +89,38 @@ public class FavoriteTeam extends AppCompatActivity {
     private void changeFabState(@FabStates.FabState int fabstate) {
         switch (fabstate) {
             case FabStates.STATE_COLLAPSE:
-                continueButton.shrink(true);
+                continueButton.shrink(new ExtendedFloatingActionButton.OnChangedCallback() {
+                    @Override
+                    public void onShrunken(ExtendedFloatingActionButton extendedFab) {
+                        super.onShrunken(extendedFab);
+                    }
+                });
                 break;
             case FabStates.STATE_EXPAND:
-                continueButton.extend(true);
+                continueButton.extend(new ExtendedFloatingActionButton.OnChangedCallback() {
+                    @Override
+                    public void onExtended(ExtendedFloatingActionButton extendedFab) {
+                        super.onExtended(extendedFab);
+                    }
+                });
                 break;
             case FabStates.STATE_HIDE:
-                continueButton.hide(true);
+                continueButton.hide(new ExtendedFloatingActionButton.OnChangedCallback() {
+                    @Override
+                    public void onHidden(ExtendedFloatingActionButton extendedFab) {
+                        super.onHidden(extendedFab);
+
+                    }
+                });
                 break;
             case FabStates.STATE_SHOW:
-                continueButton.show(true);
+                continueButton.show(new ExtendedFloatingActionButton.OnChangedCallback() {
+                    @Override
+                    public void onShown(ExtendedFloatingActionButton extendedFab) {
+                        super.onShown(extendedFab);
+
+                    }
+                });
                 break;
         }
     }
