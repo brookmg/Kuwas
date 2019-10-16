@@ -70,6 +70,13 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private void setupLeagueScheduleShouldShowDateBooleanList () {
+        List<LeagueScheduleItem> copy = new ArrayList<>();
+        for (LeagueScheduleItem item : leagueScheduleItems)
+            // Clean up fields with null team detail values
+            if (item.getGameDetail().keySet().toArray(new Team[0]).length > 1) copy.add(item);
+
+        leagueScheduleItems = copy;
+
         leagueScheduleItemsShouldShowDate = new ArrayList<>(leagueScheduleItems.size());
         run(() -> leagueScheduleItemsShouldShowDate.add(false), leagueScheduleItems.size());
 
