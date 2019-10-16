@@ -38,7 +38,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/white_0y</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
 
         <item name="android:windowBackground">@color/white_0</item>
@@ -60,7 +60,7 @@
     <style name="KuwasDarkTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/black_1y</item>
         <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialogDark</item>
 

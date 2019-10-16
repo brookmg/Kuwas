@@ -20,12 +20,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -39,7 +39,6 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -53,7 +52,6 @@ import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.utils.FabStates;
 
 import static app.kuwas.android.utils.FabStates.STATE_EXPAND;
-import static app.kuwas.android.utils.Utils.dpToPx;
 import static app.kuwas.android.utils.Utils.openPlayStore;
 
 /**
@@ -83,11 +81,34 @@ public class HomeFragment extends BaseFragment {
         ViewCompat.setElevation(appBarLayout, elevationLevel);
     }
 
-    // TODO: 7/1/2019 FIGURE OUT A WAY TO ADDRESS POPUP AND MULTI-SCREEN CASES
-    private void handleTopPaddingOnAppBarLayout(AppBarLayout appBarLayout) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // the sdk is greater than lollipop; the app is being drawn under the status bar
-            appBarLayout.setPadding(0, getActivity() != null ? dpToPx(getActivity(), 24) : 0, 0, 0);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    private void handleWindowInsets(AppBarLayout appBarLayout) {
+        appBarLayout.setOnApplyWindowInsetsListener((v1, insets) -> {
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) appBarLayout.getLayoutParams();
+            marginParams.setMargins( 0, insets.getSystemWindowInsetTop(), 0, 0);
+            appBarLayout.setLayoutParams(marginParams);
+
+            return insets;
+        });
+        viewPager.setOnApplyWindowInsetsListener((v1, insets) -> {
+            viewPager.setPadding(
+                    insets.getSystemWindowInsetLeft(),
+                    0,
+                    insets.getSystemWindowInsetRight(),
+                    0
+            );
+
+            return insets;
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            appBarLayout.requestApplyInsets();
+            viewPager.requestApplyInsets();
+            handleWindowInsets(appBarLayout);
         }
     }
 
@@ -102,8 +123,6 @@ public class HomeFragment extends BaseFragment {
         viewPager = mainView.findViewById(R.id.main_view_pager);
         refreshFab = mainView.findViewById(R.id.refresh_fab);
         menuButton = mainView.findViewById(R.id.menu_btn);
-
-        handleTopPaddingOnAppBarLayout(appBarLayout);
 
         if (getActivity() != null) {
             tabAdapter = new TabAdapter(getChildFragmentManager());

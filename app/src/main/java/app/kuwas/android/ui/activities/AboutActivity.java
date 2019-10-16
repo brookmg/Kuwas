@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -66,8 +67,11 @@ public class AboutActivity extends YenePayPaymentActivity {
     private void handleTopMarginOnFAB(AppCompatImageButton button) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // the sdk is greater than lollipop; the app is being drawn under the status bar
-            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
-            marginParams.setMargins( 0, dpToPx(this, 32), 0, 0);
+            button.setOnApplyWindowInsetsListener((v, insets) -> {
+                ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) button.getLayoutParams();
+                marginParams.setMargins( 0, insets.getSystemWindowInsetTop(), 0, 0);
+                return insets;
+            });
         }
     }
 
@@ -87,6 +91,11 @@ public class AboutActivity extends YenePayPaymentActivity {
 
             }
         });
+
+        handleTopMarginOnFAB(findViewById(R.id.back_button));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            findViewById(R.id.back_button).requestApplyInsets();
+        }
     }
 
     @Nullable
@@ -108,7 +117,6 @@ public class AboutActivity extends YenePayPaymentActivity {
             );
 
         setupPaymentProcess();
-        handleTopMarginOnFAB(findViewById(R.id.back_button));
         findViewById(R.id.back_button).setOnClickListener(v -> onBackPressed());
         NestedScrollView mainScrollView = findViewById(R.id.container);
 
