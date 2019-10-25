@@ -88,7 +88,8 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     private List<String> filterOutStringFromTeams(List<Team> teams) {
         List<String> names = new ArrayList<>();
-        for (Team team : teams) names.add(team.getTeamFullName());
+        for (Team team : teams)
+            if (team != null) names.add(team.getTeamFullName());
         return names;
     }
 
