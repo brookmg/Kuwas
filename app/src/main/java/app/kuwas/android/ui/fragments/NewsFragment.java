@@ -59,6 +59,7 @@ public class NewsFragment extends BaseFragment {
     private Integer recyclerViewY = 0;
     private RelativeLayout contentLoadingIndicator;
     private View errorLayout;
+    private boolean alreadyLoadedCachedContent = false;
 
     static NewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -104,6 +105,8 @@ public class NewsFragment extends BaseFragment {
             showLoadingLayout();
             App.getInstance().getApi().getLatestNews(
                     news -> {
+                        if (news != null) alreadyLoadedCachedContent = true;
+
                         Collections.sort(news, (o1, o2) -> {
                             if (o1.getNewsPublishedOn().getTime() == o2.getNewsPublishedOn().getTime()) return 0;
                             return (o1.getNewsPublishedOn().getTime() > o2.getNewsPublishedOn().getTime()) ? -1 : 1;
@@ -140,7 +143,7 @@ public class NewsFragment extends BaseFragment {
                     error -> {
                         Log.e("NewsFragment:", error != null ? error : "Unknown");
                         hideLoadingLayout();
-                        changeErrorVisibility(true);
+                        if (!alreadyLoadedCachedContent) changeErrorVisibility(true);
                     }
             );
         }

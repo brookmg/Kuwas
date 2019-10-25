@@ -48,6 +48,7 @@ public class StandingFragment extends BaseFragment {
     private StandingTable mainTable;
     private RelativeLayout contentLoadingIndicator;
     private View errorLayout;
+    private boolean alreadyLoadedCachedContent = false;
 
     static StandingFragment newInstance() {
         Bundle args = new Bundle();
@@ -75,6 +76,7 @@ public class StandingFragment extends BaseFragment {
         if (mainTable != null)
             App.getInstance().getApi().getLatestTeamRanking(
                     ranking -> {
+                        if (ranking != null) alreadyLoadedCachedContent = true;
                         mainTable.clearTable();
                         mainTable.populateTable(ranking);
                         mainTable.invalidate();
@@ -83,7 +85,7 @@ public class StandingFragment extends BaseFragment {
                     }, error -> {
                         Log.e("Ranking" , error);
                         hideLoadingLayout();
-                        changeErrorVisibility(true);
+                        if (!alreadyLoadedCachedContent) changeErrorVisibility(true);
                     }
                     , true
             );

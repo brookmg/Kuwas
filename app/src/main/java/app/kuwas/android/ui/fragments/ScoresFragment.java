@@ -50,6 +50,7 @@ public class ScoresFragment extends BaseFragment {
     private Integer recyclerViewY = 0;
     private RelativeLayout contentLoadingIndicator;
     private View errorLayout;
+    private boolean alreadyLoadedCachedContent = false;
 
     static ScoresFragment newInstance() {
         Bundle args = new Bundle();
@@ -77,6 +78,7 @@ public class ScoresFragment extends BaseFragment {
         if (mainRecycler != null)
             App.getInstance().getApi().getThisWeekLeagueSchedule(
                     scheduleItems -> {
+                        if (scheduleItems != null) alreadyLoadedCachedContent = true;
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
                         mainRecycler.setAdapter(new ScoresRecyclerAdapter(scheduleItems, team -> {
                             Intent intent = new Intent(getActivity(), TeamInformation.class);
@@ -89,7 +91,7 @@ public class ScoresFragment extends BaseFragment {
                     error -> {
                         Log.e("ScoresFragment" , error);
                         hideLoadingLayout();
-                        changeErrorVisibility(true);
+                        if (!alreadyLoadedCachedContent) changeErrorVisibility(true);
                     }
             );
     }
