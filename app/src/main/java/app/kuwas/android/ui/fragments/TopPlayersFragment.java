@@ -52,6 +52,7 @@ public class TopPlayersFragment extends BaseFragment {
     private Integer recyclerViewY = 0;
     private RelativeLayout contentLoadingIndicator;
     private View errorLayout;
+    private boolean alreadyLoadedCachedContent = false;
 
     static TopPlayersFragment newInstance() {
         Bundle args = new Bundle();
@@ -84,6 +85,7 @@ public class TopPlayersFragment extends BaseFragment {
         if (mainRecycler != null)
             App.getInstance().getApi().getTopPlayers(
                     players -> {
+                        if (players != null) alreadyLoadedCachedContent = true;
                         Log.d("players", Arrays.toString(players.toArray()));
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));
                         mainRecycler.setAdapter(new TopPlayersRecyclerAdapter(mainRecycler, players, new OnItemActionListener() {
@@ -103,7 +105,7 @@ public class TopPlayersFragment extends BaseFragment {
                     error -> {
                         Log.e("TopPFragment" , error);
                         hideLoadingLayout();
-                        changeErrorVisibility(true);
+                        if (!alreadyLoadedCachedContent) changeErrorVisibility(true);
                     }
             );
     }
