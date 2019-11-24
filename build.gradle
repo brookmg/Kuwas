@@ -32,21 +32,21 @@ ext {
     appVersionBuild = 2
     iterationNumber = 50
 
-    firebaseVersion = '17.0.0' //11.6.2 //10.0.1
+    firebaseVersion = '17.2.1' //11.6.2 //10.0.1
     firebaseStorage = '18.0.0'
     constraintVersion = '1.1.0'
-    firebaseRemoteConfig  = '18.0.0'
+    firebaseRemoteConfig  = '19.0.3'
     firebaseDatabase = '18.0.0'
     firebasePref = '18.0.1'
     firebaseMessaging = '19.0.1'
-    firebaseAds = '18.1.0'
+    firebaseAds = '18.3.0'
     firebaseInappMessaging = '18.0.1'
     firebaseFirestore = '20.1.0'
     firebaseCrash = '16.2.1'
     firebaseInvite = '17.0.0'
     firebaseAuth = '18.0.0'
     firebaseDeepLinks = '18.0.0'
-    googleServicesAds = '18.1.0'
+    googleServicesAds = '18.3.0'
 
     firebase = [
             invites: "com.google.firebase:firebase-invites:$firebaseInvite",
