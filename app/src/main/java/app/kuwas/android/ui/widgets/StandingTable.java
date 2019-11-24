@@ -110,7 +110,6 @@ public class StandingTable extends TableLayout {
                 AppCompatTextView textView = new AppCompatTextView(getContext());
                 applyToAllViews((textview) -> {
                     ((AppCompatTextView) textview).setGravity(Gravity.CENTER);
-                    // TODO: 5/19/2019 Don't forget this when you decide to apply themes
                     ((AppCompatTextView) textview).setTextColor(ContextCompat.getColor(getContext(), getCurrentTheme(getContext()) == 0 ? R.color.black_0 : R.color.white_0));
                     ((AppCompatTextView) textview).setTypeface(null, Typeface.BOLD);
                     textview.setPadding(dpToPx(getContext(), 16) , dpToPx(getContext(), 12),
