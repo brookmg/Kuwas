@@ -266,7 +266,7 @@ public class AboutActivity extends YenePayPaymentActivity {
         );
 
         items.add(new MenuSheetAdapter.MenuItem(
-                ContextCompat.getDrawable(this, R.drawable.ic_action_soda) ,
+                ContextCompat.getDrawable(this, R.drawable.ic_action_mobile_card) ,
                 "10 BIRR" ,
                 v -> {
                     try {
@@ -278,7 +278,7 @@ public class AboutActivity extends YenePayPaymentActivity {
         );
 
         items.add(new MenuSheetAdapter.MenuItem(
-                ContextCompat.getDrawable(this, R.drawable.ic_action_cookie_with_fine_chips) ,
+                ContextCompat.getDrawable(this, R.drawable.ic_action_ride) ,
                 "15 BIRR" ,
                 v -> {
                     try {
@@ -290,7 +290,7 @@ public class AboutActivity extends YenePayPaymentActivity {
         );
 
         items.add(new MenuSheetAdapter.MenuItem(
-                ContextCompat.getDrawable(this, R.drawable.ic_action_hot_air_balloon) ,
+                ContextCompat.getDrawable(this, R.drawable.ic_action_cheeseburger) ,
                 "25 BIRR" ,
                 v -> {
                     try {
