@@ -14,12 +14,20 @@
  * limitations under the License.
  */
 
-package app.kuwas.android.bridge.core;
+package app.kuwas.android.bridge.data;
 
-import java.util.ArrayList;
+import androidx.annotation.IntDef;
 
-import app.kuwas.android.bridge.data.RankItem;
+/**
+ * Created by BrookMG on 12/29/2018 in io.brookmg.soccerethiopiaapi.data
+ * inside the project SoccerEthiopia .
+ */
+public class LeagueItemStatus {
+    @IntDef(value = {STATUS_TOOK_PLACE , STATUS_POSTPONED, STATUS_CANCELLED, STATUS_NORMAL})
+    public @interface GameStatus{}
 
-public interface OnStandingDataProcessed {
-    void onFinish(ArrayList<RankItem> ranking);
+    public static final int STATUS_TOOK_PLACE = 101;
+    public static final int STATUS_CANCELLED = 102;
+    public static final int STATUS_POSTPONED = 103;
+    public static final int STATUS_NORMAL = 104;
 }

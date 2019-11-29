@@ -16,27 +16,27 @@
 
 package app.kuwas.android.bridge.core;
 
+import java.util.ArrayList;
+
+import app.kuwas.android.bridge.data.LeagueScheduleItem;
+import app.kuwas.android.bridge.data.NewsItem;
+import app.kuwas.android.bridge.data.Player;
+import app.kuwas.android.bridge.data.RankItem;
+import app.kuwas.android.bridge.data.Team;
+
 public interface Bridge {
-
-    /**
-     * Main Function to get the latest team ranking
-     * @param processed - a callback to handle the processed array-list
-     * @param error - a callback to handle any error
-     */
-    void getLatestTeamRanking (OnStandingDataProcessed processed, OnError error);
-
-    /**
-     * Main Function to get the latest team ranking
-     * @param processed - a callback to handle the processed array-list
-     * @param error - a callback to handle any error
-     * @param moreDetailed - whether to include details like `goalAgainst` for each RankItem
-     */
-    void getLatestTeamRanking (OnStandingDataProcessed processed, OnError error, boolean moreDetailed);
-
-    /**
-     * Main Function to get all the league schedule for current session
-     * @param processed - a callback to handle the processed array-list
-     * @param error - a callback to handle any error
-     */
-    void getLeagueSchedule (OnLeagueScheduleDataProcessed processed , OnError error)
+    void getLatestTeamRanking (OnItemProcessed<ArrayList<RankItem>> processed, OnError error);
+    void getLatestTeamRanking (OnItemProcessed<ArrayList<RankItem>> processed, OnError error, boolean moreDetailed);
+    void getLeagueSchedule (OnItemProcessed<ArrayList<LeagueScheduleItem>> processed , OnError error);
+    void getLeagueScheduleOfWeek ( int week , OnItemProcessed<ArrayList<LeagueScheduleItem>> processed , OnError error);
+    void getThisWeekLeagueSchedule ( OnItemProcessed<ArrayList<LeagueScheduleItem>> processed, OnError error);
+    void getLastWeekLeagueSchedule ( OnItemProcessed<ArrayList<LeagueScheduleItem>> processed, OnError error);
+    void getNextWeekLeagueSchedule ( OnItemProcessed<ArrayList<LeagueScheduleItem>> processed, OnError error);
+    void getTeamDetail (Team incomplete, OnItemProcessed<Team> teamDetailReady, OnError error);
+    void getNextGameOfTeam (Team team , OnItemProcessed<LeagueScheduleItem> callback, OnError onError);
+    void getNextGameOfTeamInThisWeek (Team team , OnItemProcessed<LeagueScheduleItem> callback, OnError onError);
+    void getTopPlayers (OnItemProcessed<ArrayList<Player>> onPlayersListReceived, OnError onError);
+    void getPlayerDetail (Player player, OnItemProcessed<Player> callback, OnError onError);
+    void getLatestNews(OnItemProcessed<ArrayList<NewsItem>> onNewsDataProcessed, OnError error);
+    void getNewsItemContent(NewsItem item, OnItemProcessed<NewsItem> onNewsItemProcessed, OnError error);
 }
