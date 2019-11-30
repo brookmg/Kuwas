@@ -133,6 +133,8 @@ public class StandingTable extends TableLayout {
             played.setText(String.format(Locale.US,"%d", item.getPlayedGames()));
             goaldiff.setText(String.format(Locale.US,"%d", item.getGoalDifference()));
             point.setText(String.format(Locale.US,"%d", item.getPoints()));
+
+            if (item.getTeam() != null)
             club.setText(item.getTeam().getTeamFullName());
 
             applyToAllViews(
@@ -149,6 +151,8 @@ public class StandingTable extends TableLayout {
                     rank, club, played, goaldiff, point);
 
             AppCompatImageView clubpic = new AppCompatImageView(getContext());
+
+            if (item.getTeam() != null)
             Glide.with(clubpic).load(item.getTeam().getTeamLogo()).apply(RequestOptions.circleCropTransform()).into(clubpic);
 
             addMultipleViews(itemRow, rank, clubpic, club, played, goaldiff, point);

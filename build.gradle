@@ -30,7 +30,7 @@ ext {
     appVersionMajor = 1
     appVersionMinor = 2
     appVersionBuild = 2
-    iterationNumber = 50
+    iterationNumber = 80
 
     firebaseVersion = '17.0.0' //11.6.2 //10.0.1
     firebaseStorage = '18.0.0'
