@@ -121,6 +121,8 @@ public class ScoresRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((ViewHolder) holder).datetime.setText(leagueScheduleItems.get(position).getGameDate());
             ((ViewHolder) holder).datetime.setVisibility(leagueScheduleItemsShouldShowDate.get(position) ? View.VISIBLE : View.GONE);
 
+            if (team_result.keySet().toArray(new Team[0])[0] == null || team_result.keySet().toArray(new Team[0])[1] == null) return;
+
             ((ViewHolder) holder).team_1_name.setText(team_result.keySet().toArray(new Team[0])[0].getTeamFullName());
             ((ViewHolder) holder).team_2_name.setText(team_result.keySet().toArray(new Team[0])[1].getTeamFullName());
 
