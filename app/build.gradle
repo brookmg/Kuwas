@@ -35,25 +35,28 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.2.0-alpha02'
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.volley:volley:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //implementation 'com.github.brookmg:Soccer-Ethiopia-API:0.5.1'
+
     implementation project(":soccerethiopiaapi")
+    implementation project(":kuwasdeligate")
     implementation project(":kuwasbridge")
+
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation "com.airbnb.android:lottie:3.0.7"
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //LIFECYCLE
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     //ROOM
-    implementation 'androidx.room:room-runtime:2.2.2'
-    annotationProcessor 'androidx.room:room-compiler:2.2.2'
-    androidTestImplementation 'androidx.room:room-testing:2.2.2'
+    implementation 'androidx.room:room-runtime:2.2.3'
+    annotationProcessor 'androidx.room:room-compiler:2.2.3'
+    androidTestImplementation 'androidx.room:room-testing:2.2.3'
 
     //FIREBASE
 
@@ -71,7 +74,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
     implementation 'com.github.YenePay:yenepay.sdk.android:0.0.10'
-    implementation 'androidx.browser:browser:1.2.0-beta01'
+    implementation 'androidx.browser:browser:1.3.0-alpha01'
 }
 
 apply plugin: 'com.google.gms.google-services'
