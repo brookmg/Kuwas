@@ -32,6 +32,7 @@ import com.yenepaySDK.model.YenePayConfiguration;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.kuwas.android.bridge.KuwasBridge;
 import app.kuwas.android.ui.activities.AboutActivity;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
@@ -45,6 +46,8 @@ public class App extends MultiDexApplication {
 
     private static App instance;
     private SoccerEthiopiaApi api;
+
+    private KuwasBridge apiBridge;  // Bridge API
     private FirebaseRemoteConfig remoteConfig;
 
     @Override
@@ -63,6 +66,8 @@ public class App extends MultiDexApplication {
         );
 
         api = new SoccerEthiopiaApi(this, true);
+
+        apiBridge = new KuwasBridge(this , "Ethiopia" , true);
 
         PendingIntent completionIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
         PendingIntent cancelIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
@@ -108,6 +113,8 @@ public class App extends MultiDexApplication {
     public SoccerEthiopiaApi getApi() {
         return api;
     }
+
+    public KuwasBridge getApiBridge() { return apiBridge; }
 
     public FirebaseRemoteConfig getRemoteConfig() {
         return remoteConfig;
