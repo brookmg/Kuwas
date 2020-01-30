@@ -48,7 +48,6 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation project(":soccerethiopiaapi")
-    implementation 'commons-beanutils:commons-beanutils:1.9.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
