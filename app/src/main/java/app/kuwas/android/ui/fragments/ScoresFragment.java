@@ -26,7 +26,6 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,7 +75,7 @@ public class ScoresFragment extends BaseFragment {
         super.refresh();
         showLoadingLayout();
         if (mainRecycler != null)
-            App.getInstance().getApi().getThisWeekLeagueSchedule(
+            App.getInstance().getApiBridge().getThisWeekLeagueSchedule(
                     scheduleItems -> {
                         if (scheduleItems != null) alreadyLoadedCachedContent = true;
                         mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false));

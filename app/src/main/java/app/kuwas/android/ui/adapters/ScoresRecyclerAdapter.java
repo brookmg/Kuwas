@@ -34,9 +34,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.data.LeagueItemStatus;
-import io.brookmg.soccerethiopiaapi.data.LeagueScheduleItem;
-import io.brookmg.soccerethiopiaapi.data.Team;
+import app.kuwas.android.bridge.data.LeagueItemStatus;
+import app.kuwas.android.bridge.data.LeagueScheduleItem;
+import app.kuwas.android.bridge.data.Team;
 
 import static app.kuwas.android.utils.Utils.run;
 
