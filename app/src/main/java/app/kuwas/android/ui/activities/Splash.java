@@ -16,44 +16,31 @@
 
 package app.kuwas.android.ui.activities;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
-import android.widget.ViewAnimator;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewPropertyAnimatorCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieProperty;
 import com.airbnb.lottie.model.KeyPath;
-import com.airbnb.lottie.value.LottieFrameInfo;
-import com.airbnb.lottie.value.SimpleLottieValueCallback;
 
 import app.kuwas.android.R;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
 
-import static android.view.View.GONE;
-import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
-import static android.view.View.VISIBLE;
 import static app.kuwas.android.utils.Utils.pxToDp;
-import static app.kuwas.android.utils.Utils.setCurrentTheme;
 
 public class Splash extends AppCompatActivity {
 
@@ -114,36 +101,11 @@ public class Splash extends AppCompatActivity {
                         .equals("[]");
 
 
-        new Handler().postDelayed(() -> {
-            valueAnimator.setDuration(1_000);
-            valueAnimator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    //revealable.setVisibility(VISIBLE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    //revealable.setVisibility(VISIBLE);
-                    Intent noReturn = new Intent(Splash.this, hasBestFavorites ? MainActivity.class : FavoriteTeam.class);
-                    noReturn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(noReturn);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.stay_still);
-                    finish();
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            valueAnimator.start();
-        }, 2_500);
+        Intent noReturn = new Intent(Splash.this, hasBestFavorites ? MainActivity.class : FavoriteTeam.class);
+        noReturn.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(noReturn);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay_still);
+        finish();
     }
 
 }
