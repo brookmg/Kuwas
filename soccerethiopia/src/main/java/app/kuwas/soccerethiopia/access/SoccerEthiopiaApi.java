@@ -110,9 +110,7 @@ public class SoccerEthiopiaApi implements Bridge {
                 "https://socceret.herokuapp.com/thisweek/schedule" , res -> {
             try {
                 processed.onFinish(
-                        new ArrayList<>(
-                                parseServerResponseToLeagueScheduleItemList(res)
-                        )
+                        new ArrayList<>(parseServerResponseToLeagueScheduleItemList(res))
                 );
             } catch (JSONException e) {
                 e.printStackTrace();

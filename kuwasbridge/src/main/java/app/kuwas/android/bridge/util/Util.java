@@ -16,11 +16,6 @@
 
 package app.kuwas.android.bridge.util;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-
 public class Util {
 
     public static <T, U> void copyFieldsInClassToAnother(T original , U destination ) {

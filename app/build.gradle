@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
+
     defaultConfig {
         applicationId "app.kuwas.android"
         minSdkVersion 17
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode appVersionMajor * 1_000_000 + appVersionMinor * 10_000 + appVersionBuild * 1_000 + iterationNumber
         versionName String.valueOf(appVersionMajor) + "." + String.valueOf(appVersionMinor) + "." + String.valueOf(appVersionBuild) + "." + String.valueOf(iterationNumber)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -35,8 +37,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.2.0-alpha04'
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.android.material:material:1.1.0'
+
+    testImplementation 'junit:junit:4.13'
     implementation 'com.android.volley:volley:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -54,9 +57,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     //ROOM
-    implementation 'androidx.room:room-runtime:2.2.3'
-    annotationProcessor 'androidx.room:room-compiler:2.2.3'
-    androidTestImplementation 'androidx.room:room-testing:2.2.3'
+    implementation 'androidx.room:room-runtime:2.2.5'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    androidTestImplementation 'androidx.room:room-testing:2.2.5'
 
     //FIREBASE
 
@@ -64,14 +67,15 @@ dependencies {
     implementation firebase.config
     implementation firebase.performance
     implementation firebase.messaging
+    implementation firebase.crashlytics
     implementation firebase.adslite
 
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
-    implementation('com.github.bumptech.glide:glide:4.10.0') { exclude group: "com.android.support" }
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation('com.github.bumptech.glide:glide:4.11.0') { exclude group: "com.android.support" }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'com.github.YenePay:yenepay.sdk.android:0.0.10'
     implementation 'androidx.browser:browser:1.3.0-alpha01'

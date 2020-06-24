@@ -31,7 +31,7 @@ import app.kuwas.android.bridge.data.Team;
 import app.kuwas.android.bridge.leagues.SoccerEthiopiaConnector;
 import app.kuwas.soccerethiopia.access.SoccerEthiopiaApi;
 
-public class KuwasDeligate implements Bridge {
+public class KuwasDelegate implements Bridge {
 
     private Bridge currentlyActiveLeague;
 
@@ -43,7 +43,7 @@ public class KuwasDeligate implements Bridge {
         }
     }
 
-    public KuwasDeligate(Context context, String currentlyActiveLeague, boolean shouldCache) {
+    public KuwasDelegate(Context context, String currentlyActiveLeague, boolean shouldCache) {
         this.currentlyActiveLeague = generateLeagueBridgeClass(context, currentlyActiveLeague, shouldCache);
     }
 

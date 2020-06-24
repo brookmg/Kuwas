@@ -34,7 +34,7 @@ import java.util.Map;
 import app.kuwas.android.ui.activities.AboutActivity;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
-import app.kuwas.deligate.KuwasDeligate;
+import app.kuwas.deligate.KuwasDelegate;
 import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
 /**
@@ -46,7 +46,7 @@ public class App extends MultiDexApplication {
     private static App instance;
     private SoccerEthiopiaApi api;
 
-    private KuwasDeligate apiBridge;  // Bridge API
+    private KuwasDelegate apiBridge;  // Bridge API
     private FirebaseRemoteConfig remoteConfig;
 
     @Override
@@ -66,7 +66,7 @@ public class App extends MultiDexApplication {
 
         api = new SoccerEthiopiaApi(this, true);
 
-        apiBridge = new KuwasDeligate(this , "Ethiopia" , true);
+        apiBridge = new KuwasDelegate(this , "Ethiopia" , true);
 
         PendingIntent completionIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
         PendingIntent cancelIntent = PendingIntent.getActivity(this, PaymentOrderManager.YENEPAY_CHECKOUT_REQ_CODE, new Intent(this, AboutActivity.class), 0);
@@ -113,7 +113,7 @@ public class App extends MultiDexApplication {
         return api;
     }
 
-    public KuwasDeligate getApiBridge() { return apiBridge; }
+    public KuwasDelegate getApiBridge() { return apiBridge; }
 
     public FirebaseRemoteConfig getRemoteConfig() {
         return remoteConfig;
