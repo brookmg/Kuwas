@@ -21,13 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.data.Team;
+import app.kuwas.android.bridge.data.Team;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
 

@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +35,9 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
+import app.kuwas.android.bridge.data.Team;
 import app.kuwas.android.ui.adapters.TeamInformationAdapter;
 import app.kuwas.android.utils.Utils;
-import io.brookmg.soccerethiopiaapi.data.Team;
 
 public class TeamInformation extends AppCompatActivity {
 
@@ -112,7 +111,7 @@ public class TeamInformation extends AppCompatActivity {
     private void fetchCompleteDetailOfTeam(Team team) {
         if (team == null) return;
 
-        App.getInstance().getApi().getTeamDetail(team, completeTeam -> {
+        App.getInstance().getApiBridge().getTeamDetail(team, completeTeam -> {
             currentTeamShowing = completeTeam;
             setupViews();
         } , error -> Log.e("Team_Info" , error));

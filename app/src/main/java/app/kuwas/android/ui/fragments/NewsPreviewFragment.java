@@ -18,23 +18,15 @@ package app.kuwas.android.ui.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.transition.TransitionInflater;
-import android.util.Log;
-import android.view.Gravity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.ViewUtils;
-import androidx.coordinatorlayout.widget.ViewGroupUtils;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,18 +34,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
+import app.kuwas.android.bridge.data.NewsItem;
 import app.kuwas.android.ui.adapters.TagsChipRecyclerAdapter;
 import app.kuwas.android.utils.Constants;
-import io.brookmg.soccerethiopiaapi.data.NewsItem;
+import app.kuwas.android.utils.GlideImageGetter;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
 import static app.kuwas.android.utils.Utils.getTimeGap;
-import static app.kuwas.android.utils.Utils.setMargins;
 
 /**
  * Created by BrookMG on 4/9/2019 in app.kuwas.android.ui.fragments
@@ -111,13 +102,20 @@ public class NewsPreviewFragment extends BaseFragment {
             newsTagsHolder.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL , false));
             newsTagsHolder.setAdapter(new TagsChipRecyclerAdapter(item.getNewsTags()));
 
-            App.getInstance().getApi().getNewsItemContent(item,
-                    newItem -> {
-                        newsContent.setText(newItem.getNewsContent());
-                        newsTitle.setText(newItem.getNewsTitle());
-                        newsDateTimePlusAuthor.setText(String.format("%s by %s", getTimeGap(newItem.getNewsPublishedOn().getTime()), newItem.getNewsAuthorName()));
-                    },
-                    error -> Log.v("NewsItem" , error != null ? error : "Unknown"));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                newsContent.setText(
+                        Html.fromHtml(item.getNewsContent() ,
+                                Html.FROM_HTML_OPTION_USE_CSS_COLORS,
+                                new GlideImageGetter(newsContent), null)
+                );
+            } else {
+                newsContent.setText(
+                        Html.fromHtml(item.getNewsContent() , new GlideImageGetter(newsContent), null)
+                );
+            }
+            newsTitle.setText(item.getNewsTitle());
+
+            newsDateTimePlusAuthor.setText(String.format("%s by %s", getTimeGap(item.getNewsPublishedOn().getTime()), item.getNewsAuthorName()));
             startPostponedEnterTransition();
         }
     }

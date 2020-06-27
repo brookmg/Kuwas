@@ -26,15 +26,12 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
-import app.kuwas.android.ui.activities.MainActivity;
 import app.kuwas.android.ui.activities.TeamInformation;
 import app.kuwas.android.ui.widgets.StandingTable;
-import io.brookmg.soccerethiopiaapi.data.Team;
 
 import static java.lang.Math.min;
 import static java.lang.Math.round;
@@ -74,7 +71,7 @@ public class StandingFragment extends BaseFragment {
         super.refresh();
         showLoadingLayout();
         if (mainTable != null)
-            App.getInstance().getApi().getLatestTeamRanking(
+            App.getInstance().getApiBridge().getLatestTeamRanking(
                     ranking -> {
                         if (ranking != null) alreadyLoadedCachedContent = true;
                         mainTable.clearTable();

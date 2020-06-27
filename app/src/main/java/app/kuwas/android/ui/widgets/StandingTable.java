@@ -36,8 +36,8 @@ import java.util.List;
 import java.util.Locale;
 
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.data.RankItem;
-import io.brookmg.soccerethiopiaapi.data.Team;
+import app.kuwas.android.bridge.data.RankItem;
+import app.kuwas.android.bridge.data.Team;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
 import static app.kuwas.android.utils.Utils.getCurrentTheme;

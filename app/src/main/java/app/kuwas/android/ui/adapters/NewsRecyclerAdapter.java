@@ -16,8 +16,6 @@
 
 package app.kuwas.android.ui.adapters;
 
-import android.os.Build;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,16 +23,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.Date;
 import java.util.List;
 
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.data.NewsItem;
+import app.kuwas.android.bridge.data.NewsItem;
 
 import static app.kuwas.android.utils.Utils.getTimeGap;
 

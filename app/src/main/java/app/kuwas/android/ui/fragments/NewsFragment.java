@@ -22,13 +22,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionInflater;
@@ -39,12 +37,12 @@ import java.util.List;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
+import app.kuwas.android.bridge.data.NewsItem;
 import app.kuwas.android.ui.activities.MainActivity;
 import app.kuwas.android.ui.adapters.NewsRecyclerAdapter;
 import app.kuwas.android.ui.adapters.OnItemActionListener;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.FabStates;
-import io.brookmg.soccerethiopiaapi.data.NewsItem;
 
 import static java.lang.Math.min;
 import static java.lang.Math.round;
@@ -103,7 +101,7 @@ public class NewsFragment extends BaseFragment {
         super.refresh();
         if (mainRecycler != null) {
             showLoadingLayout();
-            App.getInstance().getApi().getLatestNews(
+            App.getInstance().getApiBridge().getLatestNews(
                     news -> {
                         if (news != null) alreadyLoadedCachedContent = true;
 
@@ -136,6 +134,7 @@ public class NewsFragment extends BaseFragment {
                                 return false;
                             }
                         });
+
                         mainRecycler.setAdapter(adapter);
                         hideLoadingLayout();
                         changeErrorVisibility(false);
