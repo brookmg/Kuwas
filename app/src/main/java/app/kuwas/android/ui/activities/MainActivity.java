@@ -39,7 +39,6 @@ import java.lang.ref.WeakReference;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
-import app.kuwas.android.bridge.leagues.SoccerEthiopiaConnector;
 import app.kuwas.android.ui.fragments.BaseFragment;
 import app.kuwas.android.ui.fragments.HomeFragment;
 import app.kuwas.android.ui.fragments.NewsPreviewFragment;
@@ -79,13 +78,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(Utils.getCurrentTheme(this) == 0 ? R.style.KuwasLightTheme : R.style.KuwasDarkTheme);
         setContentView(R.layout.activity_main);
-
-        SoccerEthiopiaConnector soccerEthiopiaConnector = new SoccerEthiopiaConnector(
-                this, true
-        );
-        soccerEthiopiaConnector.getLatestTeamRanking(item -> {
-            item.size();
-        }, e -> {});
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             if (Utils.getCurrentTheme(this) == 0)

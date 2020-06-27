@@ -21,6 +21,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -38,8 +39,11 @@ import app.kuwas.android.bridge.data.NewsItem;
 import app.kuwas.android.bridge.data.Player;
 import app.kuwas.android.bridge.data.RankItem;
 import app.kuwas.android.bridge.data.Team;
+import app.kuwas.soccerethiopia.network.CachedStringRequest;
 
 import static app.kuwas.soccerethiopia.network.LeagueScheduleFetch.parseServerResponseToLeagueScheduleItemList;
+import static app.kuwas.soccerethiopia.network.NewsFetch.parseNewsItemsFromAPIData;
+import static app.kuwas.soccerethiopia.network.StandingFetch.parseOutStandingDataFromSoccerEtAPI;
 
 
 /**
@@ -51,7 +55,6 @@ public class SoccerEthiopiaApi implements Bridge {
 
     private RequestQueue mainRequestQueue;
     private Boolean contentShouldBeCached;
-    private io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi fallbackAPI;
 
     /**
      * Main Constructor for Soccer Ethiopia API
@@ -70,7 +73,6 @@ public class SoccerEthiopiaApi implements Bridge {
     public SoccerEthiopiaApi(@NonNull Context context, boolean shouldCache) {
         mainRequestQueue = Volley.newRequestQueue(context);
         contentShouldBeCached = shouldCache;
-        fallbackAPI = new io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi(context, shouldCache);
     }
 
     /**
@@ -91,7 +93,16 @@ public class SoccerEthiopiaApi implements Bridge {
 
     @Override
     public void getLatestTeamRanking(OnItemProcessed<ArrayList<RankItem>> processed, OnError error, boolean moreDetailed) {
-
+        mainRequestQueue.add(new StringRequest(Request.Method.GET , "https://socceret.herokuapp.com/standing" ,
+                res -> {
+                    try {
+                        processed.onFinish(new ArrayList<>(parseOutStandingDataFromSoccerEtAPI(res)));
+                    } catch (JSONException e) {
+                        error.onError(e.getMessage());
+                        e.printStackTrace();
+                    }
+                },
+                err -> error.onError(err.toString())));
     }
 
     @Override
@@ -156,7 +167,18 @@ public class SoccerEthiopiaApi implements Bridge {
 
     @Override
     public void getLatestNews(OnItemProcessed<ArrayList<NewsItem>> onNewsDataProcessed, OnError error) {
+        StringRequest request = new CachedStringRequest(Request.Method.GET ,
+                "https://socceret.herokuapp.com/news" ,
+                res -> onNewsDataProcessed.onFinish(new ArrayList<>(parseNewsItemsFromAPIData(res))),
+                err -> error.onError(err.toString()));
 
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                40_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        mainRequestQueue.add(request);
     }
 
     @Override

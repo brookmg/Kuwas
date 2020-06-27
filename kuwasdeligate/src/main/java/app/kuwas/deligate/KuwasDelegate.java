@@ -28,7 +28,6 @@ import app.kuwas.android.bridge.data.NewsItem;
 import app.kuwas.android.bridge.data.Player;
 import app.kuwas.android.bridge.data.RankItem;
 import app.kuwas.android.bridge.data.Team;
-import app.kuwas.android.bridge.leagues.SoccerEthiopiaConnector;
 import app.kuwas.soccerethiopia.access.SoccerEthiopiaApi;
 
 public class KuwasDelegate implements Bridge {
@@ -39,7 +38,7 @@ public class KuwasDelegate implements Bridge {
                                                     boolean shouldCache) {
         switch (currentlyActiveLeague) {
             case "Ethiopia" : return new SoccerEthiopiaApi(context, shouldCache);
-            default: return new SoccerEthiopiaConnector(context , shouldCache);
+            default: return null;
         }
     }
 

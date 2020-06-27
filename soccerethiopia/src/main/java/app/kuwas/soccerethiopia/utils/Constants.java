@@ -31,10 +31,10 @@ public class Constants {
     public static final String BASE_URL = "http://www.soccerethiopia.net";
     public static final String CLUB_STANDING_BASE_URL = "http://www.soccerethiopia.net/football/table/2012-standing";
     public static final String PREMIER_LEAGUE_SCHEDULE_BASE_URL = "http://www.soccerethiopia.net/ethpl-2012";
-    public static final String NEWS_URL = "http://www.soccerethiopia.net/wp-json/wp/v2/posts";
-    public static final String AUTHOR_URL = "http://www.soccerethiopia.net/wp-json/wp/v2/users";
-    public static final String CATEGORY_URL = "http://www.soccerethiopia.net/wp-json/wp/v2/categories";
-    public static final String MEDIA_URL = "http://www.soccerethiopia.net/wp-json/wp/v2/media";
+    public static final String NEWS_URL = "https://www.soccerethiopia.net/wp-json/wp/v2/posts";
+    public static final String AUTHOR_URL = "https://www.soccerethiopia.net/wp-json/wp/v2/users";
+    public static final String CATEGORY_URL = "https://www.soccerethiopia.net/wp-json/wp/v2/categories";
+    public static final String MEDIA_URL = "https://www.soccerethiopia.net/wp-json/wp/v2/media";
     public static final String TOP_PLAYERS_BASE_URL = "http://www.soccerethiopia.net/football/list/2018-19-premier-league-top-goal-scorers";
     public enum TEAMS_ID {  ETHIOPIA_BUNA , KIDUS_GORJIS , HAWASSA_KETEMA , SIDAMA_BUNA ,
                             WELWALO , FASIL_KENEMA , BAHIR_DAR_KENEMA , MEKELE_70_ENDERTA ,
@@ -53,7 +53,7 @@ public class Constants {
     public static final Team MEKELE_70_ENDERTA = new Team(TEAMS_ID.MEKELE_70_ENDERTA .ordinal(),"http://www.soccerethiopia.net/football/team/mekelle-70-enderta", "መቐለ 70 እንደርታ", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/MK-105x128.png" , -1 , "" , new ArrayList<>(Arrays.asList("መቐለ 70", "መቐለ 70 እንደርታ" , "መቐለ 70 እ." , "መቐለ ሠ.እ."))); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team ADAMA_KETEMA = new Team(TEAMS_ID.ADAMA_KETEMA.ordinal() ,"http://www.soccerethiopia.net/football/team/adama-ketema", "አዳማ ከተማ", "http://www.soccerethiopia.net/wp-content/uploads/2016/05/Adama-1-128x128.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team WELAYETA_DICHA = new Team(TEAMS_ID.WELAYETA_DICHA.ordinal() ,"http://www.soccerethiopia.net/football/team/wolaitta-dicha", "ወላይታ ድቻ", "http://www.soccerethiopia.net/wp-content/uploads/2016/05/Dicha-128x128.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
-    public static final Team DIRE_DAWA_KETEMA = new Team(TEAMS_ID.DIRE_DAWA_KETEMA.ordinal() ,"http://www.soccerethiopia.net/football/team/diredawa-ketema", "ድሬዳዋ ከተማ", "http://www.soccerethiopia.net/wp-content/uploads/2016/05/dire.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
+    public static final Team DIRE_DAWA_KETEMA = new Team(TEAMS_ID.DIRE_DAWA_KETEMA.ordinal() ,"http://www.soccerethiopia.net/football/team/diredawa-ketema", "ድሬዳዋ ከተማ", "http://www.soccerethiopia.net/wp-content/uploads/2016/05/dire-logo.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team MEKELAKEYA = new Team(TEAMS_ID.MEKELAKEYA .ordinal(),"http://www.soccerethiopia.net/football/team/mekelakeya", "መከላከያ", "http://www.soccerethiopia.net/wp-content/uploads/2016/02/Mekelakeya-128x128.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team JIMMA_ABA_JIFFAR = new Team(TEAMS_ID.JIMMA_ABA_JIFFAR.ordinal() ,"http://www.soccerethiopia.net/football/team/jimma-aba-jifar", "ጅማ አባ ጅፋር", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/JAJ-1-128x128.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team SEHUL_SHERE = new Team(TEAMS_ID.SEHUL_SHERE.ordinal() ,"http://www.soccerethiopia.net/football/team/shire-endaselassie", "ስሑል ሽረ", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/Shire-128x118.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
@@ -61,7 +61,7 @@ public class Constants {
     public static final Team DEDEBIT = new Team(TEAMS_ID.DEDEBIT.ordinal() ,"http://www.soccerethiopia.net/football/team/dedebit", "ደደቢት", "http://www.soccerethiopia.net/wp-content/uploads/2016/02/Dedebit-128x128.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team HADIYA_HOSAENA = new Team(TEAMS_ID.HADIYA_HOSAENA.ordinal() ,"http://www.soccerethiopia.net/football/team/%e1%88%80%e1%8b%b5%e1%8b%ab-%e1%88%86%e1%88%b3%e1%8b%95%e1%8a%93", "ሀዲያ ሆሳዕና", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/24483-128x128.png" , -1 , "", new ArrayList<>(Arrays.asList("ሀዲያ ሆሳዕና" , "ሀድያ ሆሳዕና"))); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
     public static final Team SEBETA_KETEMA = new Team(TEAMS_ID.SEBETA_KETEMA .ordinal(),"http://www.soccerethiopia.net/football/team/sebeta", "ሰበታ ከተማ", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/sebeta.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
-    public static final Team WELKITEY_KETEMA = new Team(TEAMS_ID.WELKITEY_KETEMA.ordinal() ,"http://www.soccerethiopia.net/football/team/%e1%8b%88%e1%88%8d%e1%89%82%e1%8c%a4-%e1%8a%a8%e1%89%b0%e1%88%9b", "ወልቂጤ ከተማ", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/sebeta.png.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
+    public static final Team WELKITEY_KETEMA = new Team(TEAMS_ID.WELKITEY_KETEMA.ordinal() ,"http://www.soccerethiopia.net/football/team/%e1%8b%88%e1%88%8d%e1%89%82%e1%8c%a4-%e1%8a%a8%e1%89%b0%e1%88%9b", "ወልቂጤ ከተማ", "http://www.soccerethiopia.net/wp-content/uploads/2016/11/Wolkite.png" , -1 , ""); // FIXME: 1/19/2019 CORRECT DETAILS HERE!
 
     public static final ArrayList<Team> teams = new ArrayList<>(Arrays.asList(Constants.KIDUS_GORJIS, Constants.ETHIOPIA_BUNA , Constants.ADAMA_KETEMA , Constants.BAHIR_DAR_KENEMA,
             Constants.DEBUB_POLICE, Constants.DEDEBIT, Constants.DIRE_DAWA_KETEMA, Constants.FASIL_KENEMA, Constants.HAWASSA_KETEMA,
