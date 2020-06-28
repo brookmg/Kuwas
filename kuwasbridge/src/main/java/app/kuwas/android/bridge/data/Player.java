@@ -15,9 +15,17 @@
  */
 
 package app.kuwas.android.bridge.data;
+import android.content.Context;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import static app.kuwas.android.bridge.util.Util.getCountryISO2FromISO3;
 
 
 /**
@@ -27,6 +35,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Player implements Serializable {
 
+    @SerializedName("player")
     private String fullName;
     private String playerLink;
     private Integer playerRank;
@@ -141,6 +150,15 @@ public class Player implements Serializable {
         setCountryCode(p.getCountryCode());
         setPlayerPosition(p.getPlayerPosition());
     }
+
+    @Nullable
+    public String getAlpha2CountryCode(@NonNull Context context) {
+        if (countryCode != null)
+            return getCountryISO2FromISO3(context, countryCode);   //this might be capitalized string ... so the user
+        else
+            return null;
+    }
+
 
     @NonNull
     @Override

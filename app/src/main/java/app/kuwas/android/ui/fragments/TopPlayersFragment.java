@@ -34,7 +34,6 @@ import app.kuwas.android.App;
 import app.kuwas.android.R;
 import app.kuwas.android.ui.activities.MainActivity;
 import app.kuwas.android.ui.adapters.OnItemActionListener;
-import app.kuwas.android.ui.adapters.ScoresRecyclerAdapter;
 import app.kuwas.android.ui.adapters.TopPlayersRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
 
@@ -83,7 +82,7 @@ public class TopPlayersFragment extends BaseFragment {
         super.refresh();
         showLoadingLayout();
         if (mainRecycler != null)
-            App.getInstance().getApi().getTopPlayers(
+            App.getInstance().getApiBridge().getTopPlayers(
                     players -> {
                         if (players != null) alreadyLoadedCachedContent = true;
                         Log.d("players", Arrays.toString(players.toArray()));

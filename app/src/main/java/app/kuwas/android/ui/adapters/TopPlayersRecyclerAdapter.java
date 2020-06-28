@@ -17,6 +17,7 @@
 package app.kuwas.android.ui.adapters;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,8 @@ import java.util.concurrent.ExecutionException;
 
 import app.kuwas.android.App;
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.data.Player;
-import io.brookmg.soccerethiopiaapi.data.Team;
+import app.kuwas.android.bridge.data.Player;
+import app.kuwas.android.bridge.data.Team;
 
 /**
  * Created by BrookMG on 5/5/2019 in app.kuwas.android.ui.adapters
@@ -105,13 +106,16 @@ public class TopPlayersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             ((ViewHolder) holder).playerName.setText(players.get(position - 1).getFullName());
             ((ViewHolder) holder).playerRank.setText(String.format(Locale.US, "%d", players.get(position - 1).getPlayerRank()));
             ((ViewHolder) holder).playerGoals.setText(String.format(Locale.US, "Goals: %d" , players.get(position - 1).getGoalsInThisSession()));
-            Glide.with(((ViewHolder) holder).playerCurrentTeam).load(
-                    players.get(position - 1).getCurrentTeam().getTeamLogo()
-            ).apply(RequestOptions.circleCropTransform()).into(((ViewHolder) holder).playerCurrentTeam);
+            Log.e("TeamPosition" , "" + (position-1));
+
+            if (players.get(position - 1).getCurrentTeam() != null)
+                Glide.with(((ViewHolder) holder).playerCurrentTeam).load(
+                        players.get(position - 1).getCurrentTeam().getTeamLogo()
+                ).apply(RequestOptions.circleCropTransform()).into(((ViewHolder) holder).playerCurrentTeam);
 
             ((ViewHolder) holder).moreDetails.setOnExpansionUpdateListener((expansionFraction, state) -> {
                 if (state == ExpandableLayout.State.EXPANDED) {
-                    App.getInstance().getApi().getPlayerDetail(players.get(position - 1), player -> {
+                    App.getInstance().getApiBridge().getPlayerDetail(players.get(position - 1), player -> {
                         ((ViewHolder) holder).playerNumberContent.setText(String.format(Locale.US, "%d", player.getNumber()));
                         ((ViewHolder) holder).playerPosition.setText(player.getPlayerPosition());
                         ((ViewHolder) holder).previousTeamsRecycler.setLayoutManager(new LinearLayoutManager(

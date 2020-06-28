@@ -42,6 +42,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import app.kuwas.android.R;
@@ -129,7 +130,7 @@ public class HomeFragment extends BaseFragment {
             tabAdapter.addFragment(NewsFragment.newInstance(), "News");
             tabAdapter.addFragment(ScoresFragment.newInstance(), "Scores");
             tabAdapter.addFragment(StandingFragment.newInstance(), "Standing");
-            tabAdapter.addFragment(TopPlayersFragment.newInstance(), "Top Players");
+//            tabAdapter.addFragment(TopPlayersFragment.newInstance(), "Top Players");
 
             viewPager.setAdapter(tabAdapter);
             viewPager.setOffscreenPageLimit(3);

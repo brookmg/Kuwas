@@ -44,6 +44,7 @@ import app.kuwas.soccerethiopia.network.TeamDetails;
 
 import static app.kuwas.soccerethiopia.network.LeagueScheduleFetch.parseServerResponseToLeagueScheduleItemList;
 import static app.kuwas.soccerethiopia.network.NewsFetch.parseNewsItemsFromAPIData;
+import static app.kuwas.soccerethiopia.network.PlayerFetch.parseTopPlayerListFromAPI;
 import static app.kuwas.soccerethiopia.network.StandingFetch.parseOutStandingDataFromSoccerEtAPI;
 
 
@@ -169,7 +170,18 @@ public class SoccerEthiopiaApi implements Bridge {
 
     @Override
     public void getTopPlayers(OnItemProcessed<ArrayList<Player>> onPlayersListReceived, OnError onError) {
+        StringRequest request = new CachedStringRequest(Request.Method.GET ,
+                "https://socceret.herokuapp.com/theplayers" ,
+                res -> onPlayersListReceived.onFinish(new ArrayList<>(parseTopPlayerListFromAPI(res))),
+                err -> onError.onError(err.toString()));
 
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                40_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        mainRequestQueue.add(request);
     }
 
     @Override
