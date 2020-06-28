@@ -18,6 +18,8 @@ package app.kuwas.android.bridge.data;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,26 +32,47 @@ import java.util.Collections;
 @SuppressWarnings("unused")
 public class Team implements Serializable {
 
+    @SerializedName("id")
     private int teamId;
 
     private String teamLink;
     private String teamFullName;
     private String teamLogo;
+
+    @SerializedName("teamStartedOn")
     private Integer initYear;
+
+    @SerializedName("teamCapital")
     private String fromCity;
+
+    @SerializedName("previousNames")
     private ArrayList<String> previousNames;
+
+    @SerializedName("teamStadium")
     private String stadium;
 
     private String president;
     private String vicePresident;
+
+    @SerializedName("teamManager")
     private String manager;
 
+    @SerializedName("teamCoach")
     private String mainCoach;
+
+    @SerializedName("teamViceCoach")
     private String viceCoach;
+
+    @SerializedName("teamTechniqueDirector")
     private String techniqueDirector;
 
+    @SerializedName("teamGoalKeeper")
     private String goalKeeper;
+
+    @SerializedName("teamAlpha")
     private String teamAlpha;
+
+    @SerializedName("teamNurse")
     private String teamNurse;
 
     private ArrayList<String> keywords = new ArrayList<>(); //to avoid NullPointerExceptions ... Don't worry we will move to kot one day

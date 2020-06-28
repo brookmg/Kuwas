@@ -40,6 +40,7 @@ import app.kuwas.android.bridge.data.Player;
 import app.kuwas.android.bridge.data.RankItem;
 import app.kuwas.android.bridge.data.Team;
 import app.kuwas.soccerethiopia.network.CachedStringRequest;
+import app.kuwas.soccerethiopia.network.TeamDetails;
 
 import static app.kuwas.soccerethiopia.network.LeagueScheduleFetch.parseServerResponseToLeagueScheduleItemList;
 import static app.kuwas.soccerethiopia.network.NewsFetch.parseNewsItemsFromAPIData;
@@ -142,7 +143,18 @@ public class SoccerEthiopiaApi implements Bridge {
 
     @Override
     public void getTeamDetail(Team incomplete, OnItemProcessed<Team> teamDetailReady, OnError error) {
+        StringRequest request = new CachedStringRequest(Request.Method.GET ,
+                "https://socceret.herokuapp.com/teamById?teamId=" + incomplete.getTeamId() ,
+                res -> teamDetailReady.onFinish(TeamDetails.getTeamDetail(res)),
+                err -> error.onError(err.toString()));
 
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                40_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        mainRequestQueue.add(request);
     }
 
     @Override

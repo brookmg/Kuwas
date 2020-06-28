@@ -70,7 +70,7 @@ public class TeamInformationAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private List<List<String>> feedTeamDetailsIntoArray(Team team) {
         List<List<String>> returnable = new ArrayList<>();
 
-        returnable.add(Collections.singletonList(Integer.toString(team.getInitYear())));
+        returnable.add(Collections.singletonList(Integer.toString(team.getInitYear() != null ? team.getInitYear() : 0)));
         returnable.add(Collections.singletonList(team.getFromCity()));
         returnable.add(team.getPreviousNames());
         returnable.add(Collections.singletonList(team.getStadium()));
@@ -113,25 +113,27 @@ public class TeamInformationAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (getItemViewType(position) == BODY) {
             position = position -1;
             ((ViewHolder) holder).detailTitle.setText(detailTitleStrings.get(position));
-            if (detailContentStrings.get(position).size() == 1) {
-                ((ViewHolder) holder).detailContent.setText(detailContentStrings.get(position).get(0));
-            } else {
-                ((ViewHolder) holder).detailRecyclerContent.setLayoutManager(
-                        new LinearLayoutManager(
-                                ((ViewHolder) holder).detailRecyclerContent.getContext(),
-                                RecyclerView.HORIZONTAL,
-                                false
-                        )
-                );
+            if (detailContentStrings.get(position) != null) {
+                if (detailContentStrings.get(position).size() == 1) {
+                    ((ViewHolder) holder).detailContent.setText(detailContentStrings.get(position).get(0));
+                } else {
+                    ((ViewHolder) holder).detailRecyclerContent.setLayoutManager(
+                            new LinearLayoutManager(
+                                    ((ViewHolder) holder).detailRecyclerContent.getContext(),
+                                    RecyclerView.HORIZONTAL,
+                                    false
+                            )
+                    );
 
-                ((ViewHolder) holder).detailRecyclerContent.setAdapter(
-                        new TagsChipRecyclerAdapter(
-                                detailContentStrings.get(position)
-                        )
-                );
+                    ((ViewHolder) holder).detailRecyclerContent.setAdapter(
+                            new TagsChipRecyclerAdapter(
+                                    detailContentStrings.get(position)
+                            )
+                    );
 
-                ((ViewHolder) holder).detailRecyclerContent.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).detailContent.setVisibility(View.GONE);
+                    ((ViewHolder) holder).detailRecyclerContent.setVisibility(View.VISIBLE);
+                    ((ViewHolder) holder).detailContent.setVisibility(View.GONE);
+                }
             }
         } else {
             ViewGroup.LayoutParams params = ((HeaderViewHolder) holder).blankView.getLayoutParams();
