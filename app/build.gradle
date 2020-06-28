@@ -43,9 +43,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //implementation 'com.github.brookmg:Soccer-Ethiopia-API:0.5.1'
 
-    implementation project(":soccerethiopiaapi")
     implementation project(":kuwasdeligate")
     implementation project(":kuwasbridge")
 

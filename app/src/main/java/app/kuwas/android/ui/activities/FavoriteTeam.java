@@ -16,24 +16,21 @@
 
 package app.kuwas.android.ui.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -42,16 +39,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import app.kuwas.android.App;
+import app.kuwas.android.R;
+import app.kuwas.android.bridge.data.Team;
 import app.kuwas.android.ui.adapters.FavoriteRecyclerAdapter;
-import app.kuwas.android.ui.adapters.TabAdapter;
 import app.kuwas.android.ui.adapters.TagsChipRecyclerAdapter;
 import app.kuwas.android.utils.FabStates;
 import app.kuwas.android.utils.Utils;
-import io.brookmg.soccerethiopiaapi.data.Team;
-import io.brookmg.soccerethiopiaapi.errors.TeamNotFoundException;
-import io.brookmg.soccerethiopiaapi.utils.Constants;
-import app.kuwas.android.R;
+import app.kuwas.soccerethiopia.utils.Constants;
 
 import static app.kuwas.android.utils.Utils.dpToPx;
 import static java.lang.Math.abs;

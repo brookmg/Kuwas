@@ -1,4 +1,1 @@
-include ':app', ':soccerethiopia', ':kuwasdeligate'
-include ':soccerethiopiaapi'
-project(":soccerethiopiaapi").projectDir = file("../SoccerEthiopia/soccerethiopiaapi")
-include ':kuwasbridge'
+include ':app', ':soccerethiopia', ':kuwasdeligate', ':kuwasbridge'

@@ -32,9 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.kuwas.android.R;
-import io.brookmg.soccerethiopiaapi.data.Team;
-
-import static app.kuwas.android.utils.Utils.dpToPx;
+import app.kuwas.android.bridge.data.Team;
 
 /**
  * Created by BrookMG on 6/28/2019 in app.kuwas.android.ui.adapters

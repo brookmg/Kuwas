@@ -35,7 +35,6 @@ import app.kuwas.android.ui.activities.AboutActivity;
 import app.kuwas.android.utils.Constants;
 import app.kuwas.android.utils.Utils;
 import app.kuwas.deligate.KuwasDelegate;
-import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 
 /**
  * Created by BrookMG on 5/18/2019 in app.kuwas.android
@@ -44,7 +43,6 @@ import io.brookmg.soccerethiopiaapi.access.SoccerEthiopiaApi;
 public class App extends MultiDexApplication {
 
     private static App instance;
-    private SoccerEthiopiaApi api;
 
     private KuwasDelegate apiBridge;  // Bridge API
     private FirebaseRemoteConfig remoteConfig;
@@ -63,8 +61,6 @@ public class App extends MultiDexApplication {
                 task -> Log.d("REMOTE_CONFIG", "completed - " +
                         (task.isComplete() && task.isSuccessful() ? "YAP" : "NOP"))
         );
-
-        api = new SoccerEthiopiaApi(this, true);
 
         apiBridge = new KuwasDelegate(this , "Ethiopia" , true);
 
@@ -107,10 +103,6 @@ public class App extends MultiDexApplication {
 
     public static App getInstance() {
         return instance;
-    }
-
-    public SoccerEthiopiaApi getApi() {
-        return api;
     }
 
     public KuwasDelegate getApiBridge() { return apiBridge; }
