@@ -15,5 +15,9 @@ jobs:
         java-version: 1.8
     - name: Make gradlew executable
       run: chmod +x ./gradlew
+    - name: Decode google-services.json file
+      env:
+        GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
+      run: echo $GOOGLE_SERVICES > ./app/google-services.json
     - name: Build with Gradle
       run: ./gradlew build
