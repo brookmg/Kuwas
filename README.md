@@ -1,4 +1,9 @@
 # Kuwas
+[![GitHub issues](https://img.shields.io/github/issues/brookmg/Kuwas)](https://github.com/brookmg/Kuwas/issues) 
+[![GitHub forks](https://img.shields.io/github/forks/brookmg/Kuwas)](https://github.com/brookmg/Kuwas/network)
+[![GitHub stars](https://img.shields.io/github/stars/brookmg/Kuwas)](https://github.com/brookmg/Kuwas/stargazers)
+![GitHub search hit counter](https://img.shields.io/github/search/brookmg/Kuwas/Soccer)
+
 `Android application that provides the latest news and detail about the Ethiopian premier league.`
 
 #### Completely powered by [Soccer Ethiopia API](https://github.com/brookmg/Soccer-Ethiopia-API)
